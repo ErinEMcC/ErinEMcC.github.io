@@ -51,20 +51,22 @@ video {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  gap: 25px;
-  padding: 0px;
+  gap: 2vw;
+  height: 25vh; /* Responsive height: 25% of screen */
+  padding: 1vh 2vw;
 }
 
 .animal {
-  width: 140px;
+  height: 18vh;         /* Responsive size based on screen height */
+  width: auto;
+  max-height: 100%;
   max-width: 25vw;
-  height: auto;
   cursor: grab;
   user-select: none;
   transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .animal:hover {
-  box-shadow: 0 0 25px 8px rgba(57, 255, 20, 0.85); /* neon green */
-  transform: scale(1.15);
+  box-shadow: 0 0 25px 8px rgba(57, 255, 20, 0.85); /* neon green glow */
+  transform: scale(1.05);
 }
