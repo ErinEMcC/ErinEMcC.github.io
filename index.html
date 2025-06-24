@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Drag Origami into Jungle</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="container">
+    <div class="video-wrapper">
+      <video id="capybara" autoplay muted playsinline>
+        <source src="assets/capybara_intro.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+    <div class="image-section" id="jungle">
+      <div class="drop-zone" id="dropZone"></div>
+    </div>
+  </div>
+
+  <div class="animal-bar">
+    <img src="images/bear2.png" class="animal" draggable="true" data-url="bear.html">
+    <img src="images/bison2.png" class="animal" draggable="true" data-url="bison.html">
+    <img src="images/giraffe2.png" class="animal" draggable="true" data-url="giraffe.html">
+    <img src="images/bee2.png" class="animal" draggable="true" data-url="bee.html">
+    <img src="images/dog2.png" class="animal" draggable="true" data-url="dog.html">
+    <img src="images/elephant2.png" class="animal" draggable="true" data-url="elephant.html">
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
