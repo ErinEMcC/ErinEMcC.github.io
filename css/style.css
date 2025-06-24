@@ -51,12 +51,12 @@ video {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  gap: 10px;
-  padding: 20px;
+  gap: 15px;
+  padding: 10px;
 }
 
 .animal {
-  width: 100px;
+  width: 150px;
   height: auto;
   cursor: grab;
   user-select: none;
