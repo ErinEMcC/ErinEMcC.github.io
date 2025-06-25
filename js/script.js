@@ -1,87 +1,47 @@
-animals.forEach(animal => {
-  let isDragging = false;
-  let hasMoved = false;
-  let offsetX, offsetY;
-  let originalLeft, originalTop;
-  const id = animal.dataset.id;
+animal.addEventListener('mouseup', function onMouseUp() {
+  isDragging = false;
+  document.removeEventListener('mousemove', onMouseMove);
+  animal.removeEventListener('mouseup', onMouseUp);
 
-  animal.addEventListener('mousedown', e => {
-    isDragging = true;
-    hasMoved = false;
+  const jungleRect = dropZone.getBoundingClientRect();
+  const animalRect = animal.getBoundingClientRect();
 
-    const rect = animal.getBoundingClientRect();
-    originalLeft = rect.left + window.scrollX;
-    originalTop = rect.top + window.scrollY;
+  const isInside =
+    animalRect.left < jungleRect.right &&
+    animalRect.right > jungleRect.left &&
+    animalRect.top < jungleRect.bottom &&
+    animalRect.bottom > jungleRect.top;
 
-    offsetX = e.pageX - rect.left;
-    offsetY = e.pageY - rect.top;
+  if (isInside) {
+    const firstTime = !localStorage.getItem(`placed-${id}`);
 
+    // Always set position absolutely based on mouse location
     animal.style.position = 'absolute';
-    animal.style.zIndex = 1000;
-    document.body.appendChild(animal);
+    animal.style.left = animal.offsetLeft + 'px';
+    animal.style.top = animal.offsetTop + 'px';
+    animal.style.zIndex = 50;
+    document.body.appendChild(animal); // ensure it's not stuck inside its old container
 
-    moveAt(e.pageX, e.pageY);
+    // Store position in localStorage
+    localStorage.setItem(`placed-${id}`, JSON.stringify({
+      x: animal.offsetLeft,
+      y: animal.offsetTop
+    }));
 
-    function moveAt(x, y) {
-      animal.style.left = x - offsetX + 'px';
-      animal.style.top = y - offsetY + 'px';
-      hasMoved = true;
+    checkProximity(); // Optional
+
+    if (firstTime) {
+      const url = animal.dataset.url;
+      if (url) window.open(url, '_blank');
     }
 
-    function onMouseMove(e) {
-      if (isDragging) moveAt(e.pageX, e.pageY);
-    }
-
-    document.addEventListener('mousemove', onMouseMove);
-
-    animal.addEventListener('mouseup', function onMouseUp() {
-      isDragging = false;
-      document.removeEventListener('mousemove', onMouseMove);
-      animal.removeEventListener('mouseup', onMouseUp);
-
-      const jungleRect = dropZone.getBoundingClientRect();
-      const animalRect = animal.getBoundingClientRect();
-
-      const isInside =
-        animalRect.left < jungleRect.right &&
-        animalRect.right > jungleRect.left &&
-        animalRect.top < jungleRect.bottom &&
-        animalRect.bottom > jungleRect.top;
-
-      if (isInside) {
-        const firstTime = !localStorage.getItem(`placed-${id}`);
-
-        // Store position in localStorage
-        localStorage.setItem(`placed-${id}`, JSON.stringify({
-          x: animal.offsetLeft,
-          y: animal.offsetTop
-        }));
-
-        checkProximity(); // Optional
-
-        // Only redirect on first placement
-        if (firstTime) {
-          const url = animal.dataset.url;
-          if (url) window.open(url, '_blank');
-        }
-
-      } else {
-        // Snap back
-        animal.style.transition = 'all 0.3s ease';
-        animal.style.left = originalLeft + 'px';
-        animal.style.top = originalTop + 'px';
-        setTimeout(() => {
-          animal.style.transition = '';
-        }, 300);
-      }
-    });
-  });
-
-  // Always allow click to open page
-  animal.addEventListener('click', () => {
-    const url = animal.dataset.url;
-    if (url) window.open(url, '_blank');
-  });
-
-  animal.ondragstart = () => false;
+  } else {
+    // Snap back
+    animal.style.transition = 'all 0.3s ease';
+    animal.style.left = originalLeft + 'px';
+    animal.style.top = originalTop + 'px';
+    setTimeout(() => {
+      animal.style.transition = '';
+    }, 300);
+  }
 });
