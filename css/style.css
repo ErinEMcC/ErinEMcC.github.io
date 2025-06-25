@@ -1,8 +1,7 @@
 html, body {
   margin: 0;
   padding: 0;
-  background: url('../assets/transparency-grid.jpg') repeat;
-  background-size: cover;
+  background: #faf6ed;
   height: 100%;
   width: 100%;
   box-sizing: border-box;
