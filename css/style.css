@@ -46,6 +46,26 @@ video {
   pointer-events: none; /* allows animal to drop through */
 }
 
+.reset-button {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  padding: 8px 12px;
+  background-color: #0C674E;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+  transition: background-color 0.2s ease;
+}
+
+.reset-button:hover {
+  background-color: #10A73F;
+}
+
+
 .animal-bar {
   display: flex;
   justify-content: center;
