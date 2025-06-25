@@ -10,9 +10,8 @@ html, body {
 
 .container {
   display: flex;
-  height: calc(75vh - 2px);
-  width: calc(100vw - 20px);
-  margin: 2px 10px;
+  height: calc(75vh);
+  width: calc(100vw);
 }
 
 .video-wrapper {
