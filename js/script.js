@@ -94,3 +94,11 @@ animals.forEach(animal => {
   // Prevent default drag behavior
   animal.ondragstart = () => false;
 });
+
+document.getElementById('resetJungle').addEventListener('click', () => {
+  animals.forEach(animal => {
+    const id = animal.dataset.id;
+    localStorage.removeItem(`placed-${id}`);
+  });
+  window.location.reload(); // Reload to visually reset the scene
+});
