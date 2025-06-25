@@ -1,1 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Curriculum Vitae</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: url('assets/transparency-grid.jpg') repeat;
+      background-size: cover;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+    }
 
+    .page-container {
+      margin-top: 5vh;
+      width: 80%;
+      max-width: 800px;
+      perspective: 1000px;
+    }
+
+    .page {
+      width: 100%;
+      transform-origin: left center;
+      transform: rotateY(-90deg);
+      animation: openPage 1.2s forwards ease-out;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    @keyframes openPage {
+      to {
+        transform: rotateY(0deg);
+      }
+    }
+
+    .download-button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      background-color: #ffffffcc;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: background-color 0.3s ease;
+    }
+
+    .download-button:hover {
+      background-color: #e6ffe6;
+    }
+
+    .bottom-border {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100px;
+      background: url('assets/jungle2-border.png') no-repeat center bottom;
+      background-size: cover;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-container">
+    <img src="assets/Erin E McCabe_CV.png" alt="CV Preview" class="page">
+    <a href="assets/Erin E McCabe_CV.pdf" download>
+      <button class="download-button">Download Full CV</button>
+    </a>
+  </div>
+
+  <div class="bottom-border"></div>
+
+</body>
+</html>
