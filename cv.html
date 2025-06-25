@@ -41,20 +41,16 @@
       }
     }
 
-    .download-button {
+    .download-image-button {
       margin-top: 20px;
-      padding: 10px 20px;
-      font-size: 1rem;
-      background-color: #ffffffcc;
-      border: none;
-      border-radius: 6px;
+      width: 180px; /* adjust size as needed */
+      height: auto;
       cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      transition: background-color 0.3s ease;
+      transition: transform 0.2s ease;
     }
-
-    .download-button:hover {
-      background-color: #e6ffe6;
+    
+    .download-image-button:hover {
+      transform: scale(1.05);
     }
 
     .bottom-border {
@@ -74,7 +70,7 @@
   <div class="page-container">
     <img src="assets/cv-p1.jpg" alt="CV Preview" class="page">
     <a href="assets/cv-mccabe.pdf" download>
-      <button class="download-button">Download Full CV</button>
+        <img src="assets/button-downloadcv.png" alt="Download CV" class="download-image-button">
     </a>
   </div>
 
