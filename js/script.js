@@ -75,7 +75,7 @@ animals.forEach(animal => {
         }));
 
         if (url) {
-          window.location.href = url;
+          window.open(url, '_blank'); // Open in a new tab
         }
       } else {
         // Snap back
