@@ -47,6 +47,8 @@ video {
 }
 
 .animal-bar {
+  background: url('../assets/transparency-grid.jpg') no-repeat center center;
+  background-size: cover;
   display: flex;
   justify-content: center;
   align-items: center;
