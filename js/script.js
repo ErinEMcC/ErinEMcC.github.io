@@ -22,11 +22,15 @@ animal.addEventListener('mouseup', function onMouseUp() {
     animal.style.zIndex = 50;
     document.body.appendChild(animal); // ensure it's not stuck inside its old container
 
-    // Store position in localStorage
+    const rect = animal.getBoundingClientRect();
+    const scrollX = window.scrollX;
+    const scrollY = window.scrollY;
+    
     localStorage.setItem(`placed-${id}`, JSON.stringify({
-      x: animal.offsetLeft,
-      y: animal.offsetTop
+      x: rect.left + scrollX,
+      y: rect.top + scrollY
     }));
+
 
     checkProximity(); // Optional
 
@@ -38,8 +42,11 @@ animal.addEventListener('mouseup', function onMouseUp() {
   } else {
     // Snap back
     animal.style.transition = 'all 0.3s ease';
-    animal.style.left = originalLeft + 'px';
-    animal.style.top = originalTop + 'px';
+    animal.style.position = 'absolute';
+    animal.style.left = `${x}px`;
+    animal.style.top = `${y}px`;
+    animal.style.zIndex = 50;
+    document.body.appendChild(animal);    
     setTimeout(() => {
       animal.style.transition = '';
     }, 300);
