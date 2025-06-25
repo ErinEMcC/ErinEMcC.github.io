@@ -68,12 +68,12 @@ video {
 }
 
 /* Unique sizes for each animal */
-.bison { height: 22vh; }
-.bear { height: 22vh; }
-.giraffe { height: 27vh; }
+.bison { height: 20vh; }
+.bear { height: 20vh; }
+.giraffe { height: 29vh; }
 .bee { height: 10vh; }
 .dog { height: 15vh; }
-.elephant { height: 22vh; }
+.elephant { height: 24vh; }
 
 .animal:hover {
   box-shadow: 0 0 25px 8px rgba(76, 159, 112, 1); /* green glow *
