@@ -78,20 +78,3 @@ video {
   box-shadow: 0 0 25px 8px rgba(76, 159, 112, 1); /* green glow *
   transform: scale(1.05);
 }
-
-.download-image-button {
-  margin-top: 20px;
-  width: 180px;
-  height: auto;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-.download-image-button:hover {
-  transform: scale(1.05);
-}
-
-.download-image-button:active {
-  transform: scale(0.97) translateY(2px);
-  filter: brightness(0.95);
-}
