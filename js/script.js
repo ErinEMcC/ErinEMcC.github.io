@@ -43,8 +43,8 @@ animal.addEventListener('mouseup', function onMouseUp() {
     // Snap back
     animal.style.transition = 'all 0.3s ease';
     animal.style.position = 'absolute';
-    animal.style.left = `${x}px`;
-    animal.style.top = `${y}px`;
+    animal.style.left = `${originalLeft}px`;
+    animal.style.top = `${originalTop}px`;
     animal.style.zIndex = 50;
     document.body.appendChild(animal);    
     setTimeout(() => {
