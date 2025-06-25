@@ -1,32 +1,14 @@
-const animals = document.querySelectorAll('.animal');
-const dropZone = document.getElementById('dropZone');
-
-// Restore already-placed animals
-window.addEventListener('DOMContentLoaded', () => {
-  animals.forEach(animal => {
-    const id = animal.dataset.id;
-    const stored = localStorage.getItem(`placed-${id}`);
-    if (stored) {
-      const { x, y } = JSON.parse(stored);
-      animal.style.position = 'absolute';
-      animal.style.left = x + 'px';
-      animal.style.top = y + 'px';
-      animal.style.zIndex = 50;
-      document.body.appendChild(animal);
-    }
-  });
-});
-
 animals.forEach(animal => {
   let isDragging = false;
+  let hasMoved = false;
   let offsetX, offsetY;
   let originalLeft, originalTop;
   const id = animal.dataset.id;
 
   animal.addEventListener('mousedown', e => {
     isDragging = true;
+    hasMoved = false;
 
-    // Save original position to snap back later
     const rect = animal.getBoundingClientRect();
     originalLeft = rect.left + window.scrollX;
     originalTop = rect.top + window.scrollY;
@@ -43,6 +25,7 @@ animals.forEach(animal => {
     function moveAt(x, y) {
       animal.style.left = x - offsetX + 'px';
       animal.style.top = y - offsetY + 'px';
+      hasMoved = true;
     }
 
     function onMouseMove(e) {
@@ -66,24 +49,27 @@ animals.forEach(animal => {
         animalRect.bottom > jungleRect.top;
 
       if (isInside) {
-        const url = animal.dataset.url;
+        const firstTime = !localStorage.getItem(`placed-${id}`);
 
-        // Store animal position before redirect
+        // Store position in localStorage
         localStorage.setItem(`placed-${id}`, JSON.stringify({
           x: animal.offsetLeft,
           y: animal.offsetTop
         }));
 
-        if (url) {
-          window.open(url, '_blank'); // Open in a new tab
+        checkProximity(); // Optional
+
+        // Only redirect on first placement
+        if (firstTime) {
+          const url = animal.dataset.url;
+          if (url) window.open(url, '_blank');
         }
+
       } else {
         // Snap back
         animal.style.transition = 'all 0.3s ease';
         animal.style.left = originalLeft + 'px';
         animal.style.top = originalTop + 'px';
-
-        // Optional: remove transition after snap
         setTimeout(() => {
           animal.style.transition = '';
         }, 300);
@@ -91,6 +77,11 @@ animals.forEach(animal => {
     });
   });
 
-  // Prevent default drag behavior
+  // Always allow click to open page
+  animal.addEventListener('click', () => {
+    const url = animal.dataset.url;
+    if (url) window.open(url, '_blank');
+  });
+
   animal.ondragstart = () => false;
 });
