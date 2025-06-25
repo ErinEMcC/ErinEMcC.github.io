@@ -25,8 +25,15 @@
       width: 80%;
       max-width: 800px;
       perspective: 1000px;
+      display: flex;
+      justify-content: center;
     }
 
+    .page-wrapper {
+      position: relative;
+      display: inline-block;
+    }
+    
     .page {
       height: 75vh;
       width: auto;
@@ -43,8 +50,10 @@
     }
 
     .download-image-button {
-      margin-top: 20px;
-      width: 180px; /* adjust size as needed */
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      width: 48px; /* adjust as needed */
       height: auto;
       cursor: pointer;
       transition: transform 0.2s ease;
@@ -74,11 +83,13 @@
 <body>
 
   <div class="page-container">
-    <img src="assets/cv-p1.jpg" alt="CV Preview" class="page">
-    <a href="assets/cv-mccabe.pdf" download>
-        <img src="assets/button-downloadcv.png" alt="Download CV" class="download-image-button">
+  <div class="page-wrapper">
+    <img src="assets/cv-page1.png" alt="CV Preview" class="page">
+    <a href="assets/cv.pdf" download>
+      <img src="assets/download-button.png" alt="Download CV" class="download-image-button">
     </a>
   </div>
+</div>
 
   <div class="bottom-border"></div>
 
