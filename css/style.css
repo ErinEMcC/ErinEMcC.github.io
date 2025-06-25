@@ -44,6 +44,7 @@ video {
   left: 0;
   right: 0;
   bottom: 0;
+  pointer-events: none; /* allows animal to drop through */
 }
 
 .animal-bar {
@@ -62,6 +63,8 @@ video {
   transition: box-shadow 0.3s ease, transform 0.3s ease;
   max-width: 25vw;
   height: auto;
+  position: relative;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 /* Unique sizes for each animal */
