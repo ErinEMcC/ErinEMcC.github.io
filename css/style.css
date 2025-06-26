@@ -118,8 +118,7 @@ video {
   align-items: center;
   flex-wrap: wrap;
   gap: 2vw;
-  height: 25vh; /* Responsive height: 25% of screen */
-  padding: 10vh 2vw;
+  height: 25vh;
 }
 
 .animal {
