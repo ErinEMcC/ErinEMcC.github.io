@@ -48,9 +48,9 @@ video {
 
 .art-button {
   position: absolute;
-  top: 20%;
-  left: 60%;
-  width: 12vw;
+  top: 19%;
+  left: 65%;
+  width: 11vw;
   height: auto;
   cursor: pointer;
   z-index: 10;
@@ -63,9 +63,9 @@ video {
 
 .cv-button {
   position: absolute;
-  top: 30%;
+  top: 17%;
   left: 80%;
-  width: 40px;
+  width: 9vw;
   height: auto;
   cursor: pointer;
   z-index: 10;
@@ -78,9 +78,9 @@ video {
 
 .research-button {
   position: absolute;
-  top: 30%;
+  top: 18%;
   left: 90%;
-  width: 60px;
+  width: 11vw;
   height: auto;
   cursor: pointer;
   z-index: 10;
