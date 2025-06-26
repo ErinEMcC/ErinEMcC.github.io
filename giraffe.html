@@ -1,1 +1,65 @@
-# This is where the FIDL lives - and later thesis giraffe
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Embedded Video</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: url('assets/background-texture.jpg') repeat;
+      background-size: cover;
+      font-family: 'Georgia', serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding: 5vh 0;
+      box-sizing: border-box;
+    }
+
+    .video-container {
+      width: 80vw;
+      max-width: 1000px;
+      position: relative;
+      padding-top: 56.25%; /* 16:9 aspect ratio */
+      margin-bottom: 2rem;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+      border-radius: 12px;
+      overflow: hidden;
+      background-color: #000;
+    }
+
+    .video-container iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .caption {
+      color: #2d2d2d;
+      font-size: 1rem;
+      text-align: center;
+      max-width: 80vw;
+      line-height: 1.6;
+      background: rgba(255, 255, 255, 0.85);
+      padding: 1rem;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="video-container">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/n1uyDhi0Rc4?si=sF-FV5KOhl5B7Hp3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  </div>
+
+  <div class="caption">
+    <p>A video-memory of a wannabe-Ramona Quimby childhood and some of the things that can be real when you are still figuring out what real is.</p>
+  </div>
+
+</body>
+</html>
