@@ -48,7 +48,7 @@ video {
 
 .art-button {
   position: absolute;
-  top: 18%;
+  top: 15%;
   left: 65%;
   width: 10vw;
   height: auto;
@@ -63,7 +63,7 @@ video {
 
 .cv-button {
   position: absolute;
-  top: 5%;
+  top: 3%;
   left: 80%;
   width: 7vw;
   height: auto;
@@ -78,7 +78,7 @@ video {
 
 .research-button {
   position: absolute;
-  top: 7%;
+  top: 5%;
   left: 88%;
   width: 10vw;
   height: auto;
