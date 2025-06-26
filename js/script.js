@@ -102,3 +102,31 @@ document.getElementById('resetJungle').addEventListener('click', () => {
   });
   window.location.reload(); // Reload to visually reset the scene
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  const artButton = document.getElementById('artButton');
+  if (artButton) {
+    artButton.addEventListener('click', () => {
+      window.open('art.html', '_blank'); 
+    });
+  }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const cvButton = document.getElementById('cvButton');
+  if (cvButton) {
+    cvButton.addEventListener('click', () => {
+      window.open('cv.html', '_blank'); 
+    });
+  }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const researchButton = document.getElementById('researchButton');
+  if (researchButton) {
+    researchButton.addEventListener('click', () => {
+      window.open('research.html', '_blank'); 
+    });
+  }
+});
+
