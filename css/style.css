@@ -92,6 +92,7 @@ video {
 }
 
 .reset-button {
+  display: none; /* hidden at start */
   position: absolute;
   bottom: 10px;
   right: 10px;
