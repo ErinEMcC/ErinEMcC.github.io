@@ -1,8 +1,11 @@
 const animals = document.querySelectorAll('.animal');
 const dropZone = document.getElementById('dropZone');
+const resetButton = document.getElementById('resetJungle');
 
 // Restore already-placed animals
-window.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
+  let anyPlaced = false;
+
   animals.forEach(animal => {
     const id = animal.dataset.id;
     const stored = localStorage.getItem(`placed-${id}`);
@@ -13,10 +16,32 @@ window.addEventListener('DOMContentLoaded', () => {
       animal.style.top = y + 'px';
       animal.style.zIndex = 50;
       document.body.appendChild(animal);
+      anyPlaced = true;
     }
   });
+
+  if (anyPlaced && resetButton) {
+    resetButton.style.display = 'block';
+  }
+
+  // Navigation buttons
+  const buttonLinks = {
+    artButton: 'art.html',
+    cvButton: 'cv.html',
+    researchButton: 'research.html'
+  };
+
+  for (const [id, url] of Object.entries(buttonLinks)) {
+    const button = document.getElementById(id);
+    if (button) {
+      button.addEventListener('click', () => {
+        window.open(url, '_blank');
+      });
+    }
+  }
 });
 
+// Drag and drop behavior
 animals.forEach(animal => {
   let isDragging = false;
   let offsetX, offsetY;
@@ -26,7 +51,6 @@ animals.forEach(animal => {
   animal.addEventListener('mousedown', e => {
     isDragging = true;
 
-    // Save original position to snap back later
     const rect = animal.getBoundingClientRect();
     originalLeft = rect.left + window.scrollX;
     originalTop = rect.top + window.scrollY;
@@ -66,24 +90,27 @@ animals.forEach(animal => {
         animalRect.bottom > jungleRect.top;
 
       if (isInside) {
-        const url = animal.dataset.url;
-
-        // Store animal position before redirect
+        // Save placement
         localStorage.setItem(`placed-${id}`, JSON.stringify({
           x: animal.offsetLeft,
           y: animal.offsetTop
         }));
 
+        // Show reset button
+        if (resetButton) {
+          resetButton.style.display = 'block';
+        }
+
+        // Open animal page
+        const url = animal.dataset.url;
         if (url) {
-          window.open(url, '_blank'); // Open in a new tab
+          window.open(url, '_blank');
         }
       } else {
         // Snap back
         animal.style.transition = 'all 0.3s ease';
         animal.style.left = originalLeft + 'px';
         animal.style.top = originalTop + 'px';
-
-        // Optional: remove transition after snap
         setTimeout(() => {
           animal.style.transition = '';
         }, 300);
@@ -91,42 +118,16 @@ animals.forEach(animal => {
     });
   });
 
-  // Prevent default drag behavior
   animal.ondragstart = () => false;
 });
 
-document.getElementById('resetJungle').addEventListener('click', () => {
-  animals.forEach(animal => {
-    const id = animal.dataset.id;
-    localStorage.removeItem(`placed-${id}`);
+// Reset button behavior
+if (resetButton) {
+  resetButton.addEventListener('click', () => {
+    animals.forEach(animal => {
+      const id = animal.dataset.id;
+      localStorage.removeItem(`placed-${id}`);
+    });
+    window.location.reload();
   });
-  window.location.reload(); // Reload to visually reset the scene
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-  const artButton = document.getElementById('artButton');
-  if (artButton) {
-    artButton.addEventListener('click', () => {
-      window.open('art.html', '_blank'); 
-    });
-  }
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-  const cvButton = document.getElementById('cvButton');
-  if (cvButton) {
-    cvButton.addEventListener('click', () => {
-      window.open('cv.html', '_blank'); 
-    });
-  }
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-  const researchButton = document.getElementById('researchButton');
-  if (researchButton) {
-    researchButton.addEventListener('click', () => {
-      window.open('research.html', '_blank'); 
-    });
-  }
-});
-
+}
