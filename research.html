@@ -17,19 +17,21 @@
       min-height: 100vh;
       box-sizing: border-box;
     }
+
     .frame-wall {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: flex-end; /* bottom align */
       gap: 1rem;
-      max-width: 800px;
-      margin: 2rem auto;
-      justify-items: center;
-      align-items: start;
-      background: url('assets/transparency-grid.png') repeat;
-      background-size: 400px 400px; /* or whatever size works for your pattern */
+      max-width: 90vw;
+      overflow-x: auto; /* allows scrolling on smaller screens */
       padding: 2rem;
+      background: url('assets/framewall-bg.png') repeat;
+      background-size: 400px 400px;
       border-radius: 10px;
     }
+    
     }
     .frame {
       display: block;
