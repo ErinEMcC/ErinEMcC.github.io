@@ -1,6 +1,25 @@
 const animals = document.querySelectorAll('.animal');
+const butterflyAnimal = document.getElementById('butterflyAnimal');
 const dropZone = document.getElementById('dropZone');
 const resetButton = document.getElementById('resetJungle');
+
+// check if all other animals are placed
+function checkAllAnimalsPlaced() {
+  let allPlaced = true;
+
+  // exclude the butterfly from this check
+  animals.forEach(animal => {
+    if (animal.id !== 'butterflyAnimal') {
+      if (!dropZone.contains(animal)) {
+        allPlaced = false;
+      }
+    }
+  });
+
+  if (allPlaced) {
+    butterflyAnimal.style.display = 'inline'; // reveal in the animal bar
+  }
+}
 
 // Restore already-placed animals
 document.addEventListener('DOMContentLoaded', () => {
@@ -18,6 +37,9 @@ document.addEventListener('DOMContentLoaded', () => {
       document.body.appendChild(animal);
       anyPlaced = true;
     }
+    animal.addEventListener('mouseup', () => {
+    setTimeout(checkAllAnimalsPlaced, 100); // slight delay to allow drop processing
+  });
   });
 
   if (anyPlaced && resetButton) {
