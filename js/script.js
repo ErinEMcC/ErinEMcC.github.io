@@ -7,17 +7,18 @@ const resetButton = document.getElementById('resetJungle');
 function checkAllAnimalsPlaced() {
   let allPlaced = true;
 
-  // exclude the butterfly from this check
   animals.forEach(animal => {
     if (animal.id !== 'butterflyAnimal') {
-      if (!dropZone.contains(animal)) {
+      const id = animal.dataset.id;
+      const stored = localStorage.getItem(`placed-${id}`);
+      if (!stored) {
         allPlaced = false;
       }
     }
   });
 
   if (allPlaced) {
-    butterflyAnimal.style.display = 'inline'; // reveal in the animal bar
+    butterflyAnimal.style.display = 'inline';
   }
 }
 
