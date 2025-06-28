@@ -1,1 +1,86 @@
-# Where Elmo's article is redirected
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ue</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: url('assets/transparency-grid.jpg') repeat;
+      background-size: cover;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-container {
+      margin-top: 5vh;
+      width: 80%;
+      max-width: 800px;
+      perspective: 1000px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .page-wrapper {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .page {
+      height: 85vh;
+      width: auto;
+      transform-origin: left center;
+      transform: rotateY(-90deg);
+      animation: openPage 1.2s forwards ease-out;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    @keyframes openPage {
+      to {
+        transform: rotateY(0deg);
+      }
+    }
+
+    .download-image-button {
+      position: absolute;
+      bottom: -25px;
+      right: -45px;
+      width: auto;
+      height: 17vh;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      z-index: 10;
+    }
+    
+    .download-image-button:hover {
+      transform: scale(1.05);
+    }
+
+    .download-image-button:active {
+      transform: scale(0.97) translateY(2px);
+      filter: brightness(0.95);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="page-container">
+  <div class="page-wrapper">
+    <img src="assets/elmo.png" alt="Elmo's Article" class="page">
+    <a href="https://www.thephilosopher1923.org/post/jakob-von-uexkull-umwelt">
+      <img src="assets/button-read.png" alt="Download CV" class="download-image-button">
+    </a>
+  </div>
+</div>
+  
+</body>
+</html>
