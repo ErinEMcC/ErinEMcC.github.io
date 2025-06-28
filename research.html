@@ -47,9 +47,10 @@
       display: block;
       width: 100%;
       height: auto;
-      transition: transform 0.5s ease;
+      transition: transform 0.3s ease;
       will-change: transform;
     }
+
     
     .frame:hover {
       transform: scale(1.1) translateY(-5px);
@@ -125,5 +126,30 @@
       <li>“Data Sousveillance” Cultural Studies Association Annual Conference, 2016.</li>
     </ul>
   </div>
+  <script>
+  document.querySelectorAll('.frame').forEach(frame => {
+    const img = frame.querySelector('img');
+    
+    frame.addEventListener('mousemove', e => {
+      const rect = frame.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+
+      // calculate % offset from center
+      const moveX = (x - centerX) / centerX;
+      const moveY = (y - centerY) / centerY;
+
+      // apply transform (scale + slight translate)
+      img.style.transform = `scale(1.1) translate(${moveX * 10}px, ${moveY * 10}px)`;
+    });
+
+    frame.addEventListener('mouseleave', () => {
+      img.style.transform = 'scale(1) translate(0,0)';
+    });
+  });
+</script>
+
 </body>
 </html>
