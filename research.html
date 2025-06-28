@@ -18,37 +18,35 @@
       box-sizing: border-box;
     }
 
-    .frame-wall {
+    .carousel {
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+      margin: 3rem auto;
+      perspective: 1200px;
+      overflow: hidden;
+    }
+    
+    .carousel-track {
       display: flex;
-      flex-direction: row;
       justify-content: center;
-      align-items: flex-end; /* bottom align */
-      gap: 1rem;
-      max-width: 90vw;
-      overflow-x: auto; /* allows scrolling on smaller screens */
-      padding: 2rem;
-      border-radius: 10px;
+      align-items: center;
+      transition: transform 0.5s ease;
     }
     .frame {
-      position: relative;
-      display: block;
-      border: url('assets/transparency-grid.png') repeat;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-      border-radius: 2px;
-      background: white;
-      transition: transform 0.3s ease;
+      flex: 0 0 300px;
+      margin: 0 1rem;
+      border: 10px solid #555;
+      border-radius: 8px;
       overflow: hidden;
-      text-decoration: none;
-      color: inherit;
-      max-width: 100%;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+      transition: transform 0.5s ease, z-index 0.5s ease;
     }
-
+    
     .frame img {
       display: block;
       width: 100%;
       height: auto;
-      transition: transform 0.3s ease;
-      will-change: transform;
     }
 
     
@@ -77,23 +75,21 @@
   </style>
 </head>
 <body>
-  <div class="frame-wall">
-    <a href="https://doi.org/10.1002/nml.21532" target="_blank" class="frame">
-      <img src="images/art-nlp.png" alt="Nonprofits NLP classification">
-      <div class="caption">Identifying Essential Nonprofits with a Novel NLP Method</div>
-    </a>
-    <a href="https://youtu.be/sjQZOyIj2I0?si=cyyFIGxfTnx3Xmn1" target="_blank" class="frame">
+  <div class="carousel">
+    <div class="carousel-track">
+      <div class="frame"><a href="https://doi.org/10.1002/nml.21532" target="_blank" class="frame"><img src="images/art-nlp.png" alt="Nonprofits NLP classification"><div class="caption">Identifying Essential Nonprofits with a Novel NLP Method</div></a></div>
+     <div class="frame"><a href="https://youtu.be/sjQZOyIj2I0?si=cyyFIGxfTnx3Xmn1" target="_blank" class="frame">
       <img src="images/pod-antit.png" alt="Computational Antitrust podcast">
-      <div class="caption">Computational Antitrust Interview</div>
-    </a>
-    <a href="https://doi.org/10.1162/99608f92.cc479d52" target="_blank" class="frame">
+      <div class="caption">Computational Antitrust Interview</div></div>
+    </a> </div>
+     <div class="frame"><a href="https://doi.org/10.1162/99608f92.cc479d52" target="_blank" class="frame">
       <img src="images/art-hdsr.png" alt="Viral outbreak convergence research">
       <div class="caption">Convergence in Viral Outbreak Research</div>
-    </a>
-    <a href="https://docs.google.com/presentation/d/e/2PACX-1vTXNuz97TbcRg6KOSoB6mmbeiHc5gEZ-qeUfxQGXtVfRbYCBWMGBlrf-xwlVKLnhQ/pub?start=false&loop=false&delayms=30000" target="_blank" class="frame">
+    </a></div>
+     <div class="frame"><a href="https://docs.google.com/presentation/d/e/2PACX-1vTXNuz97TbcRg6KOSoB6mmbeiHc5gEZ-qeUfxQGXtVfRbYCBWMGBlrf-xwlVKLnhQ/pub?start=false&loop=false&delayms=30000" target="_blank" class="frame">
       <img src="images/talk-praxis.png" alt="Presentation slides">
       <div class="caption">Art / Research Presentation Slides</div>
-    </a>
+    </a></div>
   </div>
 
   <div class="publications">
