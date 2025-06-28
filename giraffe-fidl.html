@@ -65,6 +65,48 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.15);
       object-fit: cover;
   }
+    .second-section {
+      width: 80vw;
+      max-width: 1000px;
+      margin: 3rem auto;
+    }
+
+    .second-text {
+      background: rgba(255,255,255,0.85);
+      padding: 1rem;
+      border-radius: 10px;
+      color: #2d2d2d;
+      font-size: 1rem;
+      line-height: 1.6;
+      text-align: justify;
+      margin-bottom: 2rem;
+    }
+    
+    .stacked-media {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .stacked-media .second-video {
+      padding-top: 56.25%; /* keep 16:9 aspect ratio */
+      position: relative;
+    }
+    
+    .stacked-media .second-video iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    
+    .stacked-image {
+      width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      object-fit: cover;
+    }
   </style>
 </head>
 <body>
@@ -87,5 +129,35 @@
     <p>The uncanny nature of many AI generated output is often commented on, and often seen as a shortcoming; a failure to attain accuracy or to depict reality. Models also “hallucinate”. This is mostly understood as data error, data bias, or a failure to balance metrics for novelty against metrics for usefulness (though the specifics are still opaque). It often seems to me that humans suffer from similar afflictions.</p>
 <p>In art, we can make use of them, and in our dreams we subconsciously push things into the surreal. Part of my interest in things like FIDL comes from how humans understand machines through these human cognition metaphors, like ‘learning’ and ‘hallucination’ and ‘creativity’. I’m not interested in arguing against this habit - it’s more that I like to keep the human-machine border blurrier from both directions.</p>
 </div>
+
+
+  <div class="second-section">
+  <div class="second-text">
+    <p><em>The nightmare shadowboxes</em> are a part of this larger project - they are an attempt to reverse-engineer an artifact-output that is discombobulating, while still on the precipice of ‘making sense’. Layering is the central form of visualized FIDL. The idea is an uncanny undecidability (in the deconstructionist sense), to decenter (anneal!) logic with dream logic. The layering is itself multiplied, happening in two modes: text and image (shadowbox).</p>
+  <p><em>MATERIAL LAYERS</em></p>
+    <p>The shadowbox- inspired nightmare box is made in ⅛ inch yellow-orange acrylic, laser cut and clicked into place on a base. Each acrylic scene layer component is based on a condensed version of a Midjourney-generated image that was dictated/inspired by some aspect of the generated nightmare. The two, opposite sides of the box (perpendicular to the image layers) each contain half of the final language of the dream in raster-engraving. These sides, when viewed at the right angle across the image layers, connect into the complete text. The full box is meant to be lit up from underneath, reminiscent of a flashlight held underneath a chin during the telling of a scary story.</p>
+    <p>The color choice is:</p>
+    <p>- A wink at Midjourney’s favorite color, orange</p>
+    <p>- Intended to call to mind a preserved-in-amber memory (e.g. the mosquito in Jurassic Park).</p>
+    <p><em>TEXT LAYERS</em></p>
+    <p>- Foundation: text-data from my own 'nightmare catalog' - a journal begun years ago in an attempt to curtail a nightmare problem.</p>
+    <p>- Part-of-Speech Sequence Model: A generative model trained on a dataset of ~10,000 poems from the Poetry Foundation that generates parts-of-speech sequences.</p>
+    <p>- Chaos Layer: Lorem ipsum generators (pirate, trump, and cosmos ipsum) for something like dream aphasia while still staying broadly on-theme with my nightmares central fears: l'appel du vide, politics, insanity.</p>
+    <p>- Markov Generation: Using the newly generated part-of-speech sequence as a map, I populate the output text one word at a time, matching each part-of-speech in the generated sequence with vocabulary from the dataset. Additionally, each next-word is only selected from words that have followed the previous word in the input text. This is a basic bigram Markov Chain.</p>
+    <p>- Double check:  Stanza-outputs are rejected if OpenAI's GPT (in completion-mode) strays from the scary/unmooring/unnerving.</p>
+    <p>- Intuitive Layer: Human editing to weave in sonic traces to the words already on the page. These are an attempt at engaging the less-than-fully-conscious (“opening the portal” so to speak); the idea of intuitive “lingering auditory information” from Reuven Tsur’s <i></i>cognitive poetics</i>.
+</p>
+  </div>
+  <div class="stacked-media">
+    <div class="video-container second-video">
+      <iframe src="assets/ns-box.mp4" 
+              title="Nightmare Shadow Box"
+              allowfullscreen></iframe>
+    </div>
+    <img src="images/ns-box.png" alt="Shadow Box" class="stacked-image">
+  </div>
+</div>
+  <div class="caption"><p>The story containing this project takes place in the near future, when a group of researchers pledge to cease all research into the sub/conscious in protest of the company, FIDL, attempting to generate dream logic with AI.</p>
+<p>The Protest Letter & FIDL Response Press Release are below:</p>
 </body>
 </html>
