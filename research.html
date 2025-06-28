@@ -48,7 +48,6 @@
       width: 100%;
       height: auto;
     }
-
     
     .frame:hover {
       transform: scale(1.1) translateY(-5px);
@@ -59,6 +58,21 @@
       font-size: 0.9rem;
       text-align: center;
     }
+
+    .carousel-prev, .carousel-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.8);
+      border: none;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      font-size: 1.5rem;
+      z-index: 10;
+    }
+    .carousel-prev { left: 0.5rem; }
+    .carousel-next { right: 0.5rem; }
+    
     .publications {
       max-width: 800px;
       margin: 2rem auto;
@@ -91,6 +105,9 @@
       <div class="caption">Art / Research Presentation Slides</div>
     </a></div>
   </div>
+  <button class="carousel-prev">◀</button>
+  <button class="carousel-next">▶</button>
+
 
   <div class="publications">
     <p><strong>OTHER PUBLICATIONS</strong></p>
@@ -123,29 +140,45 @@
     </ul>
   </div>
   <script>
-  document.querySelectorAll('.frame').forEach(frame => {
-    const img = frame.querySelector('img');
-    
-    frame.addEventListener('mousemove', e => {
-      const rect = frame.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
+  const frames = document.querySelectorAll('.carousel .frame');
+  let current = 0;
 
-      // calculate % offset from center
-      const moveX = (x - centerX) / centerX;
-      const moveY = (y - centerY) / centerY;
+  function updateCarousel() {
+    frames.forEach((frame, index) => {
+      const offset = index - current;
 
-      // apply transform (scale + slight translate)
-      img.style.transform = `scale(1.1) translate(${moveX * 10}px, ${moveY * 10}px)`;
+      if (offset === 0) {
+        // center frame
+        frame.style.transform = "translateX(0) scale(1) rotateY(0deg)";
+        frame.style.zIndex = 3;
+      } else if (offset === -1) {
+        // one left
+        frame.style.transform = "translateX(-120%) scale(0.8) rotateY(20deg)";
+        frame.style.zIndex = 2;
+      } else if (offset === 1) {
+        // one right
+        frame.style.transform = "translateX(120%) scale(0.8) rotateY(-20deg)";
+        frame.style.zIndex = 2;
+      } else {
+        // far off-screen
+        frame.style.transform = "translateX(200%) scale(0.6)";
+        frame.style.zIndex = 1;
+      }
     });
+  }
 
-    frame.addEventListener('mouseleave', () => {
-      img.style.transform = 'scale(1) translate(0,0)';
-    });
+  document.querySelector('.carousel-next').addEventListener('click', () => {
+    current = (current + 1) % frames.length;
+    updateCarousel();
   });
+  document.querySelector('.carousel-prev').addEventListener('click', () => {
+    current = (current - 1 + frames.length) % frames.length;
+    updateCarousel();
+  });
+
+  updateCarousel();
 </script>
+
 
 </body>
 </html>
