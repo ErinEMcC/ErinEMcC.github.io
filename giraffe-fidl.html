@@ -71,7 +71,19 @@
       margin: 3rem auto;
     }
 
+    .second-section-flex {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 2rem;
+      width: 80vw;
+      max-width: 1000px;
+      margin: 3rem auto;
+    }
+
     .second-text {
+      flex: 1;
       background: rgba(255,255,255,0.85);
       padding: 1rem;
       border-radius: 10px;
@@ -83,6 +95,8 @@
     }
     
     .stacked-media {
+      flex-basis: 25%;
+      flex-shrink: 0;
       display: flex;
       flex-direction: column;
       gap: 1rem;
@@ -128,10 +142,14 @@
 <div class="caption">
     <p>The uncanny nature of many AI generated output is often commented on, and often seen as a shortcoming; a failure to attain accuracy or to depict reality. Models also “hallucinate”. This is mostly understood as data error, data bias, or a failure to balance metrics for novelty against metrics for usefulness (though the specifics are still opaque). It often seems to me that humans suffer from similar afflictions.</p>
 <p>In art, we can make use of them, and in our dreams we subconsciously push things into the surreal. Part of my interest in things like FIDL comes from how humans understand machines through these human cognition metaphors, like ‘learning’ and ‘hallucination’ and ‘creativity’. I’m not interested in arguing against this habit - it’s more that I like to keep the human-machine border blurrier from both directions.</p>
-</div>
-
-
+</div>  
   <div class="second-section">
+     <div class="stacked-media">
+    <div class="video-container second-video">
+      <iframe src="https://www.youtube.com/embed/Gi7ytAzlgIg?si=lB2iY85u3OwHWJJ4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" title="Nightmare Shadow Box" allowfullscreen></iframe>
+ </div>
+    <img src="images/ns-box.png" alt="Shadow Box" class="stacked-image">
+  </div>
   <div class="second-text">
     <p><em>The nightmare shadowboxes</em> are a part of this larger project - they are an attempt to reverse-engineer an artifact-output that is discombobulating, while still on the precipice of ‘making sense’. Layering is the central form of visualized FIDL. The idea is an uncanny undecidability (in the deconstructionist sense), to decenter (anneal!) logic with dream logic. The layering is itself multiplied, happening in two modes: text and image (shadowbox).</p>
   <p><em>MATERIAL LAYERS</em></p>
@@ -148,14 +166,12 @@
     <p>- Intuitive Layer: Human editing to weave in sonic traces to the words already on the page. These are an attempt at engaging the less-than-fully-conscious (“opening the portal” so to speak); the idea of intuitive “lingering auditory information” from Reuven Tsur’s <i></i>cognitive poetics</i>.
 </p>
   </div>
-  <div class="stacked-media">
-    <div class="video-container second-video">
-      <iframe src="https://www.youtube.com/embed/Gi7ytAzlgIg?si=lB2iY85u3OwHWJJ4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" title="Nightmare Shadow Box" allowfullscreen></iframe>
- </div>
-    <img src="images/ns-box.png" alt="Shadow Box" class="stacked-image">
-  </div>
 </div>
-  <div class="caption"><p>The story containing this project takes place in the near future, when a group of researchers pledge to cease all research into the sub/conscious in protest of the company, FIDL, attempting to generate dream logic with AI.</p>
+  <div class="second-section">
+    <div class="second-text">
+      <p>The story containing this project takes place in the near future, when a group of researchers pledge to cease all research into the sub/conscious in protest of the company, FIDL, attempting to generate dream logic with AI.</p>
 <p>The Protest Letter & FIDL Response Press Release are below:</p>
+    </div>
+  </div>
 </body>
 </html>
