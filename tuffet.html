@@ -1,68 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/tuffet.css" />
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/tuffet.css" />
 
-    <title>RiTa Cover Letter</title>
-    
-    <script src="https://rednoise.org/rita/rita.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script type="module">
-      
-      // Correct import path
-      import createGrammar from "./js/tuffet.js";
-      
-      // Context with proper function definitions
-      let context = {
-        oneSyllableAdjective: () => RiTa.randomWord({ pos: "jj", numSyllables: 1 }),
+  <title>RiTa Cover Letter</title>
+  
+  <!-- jQuery for DOM manipulation -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  
+  <!-- use UMD RiTa -->
+  <script src="https://rednoise.org/rita/rita.js"></script>
+  
+  <!-- Main script using ES6 modules -->
+  <script type="module">
+    import createGrammar from "./js/tuffet.js";
 
-        myJobs: () => ["librarian", "volatrian", "maker-ian", "contrarian", "riparian"],
-        librarian: () => RiTa.randomItem(["librarian", "volatrian", "maker-ian", "contrarian", "riparian"]),
-        
-        myVerbs: () => ["drinking", "writing", "reading", "making", "thinking"],
-        gerund: () => RiTa.randomItem(["drinking", "writing", "reading", "making", "thinking"]),
-        
-        myGizmos: () => ["bits and bobs", "odds and ends", "bric a brac", "stuff and things"],
-        gizmo: () => RiTa.randomItem(["bits and bobs", "odds and ends", "bric a brac", "stuff and things"])
+    let context = {
+      oneSyllableAdjective: () => RiTa.randomWord({ pos: "jj", numSyllables: 1 }),
+      myJobs: () => ["librarian", "volatrian", "maker-ian", "contrarian", "riparian"],
+      librarian: () => RiTa.randomItem(["librarian", "volatrian", "maker-ian", "contrarian", "riparian"]),
+      myVerbs: () => ["drinking", "writing", "reading", "making", "thinking"],
+      gerund: () => RiTa.randomItem(["drinking", "writing", "reading", "making", "thinking"]),
+      myGizmos: () => ["bits and bobs", "odds and ends", "bric a brac", "stuff and things"],
+      gizmo: () => RiTa.randomItem(["bits and bobs", "odds and ends", "bric a brac", "stuff and things"])
+    };
+
+    let addRhyme = function(word) {
+      let res = RiTa.rhymesSync(word);
+      if (res.length === 0) return RiTa.randomWord();
+      return RiTa.randomItem(res);
+    };
+
+    RiTa.addTransform("rhymes", addRhyme);
+
+    createGrammar(RiTa, context).then((rules) => {
+      window.generatePrompt = function() {
+        let rg = RiTa.grammar(rules, context);
+        let result = rg.expand();
+        $("#output").html(result);
       };
 
-      /**
-       * Custom transform to find rhymes
-       */
-      let addRhyme = function (word) {
-        let res = RiTa.rhymesSync(word);
-        if (res.length === 0) {
-          return RiTa.randomWord();
-        }
-        return RiTa.randomItem(res);
-      };
-
-      // Add the transform
-      RiTa.addTransform("rhymes", addRhyme);
-      
-      // Get grammar rules
-      createGrammar(RiTa, context).then((rules) => {
-        window.generatePrompt = function() {
-          let rg = RiTa.grammar(rules, context);
-          let result = rg.expand();
-          $("#output").html(result);
-        };
-      
-      // Run on DOM loaded
       document.addEventListener("DOMContentLoaded", () => {
         generatePrompt();
       });
-    }).catch((err) => console.error("Grammar loading failed:", err));
-    </script>
-
-  </head>
-  <body>
-    <div class="container">      
-      <div id="output">Loading...</div>
-      <div id="reload">
-        <button onclick="generatePrompt()">Read New Cover Letter</button>
-      </div>
+    }).catch(err => console.error("Grammar loading failed:", err));
+  </script>
+</head>
+<body>
+  <div class="container">
+    <div id="output">Loading...</div>
+    <div id="reload">
+      <button onclick="generatePrompt()">Read New Cover Letter</button>
     </div>
-  </body>
+  </div>
+</body>
 </html>
