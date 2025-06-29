@@ -53,23 +53,11 @@
           $("#output").html(result);
         };
       
-        // Run on load
-        generatePrompt();
-      });
-      
-      /**
-       * Generate and display
-       */
-      window.generatePrompt = function() {
-        let rg = RiTa.grammar(rules, context);
-        let result = rg.expand();
-        $("#output").html(result);
-      };
-      
       // Run on DOM loaded
       document.addEventListener("DOMContentLoaded", () => {
         generatePrompt();
       });
+    }).catch((err) => console.error("Grammar loading failed:", err));
     </script>
   </head>
   <body>
