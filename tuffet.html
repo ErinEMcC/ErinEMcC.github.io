@@ -19,6 +19,8 @@
       
       // Context with proper function definitions
       let context = {
+        oneSyllableAdjective: () => RiTa.randomWord({ pos: "jj", numSyllables: 1 }),
+
         myJobs: () => ["librarian", "volatrian", "maker-ian", "contrarian", "riparian"],
         librarian: () => RiTa.randomItem(["librarian", "volatrian", "maker-ian", "contrarian", "riparian"]),
         
