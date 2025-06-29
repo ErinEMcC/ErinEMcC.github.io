@@ -22,7 +22,8 @@
     const verbs = ["drinking", "writing", "reading", "making", "thinking"];
     const gizmos = ["bits and bobs", "odds and ends", "bric a brac", "stuff and things"];
     const nouns = ["plan", "letter", "story", "document", "recipe"];
-
+    const jjs = ["calm", "crisp", "dark", "blue", "green", "fast", "fresh", "grand", "huge", "kind", "rough", "sharp", "short", "smart", "smooth", "strong","sweet", "tough"]
+                 
     // helper
     function pick(list) {
       return list[Math.floor(Math.random() * list.length)];
@@ -41,7 +42,7 @@
       const job = pick(jobs);
       const verb = pick(verbs);
       const gizmo = pick(gizmos);
-      const adjective = RiTa.randomWord({pos:"jj",syllables:1});
+      const adjective = pick(jjs);
       const animal = pick(animals);
       const noun = pick(nouns);
 
