@@ -6,13 +6,9 @@
 
     <title>RiTa Cover Letter</title>
     
-    <!-- jQuery for DOM manipulation -->
+    <script src="https://rednoise.org/rita/rita.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    
-    <!-- Main script using ES6 modules -->
     <script type="module">
-      // Import RiTa from ESM
-      import { RiTa } from "https://esm.sh/rita";
       
       // Correct import path
       import createGrammar from "./js/tuffet.js";
@@ -59,6 +55,7 @@
       });
     }).catch((err) => console.error("Grammar loading failed:", err));
     </script>
+
   </head>
   <body>
     <div class="container">      
