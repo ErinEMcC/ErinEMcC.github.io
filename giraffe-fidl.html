@@ -131,10 +131,7 @@
   <img src="images/fidl-vr2.jpg" alt="Photo 2">
   <img src="images/fidl-vr3.jpg" alt="Photo 3">
 </div>
-<div class="caption">
-    <p>The uncanny nature of many AI generated output is often commented on, and often seen as a shortcoming; a failure to attain accuracy or to depict reality. Models also “hallucinate”. This is mostly understood as data error, data bias, or a failure to balance metrics for novelty against metrics for usefulness (though the specifics are still opaque). It often seems to me that humans suffer from similar afflictions.</p>
-<p>In art, we can make use of them, and in our dreams we subconsciously push things into the surreal. Part of my interest in things like FIDL comes from how humans understand machines through these human cognition metaphors, like ‘learning’ and ‘hallucination’ and ‘creativity’. I’m not interested in arguing against this habit - it’s more that I like to keep the human-machine border blurrier from both directions.</p>
-</div>  
+
   <div class="second-section-wrap">
     <div class="stacked-media-float">
       <div class="video-container">
@@ -146,21 +143,20 @@
       <img src="images/ns-box.png" alt="Shadow Box" class="stacked-image">
     </div>
     <div class="second-text">
+      <p>The uncanny nature of many AI generated output is often commented on, and often seen as a shortcoming; a failure to attain accuracy or to depict reality. Models also “hallucinate”. This is mostly understood as data error, data bias, or a failure to balance metrics for novelty against metrics for usefulness (though the specifics are still opaque). It often seems to me that humans suffer from similar afflictions.</p>
+      <p>In art, we can make use of them, and in our dreams we subconsciously push things into the surreal. Part of my interest in things like FIDL comes from how humans understand machines through these human cognition metaphors, like ‘learning’ and ‘hallucination’ and ‘creativity’. I’m not interested in arguing against this habit - it’s more that I like to keep the human-machine border blurrier from both directions.</p>
       <p> The nightmare shadowboxes are a part of this larger project - they are an attempt to reverse-engineer an artifact-output that is discombobulating, while still on the precipice of ‘making sense’. Layering is the central form of visualized FIDL. The idea is an uncanny undecidability (in the deconstructionist sense), to decenter (anneal!) logic with dream logic. The layering is itself multiplied, happening in two modes: text and image (shadowbox).
-<p></p><strong>MATERIAL LAYERS</strong></p>
-<p>The shadowbox- inspired nightmare box is made in ⅛ inch yellow-orange acrylic, laser cut and clicked into place on a base. Each acrylic scene layer component is based on a condensed version of a Midjourney-generated image that was dictated/inspired by some aspect of the generated nightmare. The two, opposite sides of the box (perpendicular to the image layers) each contain half of the final language of the dream in raster-engraving. These sides, when viewed at the right angle across the image layers, connect into the complete text. The full box is meant to be lit up from underneath, reminiscent of a flashlight held underneath a chin during the telling of a scary story.</p>
-<p>The color choice is:</p>
-<ul><li>A wink at Midjourney’s favorite color, orange</li>
-<li>Intended to call to mind a preserved-in-amber memory (e.g. the mosquito in Jurassic Park).</li>
-</ul>
-<p><strong>TEXT LAYERS</strong></p>
-<ul><li>Foundation: text-data from my own 'nightmare catalog' - a journal begun years ago in an attempt to curtail a nightmare problem.</li>
-<li>Part-of-Speech Sequence Model: A generative model trained on a dataset of ~10,000 poems from the Poetry Foundation that generates parts-of-speech sequences.</ul>li>
-<li>Chaos Layer: Lorem ipsum generators (pirate, trump, and cosmos ipsum) for something like dream aphasia while still staying broadly on-theme with my nightmares central fears: l'appel du vide, politics, insanity.</li>
-<li>Markov Generation: Using the newly generated part-of-speech sequence as a map, I populate the output text one word at a time, matching each part-of-speech in the generated sequence with vocabulary from the dataset. Additionally, each next-word is only selected from words that have followed the previous word in the input text. This is a basic bigram Markov Chain.</li>
-<li>Double check: Stanza-outputs are rejected if OpenAI's GPT (in completion-mode) strays from the scary/unmooring/unnerving.</li>
-<li>Intuitive Layer: Human editing to weave in sonic traces to the words already on the page. These are an attempt at engaging the less-than-fully-conscious (“opening the portal” so to speak); the idea of intuitive “lingering auditory information” from Reuven Tsur’s cognitive poetics.</li>
-    </div>
+      <p><strong>MATERIAL LAYERS</strong></p>
+      <p>The shadowbox- inspired nightmare box is made in ⅛ inch yellow-orange acrylic, laser cut and clicked into place on a base. Each acrylic scene layer component is based on a condensed version of a Midjourney-generated image that was dictated/inspired by some aspect of the generated nightmare. The two, opposite sides of the box (perpendicular to the image layers) each contain half of the final language of the dream in raster-engraving. These sides, when viewed at the right angle across the image layers, connect into the complete text. The full box is meant to be lit up from underneath, reminiscent of a flashlight held underneath a chin during the telling of a scary story.</p>
+      <p>The color choice is: A wink at Midjourney’s favorite color, orange <i>and</i> intended to call to mind a preserved-in-amber memory (e.g. the mosquito in Jurassic Park).</p>
+      <p><strong>TEXT LAYERS</strong></p>
+      <ul><li>Foundation: text-data from my own 'nightmare catalog' - a journal begun years ago in an attempt to curtail a nightmare problem.</li>
+      <li>Part-of-Speech Sequence Model: A generative model trained on a dataset of ~10,000 poems from the Poetry Foundation that generates parts-of-speech sequences.</li>
+      <li>Chaos Layer: Lorem ipsum generators (pirate, trump, and cosmos ipsum) for something like dream aphasia while still staying broadly on-theme with my nightmares central fears: l'appel du vide, politics, insanity.</li>
+      <li>Markov Generation: Using the newly generated part-of-speech sequence as a map, I populate the output text one word at a time, matching each part-of-speech in the generated sequence with vocabulary from the dataset. Additionally, each next-word is only selected from words that have followed the previous word in the input text. This is a basic bigram Markov Chain.</li>
+      <li>Double check: Stanza-outputs are rejected if OpenAI's GPT (in completion-mode) strays from the scary/unmooring/unnerving.</li>
+      <li>Intuitive Layer: Human editing to weave in sonic traces to the words already on the page. These are an attempt at engaging the less-than-fully-conscious (“opening the portal” so to speak); the idea of intuitive “lingering auditory information” from Reuven Tsur’s cognitive poetics.</li>
+      </div>
   </div>
 </body>
 </html>
