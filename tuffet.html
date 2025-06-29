@@ -17,51 +17,47 @@
   </div>
 
   <script>
-    // your local animals.json fetch
+    // lists you had before
+    const jobs = ["librarian", "volatrian", "maker-ian", "contrarian", "riparian"];
+    const verbs = ["drinking", "writing", "reading", "making", "thinking"];
+    const gizmos = ["bits and bobs", "odds and ends", "bric a brac", "stuff and things"];
+    const nouns = ["plan", "letter", "story", "document", "recipe"];
+
+    // helper
+    function pick(list) {
+      return list[Math.floor(Math.random() * list.length)];
+    }
+
     async function loadAnimals() {
       const response = await fetch("./data/animals.json");
       return await response.json();
     }
 
-    document.addEventListener("DOMContentLoaded", async () => {
+    async function generatePrompt() {
       const animals = await loadAnimals();
 
-      let context = {
-        oneSyllableAdjective: () => RiTa.randomWord({ pos: "jj", numSyllables: 1 }),
-        myJobs: () => ["librarian", "volatrian", "maker-ian", "contrarian", "riparian"],
-        librarian: () => RiTa.randomItem(["librarian", "volatrian", "maker-ian", "contrarian", "riparian"]),
-        myVerbs: () => ["drinking", "writing", "reading", "making", "thinking"],
-        gerund: () => RiTa.randomItem(["drinking", "writing", "reading", "making", "thinking"]),
-        myGizmos: () => ["bits and bobs", "odds and ends", "bric a brac", "stuff and things"],
-        gizmo: () => RiTa.randomItem(["bits and bobs", "odds and ends", "bric a brac", "stuff and things"])
-      };
+      // slots:
+      const name = "Erin";
+      const job = pick(jobs);
+      const verb = pick(verbs);
+      const gizmo = pick(gizmos);
+      const adjective = RiTa.randomWord({pos:"jj",syllables:1});
+      const animal = pick(animals);
+      const noun = pick(nouns);
 
-      RiTa.addTransform("rhymes", function(word) {
-        let res = RiTa.rhymesSync(word);
-        if (res.length === 0) return RiTa.randomWord();
-        return RiTa.randomItem(res);
-      });
+      const lines = [
+        `<h2>My name is ${name}</h2>`,
+        `I'm a ${job}`,
+        `${verb} my ${gizmo}`,
+        `There came a ${adjective} ${animal}`,
+        `with a secret ${noun}`,
+        `And frightened Miss Muffet away.`
+      ];
 
-      let rules = {
-        start: "<h2>My name is Erin</h2><br>$line2<br>$line3<br>$line4<br>$line5<br>$line6<br>",
-        line2: "I'm a $librarian",
-        line3: "$gerund my $gizmo",
-        line4: "There came a $oneSyllableAdjective $animal",
-        line5: "with a secret $noun",
-        line6: "And frightened Miss Muffet away.",
-        animal: animals,
-        adjective: ["big", "small", "fierce", "cuddly", "striped"],
-        noun: ["plan", "letter", "story", "document", "recipe"]
-      };
+      $("#output").html(lines.join("<br>"));
+    }
 
-      window.generatePrompt = function() {
-        let rg = RiTa.grammar(rules, context);
-        let result = rg.expand();
-        $("#output").html(result);
-      };
-
-      generatePrompt();
-    });
+    document.addEventListener("DOMContentLoaded", generatePrompt);
   </script>
 </body>
 </html>
