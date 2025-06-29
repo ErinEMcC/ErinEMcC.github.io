@@ -1,7 +1,4 @@
-{
-  "description": "A list of two-syllable animals",
-  "animals": [
-  	"aardvark"
+["aardvark",
   	"baboon",
 	"badger",
 	"beaver",
@@ -85,4 +82,3 @@
 	"woodchuck",
 	"zebra"
 ]
-}
