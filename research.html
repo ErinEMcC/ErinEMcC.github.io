@@ -20,45 +20,46 @@
 
     .carousel {
       position: relative;
-      width: 100%;
       max-width: 800px;
       margin: 3rem auto;
-      perspective: 1200px;
       overflow: hidden;
     }
     
     .carousel-track {
       display: flex;
-      justify-content: center;
-      align-items: center;
       transition: transform 0.5s ease;
     }
+    
     .frame {
-      flex: 0 0 300px;
-      margin: 0 1rem;
-      border: 10px solid #555;
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 6px 12px rgba(0,0,0,0.4);
-      transition: transform 0.5s ease, z-index 0.5s ease;
+      flex: 0 0 100%;  /* show one slide at a time */
+      max-width: 100%;
+      box-sizing: border-box;
+      padding: 0 1rem;
     }
     
     .frame img {
-      display: block;
       width: 100%;
       height: auto;
+      border: 10px solid #555;
+      border-radius: 8px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.4);
     }
-    
+    .caption {
+      text-align: center;
+      background: rgba(255,255,255,0.8);
+      padding: 0.5rem;
+      margin-top: 0.5rem;
+    }
     .frame:hover {
       transform: scale(1.1) translateY(-5px);
     }
-    .caption {
-      padding: 0.5rem;
-      background: rgba(255, 255, 255, 0.8);
-      font-size: 0.9rem;
-      text-align: center;
+
+    .frame.active img {
+      transform: scale(1.05);
+      transition: transform 0.5s ease;
     }
 
+  
     .carousel-prev, .carousel-next {
       position: absolute;
       top: 50%;
@@ -152,43 +153,33 @@
     </ul>
   </div>
   <script>
-  const frames = document.querySelectorAll('.carousel .frame');
-  let current = 0;
+ const track = document.querySelector('.carousel-track');
+const frames = document.querySelectorAll('.frame');
+const total = frames.length;
+let current = 0;
 
-  function updateCarousel() {
-    frames.forEach((frame, index) => {
-      const offset = index - current;
+function updateCarousel() {
+  track.style.transform = `translateX(-${current * 100}%)`;
+}
 
-      if (offset === 0) {
-        // center frame
-        frame.style.transform = "translateX(0) scale(1) rotateY(0deg)";
-        frame.style.zIndex = 3;
-      } else if (offset === -1) {
-        // one left
-        frame.style.transform = "translateX(-120%) scale(0.8) rotateY(20deg)";
-        frame.style.zIndex = 2;
-      } else if (offset === 1) {
-        // one right
-        frame.style.transform = "translateX(120%) scale(0.8) rotateY(-20deg)";
-        frame.style.zIndex = 2;
-      } else {
-        // far off-screen
-        frame.style.transform = "translateX(200%) scale(0.6)";
-        frame.style.zIndex = 1;
-      }
-    });
-  }
-
-  document.querySelector('.carousel-next').addEventListener('click', () => {
-    current = (current + 1) % frames.length;
-    updateCarousel();
-  });
-  document.querySelector('.carousel-prev').addEventListener('click', () => {
-    current = (current - 1 + frames.length) % frames.length;
-    updateCarousel();
-  });
-
+document.querySelector('.carousel-next').addEventListener('click', () => {
+  current = (current + 1) % total;
   updateCarousel();
+});
+document.querySelector('.carousel-prev').addEventListener('click', () => {
+  current = (current - 1 + total) % total;
+  updateCarousel();
+});
+
+updateCarousel();
+
+
+    function updateCarousel() {
+      track.style.transform = `translateX(-${current * 100}%)`;
+      frames.forEach(f => f.classList.remove('active'));
+      frames[current].classList.add('active');
+    }
+
 </script>
 
 
