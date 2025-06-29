@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/style-tuffet.css" />
+
+    <title>RiTa Template</title>
+    
+    <!-- jQuery for DOM manipulation -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    
+    <!-- Main script using ES6 modules -->
+    <script type="module">
+      // Import RiTa library from ESM CDN
+      import { RiTa } from "https://esm.sh/rita";
+      
+      // Import our grammar rules function
+      import createGrammar from "./tuffet.js";
+      
+      /**
+       * Context object that provides word-generating functions
+       * These can be used in grammar rules with $functionName
+       */
+      let context = {
+        // Generate different types of words using RiTa's lexicon
+        myJobs: () => "librarian (2) | Volatrian | maker-ian(2) | contrarian | riparian" ];    
+        librarian = RiTa.randomWord(myJobs)
+        drinking writing reading making thinking 
+        gizmo:() +> "bits and bobs | odds and ends | bric a brac | stuff and things
+        
+        verbGerund: () => RiTa.randomWord({ pos: "vbg", numSyllables: 1 }),
+       
+          
+             };
+
+      /**
+       * Custom transform that finds rhyming words
+       * Can be used in grammar with |rhymes
+       */
+      let addRhyme = function (word) {
+        // Get all words that rhyme with the input word
+        let res = RiTa.rhymesSync(word);
+        
+        // If no rhymes found, return a random word instead
+        if (res.length === 0) {
+          return RiTa.randomWord();
+        }
+        // Otherwise return a random word from the rhymes
+        return RiTa.random(res);
+      };
+
+      // Add our custom transform to RiTa
+      RiTa.addTransform("rhymes", addRhyme);
+      
+      // Get grammar rules, passing RiTa and our context
+      let rules = createGrammar(RiTa, context);
+      
+      /**
+       * Generate and display a new text from our grammar
+       * Made available globally so it can be called from HTML
+       */
+      window.generatePrompt = function() {
+        // Create a grammar instance with our rules and context
+        let rg = RiTa.grammar(rules, context);
+        
+        // Generate text by expanding the grammar
+        let result = rg.expand();
+        
+        // Display the result in the output div
+        $("#output").html(result);
+      };
+      
+      // Run generation once the page has loaded
+      document.addEventListener('DOMContentLoaded', () => {
+        generatePrompt();
+      });
+    </script>
+  </head>
+  <body>
+    <div class="container">      
+      <!-- Container for the generated text -->
+      <div id="output">Loading...</div>
+      
+      <!-- Button to generate a new text -->
+      <div id="reload">
+        <button onclick="generatePrompt()"> Read New Cover Letter</button>
+      </div>
+      
+    </div>
+  </body>
+</html>
