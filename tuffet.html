@@ -1,57 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/tuffet.css" />
-    <title>RiTa Cover Letter</title>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/tuffet.css" />
+  <title>RiTa Cover Letter</title>
 
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://rednoise.org/rita/rita.js"></script>
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
+  <!-- RiTa classic UMD -->
+  <script src="https://rednoise.org/rita/rita.js"></script>
 
-    <!-- Your grammar script as ES module -->
-    <script type="module">
-      import createGrammar from "./js/tuffet.js";
+  <!-- bring in your createGrammar the simplest way -->
+  <script src="./js/tuffet.js"></script> 
+</head>
+<body>
+  <div class="container">
+    <div id="output">Loading...</div>
+    <div id="reload">
+      <button onclick="generatePrompt()">Read New Cover Letter</button>
+    </div>
+  </div>
 
-      // context functions
-      let context = {
-        oneSyllableAdjective: () => RiTa.randomWord({ pos: "jj", numSyllables: 1 }),
-        myJobs: () => ["librarian", "volatrian", "maker-ian", "contrarian", "riparian"],
-        librarian: () => RiTa.randomItem(["librarian", "volatrian", "maker-ian", "contrarian", "riparian"]),
-        myVerbs: () => ["drinking", "writing", "reading", "making", "thinking"],
-        gerund: () => RiTa.randomItem(["drinking", "writing", "reading", "making", "thinking"]),
-        myGizmos: () => ["bits and bobs", "odds and ends", "bric a brac", "stuff and things"],
-        gizmo: () => RiTa.randomItem(["bits and bobs", "odds and ends", "bric a brac", "stuff and things"])
+  <script>
+    // define context
+    let context = {
+      oneSyllableAdjective: () => RiTa.randomWord({ pos: "jj", numSyllables: 1 }),
+      myJobs: () => ["librarian", "volatrian", "maker-ian", "contrarian", "riparian"],
+      librarian: () => RiTa.randomItem(["librarian", "volatrian", "maker-ian", "contrarian", "riparian"]),
+      myVerbs: () => ["drinking", "writing", "reading", "making", "thinking"],
+      gerund: () => RiTa.randomItem(["drinking", "writing", "reading", "making", "thinking"]),
+      myGizmos: () => ["bits and bobs", "odds and ends", "bric a brac", "stuff and things"],
+      gizmo: () => RiTa.randomItem(["bits and bobs", "odds and ends", "bric a brac", "stuff and things"])
+    };
+
+    // rhyme transform
+    RiTa.addTransform("rhymes", function(word) {
+      let res = RiTa.rhymesSync(word);
+      if (res.length === 0) return RiTa.randomWord();
+      return RiTa.randomItem(res);
+    });
+
+    // pull grammar async
+    async function loadGrammar() {
+      const response = await fetch("./data/animals.json");
+      const animals = await response.json();
+      const rules = {
+        "start": "<h2>My name is Erin</h2><br>$line2<br>$line3<br>$line4<br>$line5<br>$line6<br>",
+        "line2": "I'm a $librarian",
+        "line3": "$gerund my $gizmo",
+        "line4": "There came a $oneSyllableAdjective $animal",
+        "line5": "with a secret $noun",
+        "line6": "And frightened Miss Muffet away.",
+        "animal": animals,
+        "adjective": ["big", "small", "fierce", "cuddly", "striped"],
+        "noun": ["plan", "letter", "story", "document", "recipe"]
       };
 
-      // add rhyme transform
-      RiTa.addTransform("rhymes", function(word) {
-        let res = RiTa.rhymesSync(word);
-        if (res.length === 0) return RiTa.randomWord();
-        return RiTa.randomItem(res);
-      });
+      window.generatePrompt = function() {
+        let rg = RiTa.grammar(rules, context);
+        let result = rg.expand();
+        $("#output").html(result);
+      };
 
-      // create grammar and hook up generator
-      createGrammar(RiTa, context).then((rules) => {
-        window.generatePrompt = function() {
-          let rg = RiTa.grammar(rules, context);
-          let result = rg.expand();
-          $("#output").html(result);
-        };
+      generatePrompt(); // run first time
+    }
 
-        // generate on page load
-        document.addEventListener("DOMContentLoaded", () => {
-          generatePrompt();
-        });
-      }).catch(err => console.error("Grammar loading failed:", err));
-    </script>
-  </head>
-  <body>
-    <div class="container">
-      <div id="output">Loading...</div>
-      <div id="reload">
-        <button onclick="generatePrompt()">Read New Cover Letter</button>
-      </div>
-    </div>
-  </body>
+    document.addEventListener("DOMContentLoaded", loadGrammar);
+  </script>
+</body>
 </html>
