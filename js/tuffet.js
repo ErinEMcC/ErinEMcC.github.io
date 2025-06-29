@@ -1,5 +1,12 @@
 function createGrammar(RiTa, context) {
   // Create the grammar rules
+  var animals = require('.data/animals.json').animals;
+  // a helper function that we add to all arrays
+  // this picks a random element from an array
+  Array.prototype.pick = function() {
+    return this[Math.floor(Math.random()*this.length)];
+  };
+  
   const rules = {
     // The starting rule - this is what gets expanded first
     // The pipe symbol | provides alternatives
