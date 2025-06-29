@@ -1,8 +1,7 @@
 async function createGrammar(RiTa, context) {
   // Fetch JSON from your published GitHub Pages URL
   const response = await fetch("./data/animals.json");
-  const json = await response.json();
-  const animals = json.animals;
+  const animals = await response.json(); // the array directly
 
   const rules = {
     "start": "<h2>My name is Erin</h2><br>$line2<br>$line3<br>$line4<br>$line5<br>$line6<br>",
