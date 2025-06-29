@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+/* Base styles */
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: white;
+  color: dimgray;
+  font-size: large;
+  line-height: 150%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Container to center content */
+.container {
+  width: 75%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: left;
+}
+
+/* Title styling */
+h2 {
+  color: darkgray;
+  /* text-align: center; */
+  margin: 20px auto 30px;
+}
+
+/* Output area */
+#output {
+  margin-bottom: 30px;
+  min-height: 50px;
+}
+
+/* Button container */
+#reload {
+  margin: 30px 0;
+}
+
+/* Information area */
+#about {
+  font-size: small;
+  margin-top: 40px;
+  border-top: 1px solid #eee;
+  padding-top: 20px;
+}
+
+/* Button styling */
+button {
+  background-color: dimgray;
+  border-radius: 10px;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #555;
+}
+
+button:active {
+  background-color: darkblue;
+  color: white;
+}
