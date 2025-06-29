@@ -46,7 +46,16 @@
       RiTa.addTransform("rhymes", addRhyme);
       
       // Get grammar rules
-      let rules = createGrammar(RiTa, context);
+      createGrammar(RiTa, context).then((rules) => {
+        window.generatePrompt = function() {
+          let rg = RiTa.grammar(rules, context);
+          let result = rg.expand();
+          $("#output").html(result);
+        };
+      
+        // Run on load
+        generatePrompt();
+      });
       
       /**
        * Generate and display
