@@ -1,1 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Framed Secret Download</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: url('assets/transparency-grid.jpg') repeat;
+      background-size: 600px 600px;  
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .frame-container {
+      position: relative;
+      background-image: url(''assets/frame-blue.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      width: 600px;
+      height: 400px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .secret-image {
+      max-width: 80%;
+      max-height: 80%;
+      cursor: pointer;
+    }
+
+    .gallery-tag {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 6px 12px;
+      font-family: sans-serif;
+      font-size: 14px;
+      border-radius: 4px;
+      box-shadow: 0 0 4px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+  <div class="frame-container">
+    <a href="secret-desktop.png" download>
+      <img src="'assets/secret-desktop.png" alt="Secret" class="secret-image">
+    </a>
+    <div class="gallery-tag">Secret Desktop (click to download)</div>
+  </div>
+</body>
+</html>
 
