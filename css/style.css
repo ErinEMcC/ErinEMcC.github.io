@@ -126,7 +126,7 @@ video {
   cursor: grab;
   user-select: none;
   transition: box-shadow 0.3s ease, transform 0.3s ease;
-  max-width: 25vw;
+  width: 100px;
   height: auto;
   position: relative;
   transition: box-shadow 0.3s ease, transform 0.3s ease;
