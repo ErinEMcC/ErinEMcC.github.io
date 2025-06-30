@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Art / Work</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: url('assets/tuliptree.png') no-repeat center center;
+      background-size: cover;
+      font-family: Georgia, serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+
+    .frame-wall {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      max-width: 1200px;
+      margin: 3rem auto;
+      perspective: 1200px;
+      flex-wrap: wrap;
+    }
+
+    .frame {
+      flex: 1 1 200px;
+      transition: transform 0.4s ease, filter 0.4s ease;
+      transform-origin: center center;
+      position: relative;
+    }
+
+    .frame img {
+      width: 100%;
+      border: 10px solid #555;
+      border-radius: 8px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+      transition: transform 0.4s ease, filter 0.4s ease;
+      display: block;
+    }
+
+    .caption {
+      text-align: center;
+      background: rgba(255,255,255,0.8);
+      padding: 0.5rem;
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .frame:hover {
+      transform: scale(1.1) translateY(-10px) rotateY(0deg);
+      z-index: 10;
+    }
+
+    .frame:hover img {
+      filter: brightness(1.1);
+    }
+
+    .frame-wall .frame:not(:hover) {
+      transform: scale(0.95);
+      filter: brightness(0.8);
+    }
+
+    .publications {
+      max-width: 800px;
+      margin: 2rem auto;
+      background: rgba(255,255,255,0.85);
+      padding: 1rem;
+      border-radius: 10px;
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    .publications ul {
+      margin-top: 0.5rem;
+      padding-left: 1.2rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="frame-wall">
+    <div class="frame">
+      <a href="https://doi.org/10.1002/nml.21532" target="_blank">
+        <img src="images/art-nlp.png" alt="Nonprofits NLP classification">
+        <div class="caption">Identifying Essential Nonprofits with a Novel NLP Method</div>
+      </a>
+    </div>
+    <div class="frame">
+      <a href="https://youtu.be/sjQZOyIj2I0?si=cyyFIGxfTnx3Xmn1" target="_blank">
+        <img src="images/pod-antit.png" alt="Computational Antitrust podcast">
+        <div class="caption">Computational Antitrust Interview</div>
+      </a>
+    </div>
+    <div class="frame">
+      <a href="https://doi.org/10.1162/99608f92.cc479d52" target="_blank">
+        <img src="images/art-hdsr.png" alt="Viral outbreak convergence research">
+        <div class="caption">Convergence in Viral Outbreak Research</div>
+      </a>
+    </div>
+    <div class="frame">
+      <a href="https://docs.google.com/presentation/d/e/2PACX-1vTXNuz97TbcRg6KOSoB6mmbeiHc5gEZ-qeUfxQGXtVfRbYCBWMGBlrf-xwlVKLnhQ/pub?start=false&loop=false&delayms=30000" target="_blank">
+        <img src="images/talk-praxis.png" alt="Presentation slides">
+        <div class="caption">Art / Research Presentation Slides</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="publications">
+    <p><strong>OTHER PUBLICATIONS</strong></p>
+    <ul>
+      <li>“Using online reviews to assess important healthcare components in Ohio Emergency Care Facilities” with Khaled Bader, Rebecca Lee, Brittany Punches, Man Qi, and Amy Koshoffer. International Emergency Nursing (Pending).</li>
+      <li>“Model of Models: Synthesizing Natural Language Processing and Social Network Analysis Enhances the Human Interpretability of AI/ML Models in Transdisciplinary Team Science Research” (Pending).</li>
+      <li>"Early Identification of Family Medicine Physicians Using Qualitative Admissions Data" Family Medicine (2022). DOI: <a href="https://doi.org/10.22454/FamMed.2023.596964">10.22454/FamMed.2023.596964</a></li>
+      <li>“Identifying Essential Nonprofits with a Novel NLP Method” with Michael Jones and Rebecca Olson. Nonprofit Management & Leadership (2022). DOI: <a href="https://doi.org/10.1002/nml.21532">10.1002/nml.21532</a>
+      <li>“Convergence in Viral Outbreak Research: Using Natural Language Processing to Define Network Bridges in the Bench-Bedside-Population Paradigm” with Margaret V. Powers-Fletcher, Sally Luken, Danny Wu, Philip A. Hagedorn, et al. The Harvard Data Science Review, 3(1) 2021. DOI: <a href="https://doi.org/10.1162/99608f92.cc479d52">10.1162/99608f92.cc479d52</a></li>
+      <li>“Data-Informed Tools for Archaeological Reflexivity: Examining the substance of bone through a meta-analysis of academic texts” with Sarah E. Jackson, Caleigh E. Richissin, and James Jaehoon Lee. Journal of Internet Archaeology, 55 (2020). DOI: <a href="https://doi.org/10.11141/ia.55.12">10.11141/ia.55.12</a></li>
+      <li>“Mining the Harvard Caselaw Access Project” Antitrust and Trade Regulation Commons (2020).</li>
+      <li>“Tweeting for social justice in #Ferguson” New Media & Society (2019). DOI: <a href="https://doi.org/10.1177/1461444819827030">10.1177/1461444819827030</a></li>
+      <li>“NYCDH Week 2016: Workshops in Review.” Journal of Interactive Technology and Pedagogy (2017).</li>
+    </ul>
+  </div>
+
+  <div class="publications">
+    <p><strong>WORKSHOPS and PRESENTATIONS</strong></p>
+    <ul>
+      <li>“MFA Thesis Presentation Series” with Tiffany Mi, Lindsey Pannor & Shefali Trivedi at Brown University Literary Arts, May 2025.</li>
+      <li>Art, Research, and AI: Research in Praxis, Queens College SLIS, Dec 2024.</li>
+      <li>1910s Cannabis Discourse and Prohibition, Drug History Project, March 2023.</li>
+      <li>“Can You Hear Me Major Tom?” US Mass Media & Space Exploration, SRIDE Annual Symposium, Nov 2022.</li>
+      <li>“Linguistic Connectivity in Early Modern Scholarship” SCSC Conference, Oct 2022.</li>
+      <li>“Modeling the Caselaw Access Project” Pitt Governance & Markets, Nov 2022.</li>
+      <li>“New Competition Tools: DMA & Computational Antitrust” Vienna Competition Law Days, Sept 2022.</li>
+      <li>“Doctrinal Implications of Computational Antitrust” CodeX Stanford, Dec 2021.</li>
+      <li>“Machines & Language: NLP in Research” UC Data Day, Oct 2020.</li>
+      <li>“Introduction to Machine Learning (Python)” Louisville DH Institute, May 2019.</li>
+      <li>“Data Sousveillance” Cultural Studies Association Annual Conference, 2016.</li>
+    </ul>
+  </div>
+
+</body>
+</html>
