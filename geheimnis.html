@@ -8,8 +8,7 @@
       margin: 0;
       padding: 0;
       background: url('assets/transparency-grid.jpg') repeat;
-      background-size: 600px 600px;  
-      display: flex;
+      background-size: 600px 600px;        display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
@@ -20,8 +19,9 @@
       background-image: url('assets/frame-blue.png');
       background-size: contain;
       background-repeat: no-repeat;
-      width: 600px;
-      height: 400px;
+      width: 66vw; /* about 2/3 of viewport width */
+      height: auto;
+      aspect-ratio: 3 / 2; /* keep a nice proportion (you can adjust if needed) */
       display: flex;
       justify-content: center;
       align-items: center;
@@ -40,7 +40,7 @@
       background: rgba(255, 255, 255, 0.8);
       padding: 6px 12px;
       font-family: sans-serif;
-      font-size: 14px;
+      font-size: 16px;
       border-radius: 4px;
       box-shadow: 0 0 4px rgba(0,0,0,0.2);
     }
@@ -48,11 +48,11 @@
 </head>
 <body>
   <div class="frame-container">
-    <a href="secret-desktop.png" download>
-      <img src="'assets/secret-desktop.png" alt="Secret" class="secret-image">
+    <a href="assets/secret-desktop.png" download>
+      <img src="assets/secret-desktop.png" alt="Secret" class="secret-image">
     </a>
-    <div class="gallery-tag">Secret Desktop (click to download)</div>
+    <div class="gallery-tag">Secret Desktop (click to download for more secrets)<br>- Decode the Caesar Cypher<br>- Upload the png into a hex editor</div>
   </div>
 </body>
 </html>
-
+      
