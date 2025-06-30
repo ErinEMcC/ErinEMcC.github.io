@@ -21,16 +21,16 @@
       background-size: contain;
       background-repeat: no-repeat;
       width: 66vw; 
-      height: auto;
-      aspect-ratio: 994 / 720;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      aspect-ratio: 994 / 720; 
     }
 
     .secret-image {
-      max-width: 80%;
-      max-height: 80%;
+      position: absolute;
+      top: 19%;
+      left: 15%;
+      width: 69%;
+      height: 61%;
+      object-fit: contain;
       cursor: pointer;
     }
 
@@ -52,8 +52,11 @@
     <a href="assets/secretDesktop.png" download>
       <img src="assets/secretDesktop.png" alt="Secret" class="secret-image">
     </a>
-    <div class="gallery-tag">Secret Desktop (click to download for more secrets)<br>- Decode the Caesar Cypher<br>- Upload the png into a hex editor</div>
+    <div class="gallery-tag">
+      Secret Desktop (click to download for more secrets)<br>
+      - Decode the Caesar Cipher<br>
+      - Upload the png into a hex editor
+    </div>
   </div>
 </body>
 </html>
-      
