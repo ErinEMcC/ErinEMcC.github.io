@@ -20,20 +20,20 @@
       box-sizing: border-box;
     }
 
-    .audio-player {
-      position: fixed;
-      top: 1rem;
-      left: 1rem;
-      background: rgba(255, 255, 255, 0.8);
-      border-radius: 8px;
-      padding: 0.5rem;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
-      z-index: 1000;
+    .audio-wrapper {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 1rem;
+      max-width: 700px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      margin-bottom: 1rem;
     }
-    .audio-player audio {
-      width: 200px; /* or adjust as you like */
+    
+    .audio-label {
+      margin: 0 0 0.5rem 0;
+      font-weight: bold;
+      font-family: Georgia, serif;
     }
-
 
     .story-container {
       background: rgba(255, 255, 255, 0.95);
@@ -55,11 +55,13 @@
   </style>
 </head>
 <body>
-  <div class="audio-player">
+  <div class="audio-wrapper">
+  <p class="audio-label">🎧 Listen to the audio version:</p>
   <audio controls>
-    <source src="assets/auntrita.mp3" type="audio/mpeg">
+    <source src="assets/skunk-and-bear.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
+</div>
 </div>
 
   <div class="story-container">
