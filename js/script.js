@@ -26,9 +26,7 @@ function checkAllAnimalsPlaced() {
 document.addEventListener('DOMContentLoaded', () => {
   let anyPlaced = false;
   checkAllAnimalsPlaced();
-  if (butterflyAnimal) {
-    butterflyAnimal.style.display = 'inline';
-  }
+
 
   animals.forEach(animal => {
     const id = animal.dataset.id;
