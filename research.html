@@ -18,6 +18,30 @@
       box-sizing: border-box;
     }
 
+    .navbar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 0.5rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    
+    .navbar img {
+      height: 50px;
+      width: auto;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    
+    .navbar img:hover {
+      transform: scale(1.1);
+    }
+
+
     .frame-wall {
       display: flex;
       justify-content: center;
@@ -84,6 +108,21 @@
   </style>
 </head>
 <body>
+  
+  <nav class="navbar">
+    <a href="https://erinemcc.github.io">
+      <img src="images/button-home.png" alt="Nav 1">
+    </a>
+    <a href="https://erinemcc.github.io/art.html">
+      <img src="images/button-art.png" alt="Nav 2">
+    </a>
+    <a href="https://erinemcc.github.io/research.html">
+      <img src="images/button-research.png" alt="Nav 3">
+    </a>
+    <a href="https://erinemcc.github.io/cv.html">
+      <img src="images/button-cv.png" alt="Nav 4">
+    </a>
+  </nav>
 
   <div class="frame-wall">
     <div class="frame">
