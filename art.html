@@ -2,56 +2,135 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Framed Secret Download</title>
+  <title>Art / Work</title>
   <style>
     body {
       margin: 0;
       padding: 0;
-      background: #f0f0f0;
+      background: url('assets/transparency-grid.jpg') repeat;
+      background-size: 700px 700px;
+      font-family: Georgia, serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+
+    .frame-wall {
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      gap: 1rem;
+      max-width: 1200px;
+      margin: 3rem auto;
+      perspective: 1200px;
+      flex-wrap: wrap;
     }
 
-    .frame-container {
+    .frame {
+      flex: 1 1 200px;
+      transition: transform 0.4s ease, filter 0.4s ease;
+      transform-origin: center center;
       position: relative;
-      background-image: url('assets/frame-blue.png');
-      background-size: contain;
-      background-repeat: no-repeat;
-      width: 66vw;
-      aspect-ratio: 994 / 720;
     }
 
-    .secret-image {
-      position: absolute;
-      top: 19%;
-      left: 15%;
-      width: 69%;
-      height: 61%;
-      object-fit: contain;
-      cursor: pointer;
+    .frame img {
+      width: 100%;
+      border: 10px solid #555;
+      border-radius: 8px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+      transition: transform 0.4s ease, filter 0.4s ease;
+      display: block;
     }
 
-    .gallery-tag {
-      position: absolute;
-      bottom: 10px;
-      left: 10px;
-      background: rgba(255, 255, 255, 0.8);
-      padding: 6px 12px;
-      font-family: sans-serif;
-      font-size: 16px;
-      border-radius: 4px;
-      box-shadow: 0 0 4px rgba(0,0,0,0.2);
+    .caption {
+      text-align: center;
+      background: rgba(255,255,255,0.8);
+      padding: 0.5rem;
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .frame:hover {
+      transform: scale(1.1) translateY(-10px) rotateY(0deg);
+      z-index: 10;
+    }
+
+    .frame:hover img {
+      filter: brightness(1.1);
+    }
+
+    .frame-wall .frame:not(:hover) {
+      transform: scale(0.95);
+      filter: brightness(0.8);
+    }
+
+    .works {
+      max-width: 800px;
+      margin: 2rem auto;
+      background: rgba(255,255,255,0.85);
+      padding: 1rem;
+      border-radius: 10px;
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    .works ul {
+      margin-top: 0.5rem;
+      padding-left: 1.2rem;
     }
   </style>
 </head>
 <body>
-  <div class="frame-container">
-    <a href="assets/secretDesktop.png" download>
-      <img src="assets/secretDesktop.png" alt="Secret" class="secret-image">
-    </a>
-    <div class="gallery-tag">Secret Desktop (click to download)</div>
+
+  <div class="frame-wall">
+    <div class="frame">
+      <a href="https://erinemcc.github.io/giraffe-fidl.html" target="_blank">
+        <img src="images/fidl-comic.png" alt="FIDL Comic Book">
+        <div class="caption">The Familiar Impossible</div>
+      </a>
+    </div>
+    <div class="frame">
+      <a href="https://erinemcc.github.io/cope.html" target="_blank">
+        <img src="images/cope.jpg" alt="CoPE Project">
+        <div class="caption">The CoPE Project</div>
+      </a>
+    </div>
+    <div class="frame">
+      <a href="https://erinemcc.github.io/aunt-rita.html" target="_blank">
+        <img src="images/aunt-bison.png" alt="Aunt Rita Short Story">
+        <div class="caption">Aunt Rita</div>
+      </a>
+    </div>
+    <div class="frame">
+      <a href="https://erinemcc.github.io/geheimnis.html" target="_blank">
+        <img src="images/secret-desktop.png" alt="Secrets inside Secrets">
+        <div class="caption">Secret Desktop</div>
+      </a>
+    </div>
   </div>
+
+  <div class="works">
+    <p><strong>VIDEO</strong></p>
+    <ul>
+      <li></li>
+    </ul>
+  </div>
+
+  <div class="works">
+    <p><strong>SOUND</strong></p>
+    <ul>
+      <li></li>
+    </ul>
+  </div>
+  <div class="works">
+    <p><strong>BITS & BOBS</strong></p>
+    <ul>
+      <li></li>
+    </ul>
+  </div>
+
 </body>
 </html>
