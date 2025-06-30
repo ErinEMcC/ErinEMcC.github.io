@@ -118,7 +118,7 @@ video {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  gap: 2vw;
+  gap: clamp(0.5vw, 1vw, 2vw);
   height: 25vh;
 }
 
