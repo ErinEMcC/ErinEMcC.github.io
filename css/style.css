@@ -133,12 +133,12 @@ video {
 }
 
 /* Unique sizes for each animal */
-.bison { height: 20vh; }
-.bear { height: 20vh; }
+.bison { height: 19vh; }
+.bear { height: 19vh; }
 .giraffe { height: 29vh; }
 .bee { height: 10vh; }
 .dog { height: 15vh; }
-.unicorn { height: 13vh; }
+.unicorn { height: 15vh; }
 .elephant { height: 24vh; }
 .butterfly { height: 11vh; }
 
