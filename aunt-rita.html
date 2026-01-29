@@ -58,7 +58,15 @@
       min-height: 520px;
 
       padding: 2.5rem 3rem;
-      background: #ffffff;
+      background:
+        linear-gradient(
+          to right,
+          #ffffff 0%,
+          #ffffff calc(50% - 1.5rem),
+          rgba(0,0,0,0.08) 50%,
+          #ffffff calc(50% + 1.5rem),
+          #ffffff 100%
+        );
 
       border-radius: 14px;
       box-shadow: 0 18px 40px rgba(0,0,0,0.18);
