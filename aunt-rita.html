@@ -60,13 +60,8 @@
       box-shadow: 0 18px 40px rgba(0,0,0,0.18);
       overflow-y: auto;      /* scroll “inside” the book */
     
-      background:
-        linear-gradient(to right,
-          rgba(0,0,0,0.03) 0%,
-          rgba(255,255,255,0.96) 6%,
-          rgba(255,255,255,0.96) 94%,
-          rgba(0,0,0,0.03) 100%);
-      
+      background:#ffffff;
+  
       column-count: 2;
       column-gap: 6rem;
       column-rule: 1px solid rgba(0,0,0,0.10);
@@ -114,6 +109,22 @@
         radial-gradient(circle at 70% 85%, rgba(0,0,0,0.02), transparent 55%);
       opacity: 0.65;
     }
+
+    .story-container::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    
+      background: linear-gradient(
+        to right,
+        rgba(0,0,0,0.06) 0%,
+        rgba(0,0,0,0.00) 8%,
+        rgba(0,0,0,0.00) 92%,
+        rgba(0,0,0,0.06) 100%
+      );
+    }
+
 
     h1 {
       font-size: 1.6rem;
