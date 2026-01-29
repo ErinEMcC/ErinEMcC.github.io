@@ -24,11 +24,14 @@
 
     /* Stack audio + book neatly */
     .page-wrap {
-      width: min(1100px, 100%);
+      width: 92vw;           /* most of the screen */
+      max-width: 1400px;     /* prevent ultra-wide weirdness */
+      min-width: 900px;      /* ensures two pages have room */
       display: flex;
       flex-direction: column;
       gap: 1rem;
     }
+
 
     .audio-wrapper {
       background: rgba(255, 255, 255, 0.95);
@@ -46,19 +49,24 @@
     /* OPEN BOOK LOOK */
     .story-container {
       position: relative;
-      padding: 2.25rem 2.25rem;
+    
+      width: 100%;
+      height: 72vh;          /* feels like an open book */
+      max-height: 900px;
+      min-height: 520px;
+    
+      padding: 2.5rem 3rem;
       border-radius: 14px;
       box-shadow: 0 18px 40px rgba(0,0,0,0.18);
-      overflow: hidden;
-
-      /* “paper” base */
+      overflow-y: auto;      /* scroll “inside” the book */
+    
       background: rgba(255, 255, 255, 0.96);
-
-      /* two-page spread */
+    
       column-count: 2;
-      column-gap: 5.5rem;              /* the “gutter” */
-      column-rule: 1px solid rgba(0,0,0,0.10); /* subtle crease line */
+      column-gap: 6rem;
+      column-rule: 1px solid rgba(0,0,0,0.10);
     }
+
 
     /* Page shading + spine shadow */
     .story-container::before {
@@ -123,13 +131,18 @@
 
     /* Responsive: collapse to single page on small screens */
     @media (max-width: 900px) {
+      .page-wrap {
+      width: 95vw;
+      min-width: unset;
+    }
+
       .story-container {
         column-count: 1;
-        column-gap: 0;
-        column-rule: none;
+        height: auto;
+        max-height: none;
         padding: 1.75rem 1.5rem;
       }
-
+    }
       .story-container::before {
         background: linear-gradient(to right,
           rgba(0,0,0,0.05) 0%,
