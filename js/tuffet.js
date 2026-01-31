@@ -72,7 +72,7 @@ async function generatePrompt() {
 // make it callable from your onclick=""
 window.generatePrompt = generatePrompt;
 function downloadCoverLetter() {
-  const text = lastCoverLetterText || "Cover letter not generated yet. Click 'Read New Cover Letter' first.";
+  const text = (lastCoverLetterText || "").trim() + "\n\n—\nErin E. McCabe, Librarian/Maker\nerinemcc.github.io\n";
 
   const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
   const url = URL.createObjectURL(blob);
