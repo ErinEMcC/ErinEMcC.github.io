@@ -73,6 +73,13 @@ async function generatePrompt() {
 window.generatePrompt = generatePrompt;
 
 function downloadCoverLetter() {
+  const text = (lastCoverLetterText || "").trim();
+
+  if (!text) {
+    alert("Cover letter not generated yet. Click 'Read New Cover Letter' first.");
+    return;
+  }
+
   // business card @ 300dpi: 3.5in x 2in
   const dpi = 300;
   const w = Math.round(3.5 * dpi); // 1050
@@ -81,43 +88,91 @@ function downloadCoverLetter() {
   const canvas = document.createElement("canvas");
   canvas.width = w;
   canvas.height = h;
-
   const ctx = canvas.getContext("2d");
 
-  // background (transparent-ish white)
+  // background + border
   ctx.fillStyle = "rgba(255,255,255,0.98)";
   ctx.fillRect(0, 0, w, h);
 
-  // subtle border
   ctx.strokeStyle = "rgba(0,0,0,0.18)";
   ctx.lineWidth = 6;
   ctx.strokeRect(18, 18, w - 36, h - 36);
 
-  // text
+  // layout
   const padX = 70;
-  const padBottom = 95;
+  const padTop = 80;
+  const padBottom = 90;
 
+  const maxTextWidth = w - padX * 2;
+
+  // reserve space at bottom for signature
+  const signatureHeight = 95;
+  const maxY = h - padBottom - signatureHeight;
+
+  // --- helpers: wrap text ---
+  function wrapLines(str, font, maxWidth) {
+    ctx.font = font;
+    const rawLines = str.split("\n");
+    const out = [];
+
+    for (const raw of rawLines) {
+      const words = raw.split(/\s+/).filter(Boolean);
+      if (words.length === 0) {
+        out.push(""); // keep blank line
+        continue;
+      }
+      let line = words[0];
+      for (let i = 1; i < words.length; i++) {
+        const test = line + " " + words[i];
+        if (ctx.measureText(test).width <= maxWidth) {
+          line = test;
+        } else {
+          out.push(line);
+          line = words[i];
+        }
+      }
+      out.push(line);
+    }
+    return out;
+  }
+
+  // --- draw poem/cover letter ---
   ctx.fillStyle = "rgba(0,0,0,0.88)";
+  ctx.textBaseline = "top";
+
+  const poemFont = "30px Georgia";       // small enough to fit on business card
+  const lineHeight = 38;
+
+  const poemLines = wrapLines(text, poemFont, maxTextWidth);
+
+  let y = padTop;
+  ctx.font = poemFont;
+
+  for (const line of poemLines) {
+    if (y + lineHeight > maxY) break; // stop if we run out of space
+    ctx.fillText(line, padX, y);
+    y += lineHeight;
+  }
+
+  // --- signature at bottom ---
   ctx.textBaseline = "alphabetic";
 
-  // name line
-  ctx.font = "42px Georgia";
-  ctx.fillText("Erin E. McCabe, Librarian/Maker", padX, h - padBottom);
-
-  // site line
   ctx.font = "34px Georgia";
-  ctx.globalAlpha = 0.85;
-  ctx.fillText("erinemcc.github.io", padX, h - padBottom + 58);
+  ctx.globalAlpha = 0.9;
+  ctx.fillText("Erin E. McCabe, Librarian/Maker", padX, h - padBottom - 40);
+
+  ctx.font = "28px Georgia";
+  ctx.globalAlpha = 0.75;
+  ctx.fillText("erinemcc.github.io", padX, h - padBottom);
   ctx.globalAlpha = 1;
 
-  // download
+  // download PNG
   canvas.toBlob((blob) => {
     if (!blob) return;
-
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "Erin_E_McCabe_Business_Card.png";
+    a.download = "Erin_E_McCabe_Cover_Letter.png";
     document.body.appendChild(a);
     a.click();
     a.remove();
