@@ -23,7 +23,7 @@
       width: 75vw;
       max-width: 1000px;
       position: relative;
-      padding-top: 56.25%; /* 16:9 aspect ratio */
+      padding-top: 56.25%;
       margin-bottom: 2rem;
       box-shadow: 0 0 20px rgba(0,0,0,0.2);
       border-radius: 12px;
@@ -49,9 +49,46 @@
       padding: 1rem;
       border-radius: 10px;
     }
+
+    /* ===== Floating sidequest button ===== */
+    .random-nav-btn {
+      position: fixed;
+      left: 18px;
+      bottom: 18px;
+      z-index: 9999;
+      filter: drop-shadow(0 6px 14px rgba(0,0,0,0.25));
+    }
+
+    .random-nav-btn img {
+      width: 155px; /* match your other page */
+      height: auto;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-drag: none;
+      transition: transform 160ms ease;
+    }
+
+    .random-nav-btn img:hover {
+      transform: translateY(-2px) scale(1.03);
+    }
+
+    .random-nav-btn img:active {
+      transform: scale(0.98);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .random-nav-btn img {
+        transition: none;
+      }
+    }
   </style>
 </head>
 <body>
+
+  <!-- Floating sidequest button -->
+  <a href="#" class="random-nav-btn" id="randomNavBtn" aria-label="Sidequest">
+    <img src="assets/sidequest.png" alt="Sidequest">
+  </a>
 
   <div class="video-container">
     <iframe src="https://www.youtube.com/embed/CNAYEzjzhEU?si=OH4dR5kglD7UIFFn"
@@ -66,6 +103,26 @@
     <p><strong>Dog Star</strong></p>
     <p>A video-memory of a wannabe-Ramona Quimby childhood and some of the things that can be real when you are still figuring out what real is.</p>
   </div>
+
+  <script>
+    const randomUrls = [
+      "https://erinemcc.github.io/aunt-rita.html",
+      "https://erinemcc.github.io/bee-umwelt.html",
+      "https://erinemcc.github.io/dog-star.html",
+      "https://erinemcc.github.io/unicorns.html",
+      "https://erinemcc.github.io/cope.html",
+      "https://erinemcc.github.io/skunk-and-bear.html",
+      "https://erinemcc.github.io/cv.html",
+      "https://erinemcc.github.io/research.html"
+    ];
+
+    const btn = document.getElementById("randomNavBtn");
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      const i = Math.floor(Math.random() * randomUrls.length);
+      window.location.href = randomUrls[i];
+    });
+  </script>
 
 </body>
 </html>
