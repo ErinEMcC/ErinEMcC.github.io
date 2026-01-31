@@ -1,9 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Curriculum Vitae</title>
+
+  <!-- your existing site css -->
   <link rel="stylesheet" href="css/style.css">
+
+  <!-- TUFFET css (use your existing file) -->
+  <link rel="stylesheet" href="css/tuffet.css" />
+
+  <!-- libs for TUFFET -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="https://rednoise.org/rita/rita.js"></script>
+
   <style>
     body {
       margin: 0;
@@ -11,29 +22,57 @@
       background: url('assets/transparency-grid.jpg') repeat;
       background-size: cover;
       font-family: sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
       height: 100vh;
-      position: relative;
       overflow: hidden;
     }
 
+    /* NEW: 2-column layout */
+    .layout {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3vw;
+      padding: 4vh 4vw;
+      box-sizing: border-box;
+    }
+
+    /* Left: Tuffet panel */
+    .tuffet-panel {
+      width: 34%;
+      min-width: 280px;
+      max-width: 420px;
+      height: 85vh;
+      overflow: auto;
+
+      background: rgba(255,255,255,0.92);
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+      padding: 1.25rem 1.25rem 1.5rem;
+      box-sizing: border-box;
+    }
+
+    /* Match your existing tuffet container structure */
+    .tuffet-panel .container {
+      width: 100%;
+      margin: 0;
+    }
+
+    /* Right: CV page container (mostly your original) */
     .page-container {
-      margin-top: 5vh;
-      width: 80%;
+      width: 60%;
       max-width: 800px;
       perspective: 1000px;
       display: flex;
       justify-content: center;
+      align-items: center;
     }
 
     .page-wrapper {
       position: relative;
       display: inline-block;
     }
-    
+
     .page {
       height: 85vh;
       width: auto;
@@ -44,9 +83,7 @@
     }
 
     @keyframes openPage {
-      to {
-        transform: rotateY(0deg);
-      }
+      to { transform: rotateY(0deg); }
     }
 
     .download-image-button {
@@ -59,28 +96,62 @@
       transition: transform 0.2s ease;
       z-index: 10;
     }
-    
-    .download-image-button:hover {
-      transform: scale(1.05);
-    }
 
+    .download-image-button:hover { transform: scale(1.05); }
     .download-image-button:active {
       transform: scale(0.97) translateY(2px);
       filter: brightness(0.95);
+    }
+
+    /* Responsive: stack on small screens */
+    @media (max-width: 900px) {
+      body { overflow: auto; height: auto; }
+      .layout {
+        height: auto;
+        flex-direction: column;
+        align-items: center;
+      }
+      .tuffet-panel, .page-container {
+        width: min(92vw, 800px);
+        height: auto;
+      }
+      .page { height: auto; width: 100%; max-height: 85vh; }
+      .download-image-button { height: 14vh; }
     }
   </style>
 </head>
 
 <body>
+  <div class="layout">
 
-  <div class="page-container">
-  <div class="page-wrapper">
-    <img src="assets/cv.png" alt="CV Preview" class="page">
-    <a href="assets/cv.pdf" download>
-      <img src="assets/button-downloadcv.png" alt="Download CV" class="download-image-button">
-    </a>
+    <!-- LEFT: TUFFET -->
+    <aside class="tuffet-panel">
+      <div class="container">
+        <div id="output">Loading...</div>
+        <div id="reload">
+          <button onclick="generatePrompt()">Read New Cover Letter</button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- RIGHT: CV -->
+    <div class="page-container">
+      <div class="page-wrapper">
+        <img src="assets/cv.png" alt="CV Preview" class="page">
+        <a href="assets/cv.pdf" download>
+          <img src="assets/button-downloadcv.png" alt="Download CV" class="download-image-button">
+        </a>
+      </div>
+    </div>
+
   </div>
-</div>
-  
+
+  <!-- TUFFET JS (your working file) -->
+  <script src="js/tuffet.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      if (window.generatePrompt) window.generatePrompt();
+    });
+  </script>
 </body>
 </html>
