@@ -55,7 +55,7 @@ async function generatePrompt() {
     `${verb} my ${gizmo};`,
     `Then came a ${adjective} ${animal},`,
     `with a secret ${noun},`,
-    slantline
+    slantLine
   ];
 
   $("#output").html(lines.join("<br>"));
