@@ -3,13 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <title>unicorns</title>
+
   <style>
     body {
       margin: 0;
-      padding: 0;
       background: url('assets/transparency-grid.jpg') repeat;
       background-size: cover;
       font-family: 'Georgia', serif;
+      color: #2d2d2d;
+
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -18,12 +20,103 @@
       padding: 5vh 0;
       box-sizing: border-box;
     }
-    </style>
-  </head>
+
+    /* Clean text container */
+    .wip-card {
+      width: min(700px, 85vw);
+      background: rgba(255,255,255,0.92);
+      padding: 1.75rem 2rem;
+      border-radius: 14px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+      line-height: 1.6;
+    }
+
+    .wip-card h1 {
+      font-size: 1.3rem;
+      margin: 0 0 1rem 0;
+      text-align: left;
+    }
+
+    .wip-card ul {
+      margin: 0;
+      padding-left: 1.2rem;
+    }
+
+    .wip-card li {
+      margin-bottom: 0.6rem;
+    }
+
+    /* ===== Floating sidequest button ===== */
+    .random-nav-btn {
+      position: fixed;
+      left: 18px;
+      bottom: 18px;
+      z-index: 9999;
+      filter: drop-shadow(0 6px 14px rgba(0,0,0,0.25));
+    }
+
+    .random-nav-btn img {
+      width: 155px;
+      height: auto;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-drag: none;
+      transition: transform 160ms ease;
+    }
+
+    .random-nav-btn img:hover {
+      transform: translateY(-2px) scale(1.03);
+    }
+
+    .random-nav-btn img:active {
+      transform: scale(0.98);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .random-nav-btn img { transition: none; }
+    }
+  </style>
+</head>
+
 <body>
-  <p>Always several works in progress...</p>
-  <p>This very website</p>
-  <p>Tufted Rothrock Forest Path Map</p>
-  <p>New Naiads: Women in Safety Inforgraphics</p>
+
+  <!-- Floating sidequest button -->
+  <a href="#"
+     class="random-nav-btn"
+     id="randomNavBtn"
+     aria-label="Sidequest"
+     title="maybe?">
+    <img src="assets/sidequest.png" alt="Sidequest">
+  </a>
+
+  <div class="wip-card">
+    <h1>Always several works in progress…</h1>
+    <ul>
+      <li>This very website</li>
+      <li>Tufted Rothrock Forest Path Map</li>
+      <li>New Naiads: Women in Safety Infographics</li>
+    </ul>
+  </div>
+
+  <script>
+    const randomUrls = [
+      "https://erinemcc.github.io/aunt-rita.html",
+      "https://erinemcc.github.io/bee-umwelt.html",
+      "https://erinemcc.github.io/dog-star.html",
+      "https://erinemcc.github.io/giraffe-fidl.html",
+      "https://erinemcc.github.io/cope.html",
+      "https://erinemcc.github.io/skunk-and-bear.html",
+      "https://erinemcc.github.io/cv.html",
+      "https://erinemcc.github.io/research.html"
+    ];
+
+    const btn = document.getElementById("randomNavBtn");
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      const i = Math.floor(Math.random() * randomUrls.length);
+      window.location.href = randomUrls[i];
+    });
+  </script>
+
 </body>
 </html>
