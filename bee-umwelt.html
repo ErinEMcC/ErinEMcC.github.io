@@ -30,8 +30,8 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.2);
       font-size: 14px;
       max-width: 200px;
+      z-index: 5;
     }
-
 
     .page-container {
       margin-top: 5vh;
@@ -81,23 +81,80 @@
       transform: scale(0.97) translateY(2px);
       filter: brightness(0.95);
     }
+
+    /* ===== Floating sidequest button ===== */
+    .random-nav-btn {
+      position: fixed;
+      left: 18px;
+      bottom: 18px;
+      z-index: 9999;
+      filter: drop-shadow(0 6px 14px rgba(0,0,0,0.25));
+    }
+
+    .random-nav-btn img {
+      width: 105px;
+      height: auto;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-drag: none;
+      transition: transform 160ms ease;
+    }
+
+    .random-nav-btn img:hover {
+      transform: translateY(-2px) scale(1.03);
+    }
+
+    .random-nav-btn img:active {
+      transform: scale(0.98);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .random-nav-btn img {
+        transition: none;
+      }
+    }
   </style>
 </head>
 
 <body>
 
+  <!-- Floating sidequest button -->
+  <a href="#" class="random-nav-btn" id="randomNavBtn" aria-label="Sidequest">
+    <img src="assets/sidequest.png" alt="Sidequest">
+  </a>
+
   <div class="corner-text-box">
-  <p>“This isn’t my own work, but it <i>is</i> my brilliant husband’s — and a frequent conversation topic in our shared lab!”</p>
+    <p>“This isn’t my own work, but it <i>is</i> my brilliant husband’s — and a frequent conversation topic in our shared lab!”</p>
   </div>
 
   <div class="page-container">
-  <div class="page-wrapper">
-    <img src="assets/elmo.png" alt="Elmo's Article" class="page">
-    <a href="https://www.thephilosopher1923.org/post/jakob-von-uexkull-umwelt">
-      <img src="assets/button-read.png" alt="Download CV" class="download-image-button">
-    </a>
+    <div class="page-wrapper">
+      <img src="assets/elmo.png" alt="Elmo's Article" class="page">
+      <a href="https://www.thephilosopher1923.org/post/jakob-von-uexkull-umwelt">
+        <img src="assets/button-read.png" alt="Read article" class="download-image-button">
+      </a>
+    </div>
   </div>
-</div>
-  
+
+  <script>
+    const randomUrls = [
+      "https://erinemcc.github.io/aunt-rita.html",
+      "https://erinemcc.github.io/giraffe-fidl.html",
+      "https://erinemcc.github.io/dog-star.html",
+      "https://erinemcc.github.io/unicorns.html",
+      "https://erinemcc.github.io/cope.html",
+      "https://erinemcc.github.io/skunk-and-bear.html",
+      "https://erinemcc.github.io/cv.html",
+      "https://erinemcc.github.io/research.html"
+    ];
+
+    const btn = document.getElementById("randomNavBtn");
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      const i = Math.floor(Math.random() * randomUrls.length);
+      window.location.href = randomUrls[i];
+    });
+  </script>
+
 </body>
 </html>
