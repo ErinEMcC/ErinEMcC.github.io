@@ -34,10 +34,10 @@ async function generatePrompt() {
   const animal = pick(animals.length ? animals : ["spider"]);
   const noun = pick(nouns);
 
-  const slantBobs = ["and now we all have to find jobs.", "in the style of Calvin & Hobbes", "and I know he makes more money than god.", "together we lounged, lazy blobs."];
+  const slantBobs = ["and now we're all working gig-jobs.", "in the style of Calvin & Hobbes", "he's making more money than god.", "together we slacked, lazy blobs."];
   const slantEnds = ["plus a syrah-grenache blend.", "preaching about AI trends.", "saying we're more of 'work friends'.", "asking to borrow my pen."];
-  const slantBrac = ["asking if I'm full-stack.", "saying the team has lost track.", "saying we should circle back.", "asking if I saw his message on Slack."];
-  const slantThings = ["kings.", "wings.", "strings.", "rings.", "springs.", "brings."];
+  const slantBrac = ["asking if I go full-stack.", "saying the team has lost track.", "saying we should circle back.", "asking if I saw his message on Slack"];
+  const slantThings = ["asking if I've blocked his pings.", "to take me under her wing.", "buying my art made from strings.", "calling me to the 3 Rings.", "asking what data to bring."];
 
   const slantByGizmo = {
     "bits and bobs": slantBobs,
