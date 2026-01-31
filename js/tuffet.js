@@ -71,23 +71,7 @@ async function generatePrompt() {
 
 // make it callable from your onclick=""
 window.generatePrompt = generatePrompt;
-function downloadCoverLetter() {
-  const text = (lastCoverLetterText || "").trim() + "\n\n—\nErin E. McCabe, Librarian/Maker\nerinemcc.github.io\n";
 
-  const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
-  const url = URL.createObjectURL(blob);
-
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = "Erin_E_McCabe_Cover_Letter.txt";
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-
-  URL.revokeObjectURL(url);
-}
-
-// expose to onclick=""
 function downloadCoverLetter() {
   // business card @ 300dpi: 3.5in x 2in
   const dpi = 300;
@@ -140,3 +124,6 @@ function downloadCoverLetter() {
     URL.revokeObjectURL(url);
   }, "image/png");
 }
+
+// expose to onclick=""
+window.downloadCoverLetter = downloadCoverLetter;
