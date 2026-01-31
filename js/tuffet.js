@@ -1,21 +1,55 @@
-async function createGrammar(RiTa, context) {
-  const response = await fetch("./data/animals.json");
-  const animals = await response.json();
-  
-  const rules = {
-    start: "<h2>My name is Erin</h2><br>$line2<br>$line3<br>$line4<br>$line5<br>$line6<br>",
-    line2: "I'm a $librarian",
-    line3: "$gerund my $gizmo",
-    line4: "There came a $oneSyllableAdjective $animal",
-    line5: "with a secret $noun",
-    line6: "And frightened Miss Muffet away.",
-    animal: animals,
-    adjective: ["big", "small", "fierce", "cuddly", "striped"],
-    noun: ["plan", "letter", "story", "document", "recipe"]
-  };
+// js/tuffet.js
+// Requires: jQuery + RiTa already loaded in the HTML
 
-  // expose to global
-  window.createGrammar = createGrammar;
+const jobs = ["librarian", "Voltarian", "maker-ian", "contrarian", "riparian"];
+const verbs = ["drinking", "writing", "reading", "making", "thinking"];
+const gizmos = ["bits and bobs", "odds and ends", "bric a brac", "stuff and things"];
+const jjs = ["chic", "shrewd", "swamp", "dream", "sane", "slick", "lithe", "lush", "brash", "curt", "damned", "coy", "calm", "crisp", "dark", "blue", "green", "fast", "fresh", "grand", "huge", "kind", "rough", "sharp", "short", "smart", "smooth", "strong", "sweet", "tough"];
+const nouns = ["letter", "story", "basket", "castle", "forest", "garden", "backpack", "gizmo", "snippet", "river", "rocket", "sunset", "treehouse", "secret", "window"];
 
-  return rules;
+function pick(list) {
+  return list[Math.floor(Math.random() * list.length)];
 }
+
+async function loadAnimals() {
+  try {
+    const response = await fetch("./data/animals.json");
+    if (!response.ok) throw new Error("animals.json not found");
+    const data = await response.json();
+    return Array.isArray(data) ? data : (data.animals || []);
+  } catch (err) {
+    console.warn("Falling back to default animals list:", err);
+    return ["spider", "badger", "stoat", "moth", "cat", "rat", "newt", "crow"];
+  }
+}
+
+async function generatePrompt() {
+  const animals = await loadAnimals();
+
+  const name = "Erin";
+  const job = pick(jobs);
+  const verb = pick(verbs);
+  const gizmo = pick(gizmos);
+  const adjective = pick(jjs);
+  const animal = pick(animals.length ? animals : ["spider"]);
+  const noun = pick(nouns);
+
+  const slantBobs = ["and now we all have to find jobs.", "in the style of Calvin & Hobbes", "and I know he makes more money than god.", "together we lounged, lazy blobs."]; 
+  const slantEnds = ["plus a syrah-grenache blend", "preaching about AI trends.", "saying we're more of 'work friends'.", "asking to borrow my pen."]; 
+  const slantBrac = ["asking if I'm full-stack", "saying the team has lost track", "saying we should circle back.", "asking if I saw his message on Slack."]; 
+  const slantThings = ["kings", "wings", "strings", "rings", "springs", "brings"];
+
+  const lines = [
+    `<h2>My name is ${name}</h2>`,
+    `I'm a ${job},`,
+    `${verb} my ${gizmo};`,
+    `Then came a ${adjective} ${animal},`,
+    `with a secret ${noun},`,
+    `And frightened Miss Muffet away.`
+  ];
+
+  $("#output").html(lines.join("<br>"));
+}
+
+// make it callable from your onclick=""
+window.generatePrompt = generatePrompt;
