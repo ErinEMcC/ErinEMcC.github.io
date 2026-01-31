@@ -7,8 +7,9 @@
 
   <style>
     *, *::before, *::after {
-        box-sizing: border-box;
-      }
+      box-sizing: border-box;
+    }
+
     body {  
       margin: 0;
       background: url('assets/transparency-grid.jpg') repeat;
@@ -22,9 +23,8 @@
       align-items: flex-start;
       min-height: 100vh;
       padding: 5vh 6vw;
-      box-sizing: border-box;
     }
-    /* Stack audio + book neatly */
+
     .page-wrap {
       width: 90vw;
       max-width: 1400px;
@@ -46,11 +46,8 @@
       font-weight: bold;
     }
 
-    /* OPEN BOOK (NO OVERLAYS, FULLY OPAQUE) */
     .story-container {
-      max-width: 100%;
       position: relative;
-
       width: 100%;
       height: 72vh;
       max-height: 900px;
@@ -75,25 +72,46 @@
       column-span: all;
     }
 
-    p {
-      margin: 0 0 1rem 0;
-    }
+    p { margin: 0 0 1rem 0; }
+    em { font-style: italic; }
 
-    em {
-      font-style: italic;
-    }
-
-    /* Scrollbar polish */
-    .story-container::-webkit-scrollbar {
-      width: 8px;
-    }
-
+    .story-container::-webkit-scrollbar { width: 8px; }
     .story-container::-webkit-scrollbar-thumb {
       background: rgba(0,0,0,0.15);
       border-radius: 4px;
     }
 
-    /* Responsive: single page */
+    /* ===== Floating sidequest button ===== */
+    .random-nav-btn {
+      position: fixed;
+      left: 18px;
+      bottom: 18px;
+      z-index: 9999;
+      filter: drop-shadow(0 6px 14px rgba(0,0,0,0.25));
+    }
+
+    .random-nav-btn img {
+      width: 155px;
+      height: auto;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-drag: none;
+      transition: transform 160ms ease;
+    }
+
+    .random-nav-btn img:hover {
+      transform: translateY(-2px) scale(1.03);
+    }
+
+    .random-nav-btn img:active {
+      transform: scale(0.98);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .random-nav-btn img { transition: none; }
+    }
+
+    /* Responsive */
     @media (max-width: 900px) {
       .page-wrap {
         width: 95vw;
@@ -111,6 +129,12 @@
 </head>
 
 <body>
+
+  <!-- Floating sidequest button -->
+  <a href="#" class="random-nav-btn" id="randomNavBtn" aria-label="Sidequest">
+    <img src="assets/sidequest.png" alt="Sidequest">
+  </a>
+
   <div class="page-wrap">
 
     <div class="audio-wrapper">
@@ -158,5 +182,26 @@
     </div>
 
   </div>
+  
+  <script>
+    const randomUrls = [
+      "https://erinemcc.github.io/aunt-rita.html",
+      "https://erinemcc.github.io/bee-umwelt.html",
+      "https://erinemcc.github.io/dog-star.html",
+      "https://erinemcc.github.io/unicorns.html",
+      "https://erinemcc.github.io/cope.html",
+      "https://erinemcc.github.io/skunk-and-bear.html",
+      "https://erinemcc.github.io/cv.html",
+      "https://erinemcc.github.io/research.html"
+    ];
+
+    const btn = document.getElementById("randomNavBtn");
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      const i = Math.floor(Math.random() * randomUrls.length);
+      window.location.href = randomUrls[i];
+    });
+  </script>
+  
 </body>
 </html>
