@@ -88,4 +88,55 @@ function downloadCoverLetter() {
 }
 
 // expose to onclick=""
-window.downloadCoverLetter = downloadCoverLetter;
+function downloadCoverLetter() {
+  // business card @ 300dpi: 3.5in x 2in
+  const dpi = 300;
+  const w = Math.round(3.5 * dpi); // 1050
+  const h = Math.round(2.0 * dpi); // 600
+
+  const canvas = document.createElement("canvas");
+  canvas.width = w;
+  canvas.height = h;
+
+  const ctx = canvas.getContext("2d");
+
+  // background (transparent-ish white)
+  ctx.fillStyle = "rgba(255,255,255,0.98)";
+  ctx.fillRect(0, 0, w, h);
+
+  // subtle border
+  ctx.strokeStyle = "rgba(0,0,0,0.18)";
+  ctx.lineWidth = 6;
+  ctx.strokeRect(18, 18, w - 36, h - 36);
+
+  // text
+  const padX = 70;
+  const padBottom = 95;
+
+  ctx.fillStyle = "rgba(0,0,0,0.88)";
+  ctx.textBaseline = "alphabetic";
+
+  // name line
+  ctx.font = "42px Georgia";
+  ctx.fillText("Erin E. McCabe, Librarian/Maker", padX, h - padBottom);
+
+  // site line
+  ctx.font = "34px Georgia";
+  ctx.globalAlpha = 0.85;
+  ctx.fillText("erinemcc.github.io", padX, h - padBottom + 58);
+  ctx.globalAlpha = 1;
+
+  // download
+  canvas.toBlob((blob) => {
+    if (!blob) return;
+
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "Erin_E_McCabe_Business_Card.png";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  }, "image/png");
+}
