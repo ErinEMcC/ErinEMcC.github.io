@@ -89,7 +89,8 @@ button:active {
 }
 
 .tuffet-poem h2 {
-  font-size: 1rem;
+  font-size: 2rem;
+  color: #95BF0D;
   font-weight: normal;
   margin-top: 0;
 }
