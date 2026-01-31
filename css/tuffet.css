@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 /* Base styles */
-body {
+.tuffet-panel {
   font-family: "Roboto", sans-serif;
   background-color: white;
   color: dimgray;
@@ -12,7 +12,7 @@ body {
 }
 
 /* Container to center content */
-.container {
+.tuffet-panel .container {
   width: 75%;
   max-width: 800px;
   margin: 0 auto;
@@ -21,7 +21,7 @@ body {
 }
 
 /* Title styling */
-h2 {
+.tuffet-panel h2 {
   color: darkgray;
   /* text-align: center; */
   margin: 20px auto 30px;
@@ -47,7 +47,7 @@ h2 {
 }
 
 /* Button styling */
-button {
+.tuffet-panel button {
   background-color: dimgray;
   border-radius: 10px;
   border: none;
@@ -61,11 +61,11 @@ button {
   transition: background-color 0.3s;
 }
 
-button:hover {
+.tuffet-panel button:hover {
   background-color: #555;
 }
 
-button:active {
+.tuffet-panel button:active {
   background-color: darkblue;
   color: white;
 }
@@ -127,42 +127,4 @@ button:active {
   font-style: italic;
 }
 
-
-}
-
-/* Business card block */
-.tuffet-card{
-  margin-top: 1rem;
-  width: 3.5in;          /* business card width */
-  height: 2in;           /* business card height */
-  max-width: 100%;
-  border-radius: 10px;
-  border: 1px solid rgba(0,0,0,0.15);
-  background: rgba(255,255,255,0.75);
-  box-shadow: 0 6px 14px rgba(0,0,0,0.10);
-  padding: 0.75rem 0.9rem;
-  box-sizing: border-box;
-
-  display: flex;
-  flex: 0 0 auto;
-  flex-direction: column;
-  justify-content: flex-end;
-  gap: 0.25rem;
-}
-
-.tuffet-card-name{
-  font-family: Georgia, serif;
-  font-size: 0.95rem;
-}
-
-.tuffet-card-site{
-  font-family: Georgia, serif;
-  font-size: 0.85rem;
-  opacity: 0.85;
-}
-
-/* If your panel is narrow, keep the card responsive */
-@media (max-width: 420px){
-  .tuffet-card{ width: 100%; height: auto; min-height: 140px; }
-}
 
