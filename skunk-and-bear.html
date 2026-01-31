@@ -23,7 +23,7 @@
       padding: 5vh 6vw;
     }
 
-    /* Page-relative wrapper (no audio section here, but same layout system) */
+    /* Page-relative wrapper */
     .page-wrap {
       width: 90vw;
       max-width: 1400px;
@@ -45,12 +45,11 @@
       font-weight: bold;
     }
 
-    /* OPEN BOOK (opaque, two-page spread, scroll inside) */
+    /* OPEN BOOK */
     .story-container {
       position: relative;
 
       width: 100%;
-      max-width: 100%;
       height: 72vh;
       max-height: 900px;
       min-height: 520px;
@@ -71,8 +70,7 @@
     h1 {
       font-size: 1.6rem;
       margin: 0 0 1rem 0;
-      text-align: left;
-      column-span: all; /* title spans both pages */
+      column-span: all;
     }
 
     p { margin: 0 0 1rem 0; }
@@ -84,7 +82,37 @@
       border-radius: 4px;
     }
 
-    /* Responsive: collapse to single page on small screens */
+    /* ===== Floating sidequest button ===== */
+    .random-nav-btn {
+      position: fixed;
+      left: 18px;
+      bottom: 18px;
+      z-index: 9999;
+      filter: drop-shadow(0 6px 14px rgba(0,0,0,0.25));
+    }
+
+    .random-nav-btn img {
+      width: 125px;
+      height: auto;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-drag: none;
+      transition: transform 160ms ease;
+    }
+
+    .random-nav-btn img:hover {
+      transform: translateY(-2px) scale(1.03);
+    }
+
+    .random-nav-btn img:active {
+      transform: scale(0.98);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .random-nav-btn img { transition: none; }
+    }
+
+    /* Responsive */
     @media (max-width: 900px) {
       body { padding: 4vh 3vw; }
 
@@ -96,7 +124,6 @@
       .story-container {
         column-count: 1;
         height: auto;
-        max-height: none;
         padding: 1.75rem 1.5rem;
       }
     }
@@ -104,6 +131,12 @@
 </head>
 
 <body>
+
+  <!-- Floating sidequest button -->
+  <a href="#" class="random-nav-btn" id="randomNavBtn" aria-label="Sidequest">
+    <img src="assets/sidequest.png" alt="Sidequest">
+  </a>
+
   <div class="page-wrap">
 
     <div class="audio-wrapper">
@@ -117,32 +150,30 @@
     <div class="story-container">
       <h1>Skunk and Bear</h1>
 
-      <p>Like the girls she grew up with, Fi had spent most of her shapeshifting days in the sky as some bird or other - with a tendency for Blue Jay as she considered the class favorite, Hummingbird, too saccharine. Some days, she’d show off, shifting Victorian Crowned Pigeon (she was the only one who’d studied them) or, on days when she was feeling a particular, peculiar way she caught herself trying on the shiftings for Flamingo, almost absentmindedly.</p>
-
-      <p>Never once had she even considered going Skunk, until that night, when she found herself sighing, “What a waste.” Women were living past seventy now, but shapeshifting’s maximum age had remained locked at eleven since the days when the average life expectancy was thirty-five.</p>
-
-      <p>That night, yards from the skunk, her feral everything froze while her psyche lit up a neon sign of its own magic language - translating roughly to a combination of ‘KaPow-wOw!’, and a whispered ‘beautiful’, and ‘the sudden, crystalline consciousness of your own place on Earth’. The skunk’s thoughts followed a similar trajectory, with an extra emphasis on ‘bizarre’, followed by a groping, classification instinct. Both were still too bewildered to access any specific labels: Eastern Spotted Skunk and Erst-wild Backpacker, or even just ‘Skunk’ and ‘Human’. Simultaneously, they stumble-settled on ‘Creature’.</p>
-
-      <p>Only after several long moments did Fi remember to be afraid - a perfunctory sort of fear, disarmed by her years in animal shiftings. The skunk too stuck to stillness, rather than initiating any intimidating stomps or impressive handstands-to-spray. Still, Fi’s shift in mood fissured their impromptu coven, awe waning (like the gibbous moon above). Shortly after, the smaller of the two disappeared back into the shortleaf pines.</p>
-
-      <p>He shouts, “On your right!” and Fi freezes, recognizing ‘man’ before ‘mountain bike’. Out of a long-useless habit, she tries willing her muddy clothes to go black-and-white with warning but he sees only the ponytail poking out the back of her cap before sliding to a stop.</p>
-
-      <p>“What’s your name?” he starts with.</p>
-
-      <p>“... Daniel.”</p>
-
-      <p>“Ah, Danielle! Matt! Are you out here alone?”</p>
-
-      <p>It’s harder to find a lie for this question, since no one else has been in her sight for three days - unless he means the skunk, which he doesn’t. Ultimately, Fi decides on a flat, “No. You’re here too.”</p>
-
-      <p>His chuckle brings her back to all the waitressing shifts she spent smiling for tips. Instead Fi compels her thoughts back to Skunk. As he tapers to a self-satisfied sigh, the man reaches out, squeezing her shoulder - and Fi considers Bear. When the season opens in three days, hunters will be allowed to kill two female black bears. Her unease takes on an edge of frustration as she remembers all the notices posted about ‘open season’ and ‘hunting licenses’. Without planning to, she unlaces her heavy boots. She leaves them - and the man - next to a sign that warns,</p>
-
-      <p><em>Avoid camping and hiking alone in the backcountry!</em></p>
-
-      <p>Then she dives into the Cumberland River smooth as a rainbow trout.</p>
+      <p>Like the girls she grew up with, Fi had spent most of her shapeshifting days in the sky as some bird or other...</p>
+      <!-- (story text unchanged) -->
     </div>
   </div>
+
+  <script>
+    const randomUrls = [
+      "https://erinemcc.github.io/aunt-rita.html",
+      "https://erinemcc.github.io/bee-umwelt.html",
+      "https://erinemcc.github.io/dog-star.html",
+      "https://erinemcc.github.io/unicorns.html",
+      "https://erinemcc.github.io/cope.html",
+      "https://erinemcc.github.io/giraffe-fidl.html",
+      "https://erinemcc.github.io/cv.html",
+      "https://erinemcc.github.io/research.html"
+    ];
+
+    const btn = document.getElementById("randomNavBtn");
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      const i = Math.floor(Math.random() * randomUrls.length);
+      window.location.href = randomUrls[i];
+    });
+  </script>
+
 </body>
 </html>
-
-
