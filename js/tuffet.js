@@ -34,6 +34,17 @@ async function generatePrompt() {
   const animal = pick(animals.length ? animals : ["spider"]);
   const noun = pick(nouns);
 
+  const slantByGizmo = {
+  "bits and bobs": slantBobs,
+  "odds and ends": slantEnds,
+  "bric a brac": slantBrac,
+  "stuff and things": slantThings
+};
+
+  // pick the correct slant based on the chosen gizmo
+  const slantLine = pick(slantByGizmo[gizmo] || ["And frightened Miss Muffet away."]);
+
+
   const slantBobs = ["and now we all have to find jobs.", "in the style of Calvin & Hobbes", "and I know he makes more money than god.", "together we lounged, lazy blobs."]; 
   const slantEnds = ["plus a syrah-grenache blend", "preaching about AI trends.", "saying we're more of 'work friends'.", "asking to borrow my pen."]; 
   const slantBrac = ["asking if I'm full-stack", "saying the team has lost track", "saying we should circle back.", "asking if I saw his message on Slack."]; 
@@ -45,7 +56,7 @@ async function generatePrompt() {
     `${verb} my ${gizmo};`,
     `Then came a ${adjective} ${animal},`,
     `with a secret ${noun},`,
-    `And frightened Miss Muffet away.`
+    slantline
   ];
 
   $("#output").html(lines.join("<br>"));
