@@ -43,7 +43,9 @@
       min-width: 280px;
       max-width: 420px;
       height: 85vh;
-      overflow: auto;
+      overflow: hidden; /* important: panel itself should NOT scroll */
+      display: flex;
+      flex-direction: column;
 
       background: rgba(255,255,255,0.92);
       border-radius: 12px;
