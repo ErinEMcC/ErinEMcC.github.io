@@ -89,7 +89,7 @@ button:active {
 }
 
 .tuffet-poem h2 {
-  font-size: 2rem;
+  font-size: 1.5rem;
   color: #95BF0D;
   font-weight: normal;
   margin-top: 0;
@@ -109,7 +109,7 @@ button:active {
   border: none;
   padding: 0;
   font-family: inherit;
-  font-size: 0.85rem;
+  font-size: 0.90rem;
   font-style: italic;
   color: #333;
   cursor: pointer;
