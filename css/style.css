@@ -50,7 +50,7 @@ video {
   position: absolute;
   top: 15%;
   left: 65%;
-  width: 9vw;
+  width: 8vw;
   height: auto;
   cursor: pointer;
   z-index: 10;
@@ -80,7 +80,7 @@ video {
   position: absolute;
   top: 5%;
   left: 88%;
-  width: 10vw;
+  width: 8vw;
   height: auto;
   cursor: pointer;
   z-index: 10;
