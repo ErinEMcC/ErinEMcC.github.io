@@ -46,6 +46,9 @@ video {
   flex-grow: 1;
   background: url('../images/jungle.png') no-repeat center center;
   background-size: cover;
+}
+
+.image-section {
   border-radius: 18px;
   overflow: hidden;
 }
