@@ -8,11 +8,6 @@ html, body {
   font-family: sans-serif;
 }
 
-.page { outline: 2px solid red; }
-.animal-bar { outline: 2px solid blue; }
-.container { outline: 2px solid green; }
-
-
 .page {
   padding: 17px;          /* was 32px */
   display: flex;
@@ -136,7 +131,7 @@ video {
 
 
 .animal-bar {
-  padding: 2px 18px;   /* vertical | horizontal */
+  height: auto;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -146,7 +141,7 @@ video {
   overflow-y: hidden;
 
   gap: 16px;                  /* more gallery-like spacing */
-  padding: 14px 18px;
+  padding: 2px 18px;
 
   background: url('../assets/transparency-grid.jpg') repeat;
   background-size: 300px 300px;
