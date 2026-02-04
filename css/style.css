@@ -9,10 +9,10 @@ html, body {
 }
 
 .page {
-  padding: 17px;          /* was 32px */
+  padding: 17px 12px;          
   display: flex;
   flex-direction: column;
-  gap: 26px;              /* slightly tighter rhythm */
+  gap: 17px;              /* slightly tighter  */
   max-width: 1400px;      /* was 1200px */
   margin: 0 auto;
   box-sizing: border-box;
@@ -23,7 +23,7 @@ html, body {
   display: flex;
   height: 75vh;
   width: 100%;
-  gap: 24px;           /* space between video + jungle */
+  gap: 23px;           /* space between video + jungle */
 }
 
 
