@@ -129,7 +129,6 @@ video {
   background-color: #095B43;
 }
 
-
 .animal-bar {
   height: auto;
   display: flex;
@@ -164,7 +163,6 @@ video {
 .animal {
   flex: 0 0 auto;
 }
-
 
 /* Unique sizes for each animal */
 .bison { height: 15vh; }
