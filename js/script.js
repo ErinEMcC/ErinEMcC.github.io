@@ -156,3 +156,12 @@ if (resetButton) {
     window.location.reload();
   });
 }
+
+const video = document.getElementById('capybara');
+
+if (video) {
+  video.addEventListener('click', () => {
+    video.currentTime = 0;
+    video.play();
+  });
+}
