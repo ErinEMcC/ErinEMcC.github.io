@@ -23,7 +23,7 @@ html, body {
   display: flex;
   height: 75vh;
   width: 100%;
-  gap: 32px;           /* space between video + jungle */
+  gap: 24px;           /* space between video + jungle */
 }
 
 
@@ -159,6 +159,11 @@ video {
   position: relative;
   transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
+
+.animal {
+  flex: 0 0 auto;
+}
+
 
 /* Unique sizes for each animal */
 .bison { height: 19vh; }
