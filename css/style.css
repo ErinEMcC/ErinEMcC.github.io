@@ -1,19 +1,30 @@
 html, body {
   margin: 0;
   padding: 0;
-  background: url('../assets/transparency-grid.jpg') no-repeat center center;
-  background-size: cover;
+  background: #ffffff;   /* clean white page */
   height: 100%;
   width: 100%;
   box-sizing: border-box;
   font-family: sans-serif;
 }
 
+.page {
+  padding: 32px;        /* white margin around everything */
+  display: flex;
+  flex-direction: column;
+  gap: 32px;            /* space between animal bar + main content */
+  max-width: 1200px;
+  margin: 0 auto;       /* center the whole layout */
+  box-sizing: border-box;
+}
+
 .container {
   display: flex;
-  height: calc(75vh);
-  width: calc(100vw);
+  height: 75vh;
+  width: 100%;
+  gap: 32px;           /* space between video + jungle */
 }
+
 
 .video-wrapper {
   height: 100%;
@@ -35,6 +46,8 @@ video {
   flex-grow: 1;
   background: url('../images/jungle.png') no-repeat center center;
   background-size: cover;
+  border-radius: 18px;
+  overflow: hidden;
 }
 
 .drop-zone {
@@ -119,7 +132,10 @@ video {
   align-items: center;
   flex-wrap: wrap;
   gap: clamp(0.5vw, 1vw, 2vw);
-  height: 25vh;
+  padding: 16px 20px;
+  background: url('../assets/transparency-grid.jpg') repeat;
+  background-size: 300px 300px;
+  border-radius: 16px;
 }
 
 .animal {
