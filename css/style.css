@@ -143,6 +143,6 @@ video {
 .butterfly { height: 11vh; }
 
 .animal:hover {
-  box-shadow: 0 0 25px 8px rgba(76, 159, 112, 1); /* green glow *
+  box-shadow: 0 0 25px 8px rgba(149, 191, 13, 1); /* chartreuse glow *
   transform: scale(1.05);
 }
