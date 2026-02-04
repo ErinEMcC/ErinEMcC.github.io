@@ -167,14 +167,14 @@ video {
 
 
 /* Unique sizes for each animal */
-.bison { height: 19vh; }
-.bear { height: 19vh; }
-.giraffe { height: 28vh; }
+.bison { height: 15vh; }
+.bear { height: 15vh; }
+.giraffe { height: 22vh; }
 .bee { height: 10vh; }
-.dog { height: 15vh; }
-.unicorn { height: 19vh; }
-.elephant { height: 24vh; }
-.butterfly { height: 11vh; }
+.dog { height: 11vh; }
+.unicorn { height: 15vh; }
+.elephant { height: 20vh; }
+.butterfly { height: 9vh; }
 
 .animal:hover {
   box-shadow: 0 0 25px 8px rgba(149, 191, 13, 1); /* chartreuse glow *
