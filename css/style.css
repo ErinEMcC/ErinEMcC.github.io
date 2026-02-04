@@ -131,7 +131,7 @@ video {
 
 
 .animal-bar {
-  padding: 12px 18px;   /* vertical | horizontal */
+  padding: 2px 18px;   /* vertical | horizontal */
   display: flex;
   align-items: center;
   justify-content: flex-start;
