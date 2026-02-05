@@ -94,42 +94,46 @@
 <script>
   function resizeMasonryItem(item){
     const grid = document.querySelector('.gallery');
-    const rowGap = parseInt(getComputedStyle(grid).gap);
-    const rowHeight = parseInt(getComputedStyle(grid).getPropertyValue('grid-auto-rows'));
+    if (!grid) return;
 
-    const itemHeight = item.getBoundingClientRect().height;
+    const rowGap = parseInt(getComputedStyle(grid).gap) || 0;
+    const rowHeight = parseInt(getComputedStyle(grid).getPropertyValue('grid-auto-rows')) || 10;
+
+    // use scrollHeight so it reflects the true content height once images load
+    const itemHeight = item.scrollHeight;
     const rowSpan = Math.ceil((itemHeight + rowGap) / (rowHeight + rowGap));
-    item.style.gridRowEnd = `span ${rowSpan}`;
+    item.style.gridRowEnd = `span ${Math.max(1, rowSpan)}`;
   }
 
   function resizeAllMasonryItems(){
     document.querySelectorAll('.tile').forEach(resizeMasonryItem);
   }
 
-  window.addEventListener('load', () => {
-    const images = document.querySelectorAll('.tile img');
-    let loaded = 0;
+  function bindMasonry(){
+    const imgs = document.querySelectorAll('.tile img');
 
-    images.forEach(img => {
-      if (img.complete){
-        loaded++;
-      } else {
-        img.addEventListener('load', () => {
-          loaded++;
-          if (loaded === images.length){
-            resizeAllMasonryItems();
-          }
-        });
-      }
+    // Run immediately (so you get *something*)…
+    resizeAllMasonryItems();
+
+    // …then run again as each image loads OR errors
+    imgs.forEach(img => {
+      const rerun = () => resizeAllMasonryItems();
+      img.addEventListener('load', rerun, { once: true });
+      img.addEventListener('error', rerun, { once: true });
     });
 
-    if (loaded === images.length){
-      resizeAllMasonryItems();
-    }
-  });
+    // And one more pass shortly after (handles slow layout/font timing)
+    setTimeout(resizeAllMasonryItems, 150);
+    setTimeout(resizeAllMasonryItems, 600);
+  }
 
-  window.addEventListener('resize', resizeAllMasonryItems);
+  window.addEventListener('load', bindMasonry);
+  window.addEventListener('resize', () => {
+    clearTimeout(window.__masonryTimer);
+    window.__masonryTimer = setTimeout(resizeAllMasonryItems, 100);
+  });
 </script>
+
 
 </body>
 </html>
