@@ -43,53 +43,57 @@
       transform: scale(1.1);
     }
 
-    .frame-wall {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
+        /* --- MOSAIC WALL ish*/
+    .frame-wall{
+      column-count: 3;
+      column-gap: 1.2rem;
       max-width: 1200px;
       margin: 3rem auto;
-      perspective: 1200px;
+      padding: 0 1rem;
     }
-
-    .frame {
-      flex: 1 1 200px;
-      transition: transform 0.4s ease, filter 0.4s ease;
-      transform-origin: center center;
-      position: relative;
-      will-change: transform;
-    }
-
-    .frame img {
+    
+    /* each item becomes a “tile” that flows into columns */
+    .frame{
+      break-inside: avoid;
+      margin: 0 0 1.2rem;
+      display: inline-block;
       width: 100%;
-      border: 10px solid #555;
-      border-radius: 8px;
-      box-shadow: 0 6px 12px rgba(0,0,0,0.4);
-      transition: transform 0.4s ease, filter 0.4s ease;
+      position: relative;
+      transform: rotate(calc((var(--tilt, 0) * 1deg)));
+      transition: transform 0.25s ease, filter 0.25s ease;
+    }
+    
+    /* remove the literal frame + label vibes */
+    .frame img{
+      width: 100%;
       display: block;
+      border: none;          /* no frame */
+      border-radius: 10px;   /* optional: soft edge (set 0 if you want raw) */
+      box-shadow: 0 10px 24px rgba(0,0,0,0.18);
+      transition: transform 0.25s ease, filter 0.25s ease;
     }
+    
+    /* hide captions entirely */
+    .caption{ display: none; }
+    
+    /* subtle hover: “alive” but not gallery-like */
+    .frame:hover{
+      transform: rotate(calc((var(--tilt, 0) * 1deg))) scale(1.02);
+      z-index: 2;
+    }
+    
+    .frame:hover img{
+      filter: brightness(1.05) contrast(1.02);
+    }
+    
+    @media (max-width: 900px){
+      .frame-wall{ column-count: 2; }
+    }
+    
+    @media (max-width: 550px){
+      .frame-wall{ column-count: 1; }
+}
 
-    .caption {
-      text-align: center;
-      background: rgba(255,255,255,0.8);
-      padding: 0.5rem;
-      margin-top: 0.5rem;
-      font-size: 0.9rem;
-    }
-
-    .frame:hover {
-      transform: scale(1.06) translateY(-8px) rotateY(0deg);
-      z-index: 10;
-    }
-
-    .frame:hover img {
-      filter: brightness(1.1);
-    }
-
-    .frame-wall .frame:not(:hover) {
-      transform: scale(0.95);
-      filter: brightness(0.8);
-    }
 
     .works {
       max-width: 800px;
@@ -124,21 +128,21 @@
 <body>
 
   <div class="frame-wall">
-    <div class="frame">
+    <div class="frame" style="--tilt:-2;">
       <a href="https://erinemcc.github.io/giraffe-fidl.html" target="_blank">
         <img src="images/fidl-comic.png" alt="FIDL Comic Book">
         <div class="caption">The Familiar Impossible</div>
       </a>
     </div>
     
-     <div class="frame">
+  <div class="frame" style="--tilt:1;">
       <a href="https://erinemcc.github.io/fieldguide.html" target="_blank">
         <img src="images/fieldGuide.png" alt="Field Guide">
         <div class="caption">Field Guide to Disappearing Acts</div>
       </a>
     </div>
 
-    <div class="frame">
+  <div class="frame" style="--tilt:-1;">
       <a href="https://erinemcc.github.io/cope.html" target="_blank">
         <img src="images/cope.jpg" alt="CoPE Project">
         <div class="caption">The CoPE Project</div>
@@ -152,13 +156,14 @@
       </a>
     </div>
     
-    <div class="frame">
+<div class="frame" style="--tilt:-2;">
       <a href="https://erinemcc.github.io/skunk-and-bear.html" target="_blank">
         <img src="images/bear_listen.png" alt="Skunk and Bear Short Story">
         <div class="caption">Skunk & Bear</div>
       </a>
     </div>
-     <div class="frame">
+     
+    <div class="frame">
       <a href="https://erinemcc.github.io/dog-star.html" target="_blank">
         <img src="images/dog_fade.png" alt="Dog Star">
         <div class="caption">Dog Star</div>
