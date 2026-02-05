@@ -94,7 +94,7 @@ function downloadCoverLetter() {
   ctx.fillStyle = "rgba(255,255,255,0.98)";
   ctx.fillRect(0, 0, w, h);
 
-  ctx.strokeStyle = "rgba(0,0,0,0.18)";
+  ctx.strokeStyle = "rgba(149, 191, 13, 1)";
   ctx.lineWidth = 6;
   ctx.strokeRect(18, 18, w - 36, h - 36);
 
