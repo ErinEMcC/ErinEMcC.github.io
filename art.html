@@ -15,15 +15,16 @@
   }
 
   /* --- GALLERY GRID --- */
-  .gallery{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0px;
-    grid-auto-rows: 0px;
-    max-width: 1100px;
-    margin: 4rem auto;
-    padding: 0 1rem;
-  }
+ .gallery{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0px;              /* space between tiles */
+  grid-auto-rows: 10px;   /* IMPORTANT: must not be 0 */
+  max-width: 1100px;
+  margin: 4rem auto;
+  padding: 0 1rem;
+}
+
 
   .tile{
   overflow: hidden;
@@ -43,9 +44,10 @@
     grid-column: span 2;
   }
 
-  .tile:nth-child(5){
-  grid-row-end: span 70; /* adjust this number */
+  .manual-span{
+  grid-row-end: span 70; /* taller tile */
 }
+
 
   
   /* responsive */
@@ -88,9 +90,10 @@
     <img src="images/aunt-bison.png" alt="Aunt Rita Short Story">
   </div>
 
-  <div class="tile">
-    <img src="images/dog_fade.png" alt="Dog Star">
-  </div>
+  <div class="tile manual-span">
+  <img src="images/dog_fade.png" alt="Dog Star">
+</div>
+
 
   <div class="tile">
     <img src="images/bear_listen.png" alt="Skunk and Bear Short Story">
@@ -123,6 +126,9 @@
 
     // Run immediately (so you get *something*)…
     resizeAllMasonryItems();
+
+    if (item.classList.contains('manual-span')) return;
+
 
     // …then run again as each image loads OR errors
     imgs.forEach(img => {
