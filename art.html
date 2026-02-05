@@ -41,9 +41,13 @@
   /* optional featured tile */
   .featured{
     grid-column: span 2;
-    border-radius: 10% 0% 0% 0%;
   }
 
+  .tile:nth-child(5){
+  grid-row-end: span 60; /* adjust this number */
+}
+
+  
   /* responsive */
   @media (max-width: 900px){
     .gallery{
