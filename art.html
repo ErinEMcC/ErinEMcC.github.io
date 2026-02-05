@@ -26,15 +26,18 @@
   }
 
   .tile{
-    overflow: hidden;
-    border-radius: 5px; /* remove or reduce if you want sharper */
-  }
+  overflow: hidden;
+  border-radius: 12px;
+}
 
+  /* constrain tile height + crop  */
   .tile img{
     width: 100%;
+    height: clamp(180px, 32vw, 420px); /* min, fluid, max */
+    object-fit: cover;                 /* crop instead of stretch */
     display: block;
-    height: auto;
   }
+
 
   /* optional featured tile */
   .featured{
