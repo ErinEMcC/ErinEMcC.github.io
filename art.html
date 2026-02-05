@@ -51,6 +51,32 @@
   grid-row-end: span 70; /* taller tile */
 }
 
+  .tile a{
+  position: relative;
+  display: block;
+}
+
+.tile a::after{
+  content: attr(data-title);
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  padding: 6px 10px;
+  background: rgba(0,0,0,0.65);
+  color: white;
+  font-size: 0.85rem;
+  border-radius: 6px;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
+}
+
+.tile a:hover::after{
+  opacity: 1;
+  transform: translateY(0);
+}
+
 
   
   /* responsive */
@@ -78,38 +104,38 @@
 
 <div class="gallery">
   <div class="tile featured">
-    <a href="https://erinemcc.github.io/giraffe-fidl.html" title="Familiar Impossible">
+    <a href="https://erinemcc.github.io/giraffe-fidl.html" data-title="Familiar Impossible">
     <img src="images/fidl-comic.png" alt="FiDL Co.">
     </a>
   </div>
 
   <div class="tile">
-  <a href="https://erinemcc.github.io/field-guide.html" title="Field Guide">
+  <a href="https://erinemcc.github.io/field-guide.html" data-title="Field Guide">
     <img src="images/fieldGuide.png" alt="Field Guide">
   </a>
 </div>
 
   <div class="tile">
-    <a href="https://erinemcc.github.io/cope.html" title="Collaborative Poetry Experiment">
+    <a href="https://erinemcc.github.io/cope.html" data-title="Collaborative Poetry Experiment">
     <img src="images/cope.jpg" alt="">
     </a>
   </div>
 
   <div class="tile">
-    <a href="https://erinemcc.github.io/aunt-rita.html" title="Aunt Rita">
+    <a href="https://erinemcc.github.io/aunt-rita.html" data-title="Aunt Rita">
     <img src="images/aunt-bison.png" alt="Aunt Rita Short Story">
     </a>
   </div>
 
   <div class="tile manual-span">
-    <a href="https://erinemcc.github.io/dog-star.html" title="Dog Star">
+    <a href="https://erinemcc.github.io/dog-star.html" data-title="Dog Star">
   <img src="images/dog_fade.png" alt="Dog Star">
    </a>
 </div>
 
 
   <div class="tile">
-    <a href="https://erinemcc.github.io/skunk-and-bear.html" title="Skunk and Bear">
+    <a href="https://erinemcc.github.io/skunk-and-bear.html" data-title="Skunk and Bear">
     <img src="images/bear_listen.png" alt="Skunk and Bear Short Story">
      </a>
   </div>
