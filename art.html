@@ -15,95 +15,96 @@
   }
 
   /* --- GALLERY GRID --- */
- .gallery{
+.gallery{
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0px;              /* space between tiles */
-  grid-auto-rows: 10px;   /* IMPORTANT: must not be 0 */
-  max-width: 1100px;
-  margin: 4rem auto;
-  padding: 0 1rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+
+  /* more landscape / less side margin */
+  width: min(1400px, 96vw);
+  margin: 2.5rem auto;
+  padding: 0;
 }
 
-
-  .tile{
+.tile{
   overflow: hidden;
 }
 
-  /* constrain tile height + crop  */
-  .tile img{
-    width: 100%;
-    height: clamp(180px, 32vw, 420px); /* min, fluid, max */
-    object-fit: cover;                 /* crop instead of stretch */
-    display: block;
-  }
-
-  .tile:nth-child(5) img{
-  height: clamp(260px, 45vw, 680px); /* taller “hero” */
-}
-
-  /* optional featured tile */
-  .featured{
-    grid-column: span 2;
-  }
-
-  .manual-span{
-  grid-row-end: span 70; /* taller tile */
-}
-
-  .tile a{
-  position: relative;
+.tile img{
+  width: 100%;
+  height: 100%;
   display: block;
+  object-fit: cover;
 }
 
-.tile a::after{
-  content: attr(data-title);
-  position: absolute;
-  left: 12px;
-  bottom: 12px;
-  padding: 6px 10px;
-  background: rgba(0,0,0,0.65);
-  color: white;
-  font-size: 0.85rem;
-  border-radius: 6px;
-  opacity: 0;
-  transform: translateY(4px);
-  transition: opacity 0.2s ease, transform 0.2s ease;
-  pointer-events: none;
+/* --- Layout to match your PNG exactly --- */
+/* 1: spans cols 1–2 on row 1 */
+.tile:nth-child(1){
+  grid-column: 1 / span 2;
+  grid-row: 1;
 }
 
-.tile a:hover::after{
-  opacity: 1;
-  transform: translateY(0);
+/* 2 (Field Guide): tall, col 3, spans rows 1–2 */
+.tile:nth-child(2){
+  grid-column: 3;
+  grid-row: 1 / span 2;
 }
 
+/* 3: top-right (col 4 row 1) */
+.tile:nth-child(3){
+  grid-column: 4;
+  grid-row: 1;
+}
 
-  
-  /* responsive */
-  @media (max-width: 900px){
-    .gallery{
-      grid-template-columns: repeat(2, 1fr);
-    }
-    .featured{
-      grid-column: span 2;
-    }
+/* 4: bottom-left (col 1 row 2) */
+.tile:nth-child(4){
+  grid-column: 1;
+  grid-row: 2;
+}
+
+/* 5: bottom-middle-left (col 2 row 2) */
+.tile:nth-child(5){
+  grid-column: 2;
+  grid-row: 2;
+}
+
+/* 6: bottom-right (col 4 row 2) */
+.tile:nth-child(6){
+  grid-column: 4;
+  grid-row: 2;
+}
+
+/* Give the whole grid a nice “two rows” shape */
+.gallery{ grid-auto-rows: 240px; }   /* adjust this to taste */
+.tile:nth-child(2){ grid-row: 1 / span 2; } /* ensures tall tile */
+
+/* --- Responsive: collapse nicely --- */
+@media (max-width: 950px){
+  .gallery{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: 220px;
   }
 
-  @media (max-width: 550px){
-    .gallery{
-      grid-template-columns: 1fr;
-    }
-    .featured{
-      grid-column: span 1;
-    }
-  }
+  /* stack in a simple order */
+  .tile:nth-child(1){ grid-column: 1 / -1; grid-row: auto; }
+  .tile:nth-child(2){ grid-column: 1 / -1; grid-row: auto; }
+  .tile:nth-child(3),
+  .tile:nth-child(4),
+  .tile:nth-child(5),
+  .tile:nth-child(6){ grid-column: auto; grid-row: auto; }
+}
+
+@media (max-width: 560px){
+  .gallery{ grid-template-columns: 1fr; }
+}
+
 </style>
 </head>
 
 <body>
 
 <div class="gallery">
-  <div class="tile featured">
+  <div class="tile">
     <a href="https://erinemcc.github.io/giraffe-fidl.html" data-title="Familiar Impossible">
     <img src="images/fidl-comic.png" alt="FiDL Co.">
     </a>
@@ -127,7 +128,7 @@
     </a>
   </div>
 
-  <div class="tile manual-span">
+  <div class="tile">
     <a href="https://erinemcc.github.io/dog-star.html" data-title="Dog Star">
   <img src="images/dog_fade.png" alt="Dog Star">
    </a>
@@ -141,53 +142,6 @@
   </div>
   
 </div>
-
-<script>
-  function resizeMasonryItem(item){
-    const grid = document.querySelector('.gallery');
-    if (!grid) return;
-
-    const rowGap = parseInt(getComputedStyle(grid).gap) || 0;
-    const rowHeight = parseInt(getComputedStyle(grid).getPropertyValue('grid-auto-rows')) || 10;
-
-    // use scrollHeight so it reflects the true content height once images load
-    const itemHeight = item.scrollHeight;
-    const rowSpan = Math.ceil((itemHeight + rowGap) / (rowHeight + rowGap));
-    item.style.gridRowEnd = `span ${Math.max(1, rowSpan)}`;
-  }
-
-  function resizeAllMasonryItems(){
-    document.querySelectorAll('.tile').forEach(resizeMasonryItem);
-  }
-
-  function bindMasonry(){
-    const imgs = document.querySelectorAll('.tile img');
-
-    // Run immediately (so you get *something*)…
-    resizeAllMasonryItems();
-
-    if (item.classList.contains('manual-span')) return;
-
-
-    // …then run again as each image loads OR errors
-    imgs.forEach(img => {
-      const rerun = () => resizeAllMasonryItems();
-      img.addEventListener('load', rerun, { once: true });
-      img.addEventListener('error', rerun, { once: true });
-    });
-
-    // And one more pass shortly after (handles slow layout/font timing)
-    setTimeout(resizeAllMasonryItems, 150);
-    setTimeout(resizeAllMasonryItems, 600);
-  }
-
-  window.addEventListener('load', bindMasonry);
-  window.addEventListener('resize', () => {
-    clearTimeout(window.__masonryTimer);
-    window.__masonryTimer = setTimeout(resizeAllMasonryItems, 100);
-  });
-</script>
-
 
 </body>
 </html>
