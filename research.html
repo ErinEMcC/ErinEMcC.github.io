@@ -90,6 +90,29 @@
       line-height: 1.4;
     }
 
+    .section-block{
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    
+    .section-title{
+      background: #95BF0D;
+      color: #111;
+      padding: 12px 16px;
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    
+    .section-panel{
+      background: var(--paper);
+      box-shadow: 0 8px 22px rgba(0,0,0,0.12);
+      padding: 18px;
+    }
+
+
     /* --- FEATURED 2x2 GRID (your frame wall, tuned) --- */
     .frame-wall{
       margin: 0;
@@ -188,9 +211,10 @@
   <main class="main">
 
     <!-- LEFT: FEATURED -->
-    <section class="panel">
-      <h2>Featured Work</h2>
-      <p class="subhead">Peer-Reviewed · Invited · Collaborative</p>
+    <section class="section-block">
+      <div class="section-title">Featured Work</div>
+        <div class="section-panel">
+          <p class="subhead">Peer-Reviewed · Invited · Collaborative</p>
 
       <div class="frame-wall">
         <a class="frame" href="https://doi.org/10.1002/nml.21532" target="_blank" rel="noopener"
