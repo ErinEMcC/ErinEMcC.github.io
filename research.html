@@ -71,44 +71,32 @@
     opacity: 0.8;
   }
 
-    /* --- CAROUSEL --- */
-
-.carousel{
-  width: min(900px, 86vw);  /* smaller than above */
-  margin: 2rem auto 1.5rem; /* sits below */
+   /* --- 2x2 FRAME WALL --- */
+.frame-wall{
+  width: min(980px, 90vw);
+  margin: 2rem auto 1.5rem;
   display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: center;
-  gap: 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
 }
 
-.car-viewport{
-  overflow: hidden;
-  border-radius: 0px;
-}
-
-.car-track{
-  display: flex;
-  transition: transform 0.35s ease;
-  will-change: transform;
-}
-
-.car-slide{
+.frame{
   position: relative;
-  flex: 0 0 100%;
   display: block;
+  overflow: hidden;
   box-shadow: 0 6px 12px rgba(0,47,167,1);
 }
 
-.car-slide img{
+.frame img{
   width: 100%;
-  height: clamp(340px, 42vw, 520px);
+  height: clamp(260px, 28vw, 420px);
   object-fit: cover;
   display: block;
+  transition: transform 0.35s ease, filter 0.35s ease;
 }
 
-/* overlay title */
-.car-slide::after{
+/* overlay “gallery tag” (title) */
+.frame::after{
   content: attr(data-title);
   position: absolute;
   left: 14px;
@@ -119,45 +107,27 @@
   font-size: 0.95rem;
   padding: 10px 12px;
   border-radius: 10px;
-  line-height: 1.3;
+  line-height: 1.25;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
 }
 
-/* buttons */
-.car-btn{
-  border: none;
-  background: rgba(255,255,255,0.85);
-  font-family: Georgia, serif;
-  font-size: 2rem;
-  line-height: 1;
-  width: 48px;
-  height: 48px;
-  border-radius: 999px;
-  cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+.frame:hover img{
+  transform: scale(1.03);
+  filter: brightness(1.05);
 }
 
-.car-btn:hover{ background: rgba(255,255,255,0.98); }
-
-/* dots */
-.car-dots{
-  grid-column: 1 / -1;
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 10px;
+.frame:hover::after{
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.car-dot{
-  width: 10px;
-  height: 10px;
-  border-radius: 999px;
-  border: 1px solid rgba(0,47,167,1);
-  background: transparent;
-  cursor: pointer;
-}
-
-.car-dot[aria-selected="true"]{
-  background: rgba(0,47,167,1);
+@media (max-width: 700px){
+  .frame-wall{ grid-template-columns: 1fr; }
+  .frame img{ height: clamp(240px, 55vw, 420px); }
+  .frame::after{ opacity: 1; transform: none; } /* always show title on mobile */
 }
 
     .publications {
@@ -189,37 +159,27 @@
   <div class="featured-divider"></div>
 
 
- <div class="carousel" aria-label="Featured research carousel">
-  <button class="car-btn prev" type="button" aria-label="Previous item">‹</button>
+ <div class="frame-wall">
+  <a class="frame" href="https://doi.org/10.1002/nml.21532" target="_blank" rel="noopener"
+     data-title="Identifying Essential Nonprofits with a Novel NLP Method">
+    <img src="images/art-nlp.png" alt="Nonprofits NLP classification">
+  </a>
 
-  <div class="car-viewport">
-    <div class="car-track">
-      <a class="car-slide" href="https://doi.org/10.1002/nml.21532" target="_blank" rel="noopener"
-         data-tag="Article" data-title="Identifying Essential Nonprofits with a Novel NLP Method">
-        <img src="images/art-nlp.png" alt="Nonprofits NLP classification">
-      </a>
+  <a class="frame" href="https://youtu.be/sjQZOyIj2I0?si=cyyFIGxfTnx3Xmn1" target="_blank" rel="noopener"
+     data-title="Computational Antitrust Interview">
+    <img src="images/pod-antit.png" alt="Computational Antitrust podcast">
+  </a>
 
-      <a class="car-slide" href="https://youtu.be/sjQZOyIj2I0?si=cyyFIGxfTnx3Xmn1" target="_blank" rel="noopener"
-         data-tag="Interview" data-title="Computational Antitrust Interview">
-        <img src="images/pod-antit.png" alt="Computational Antitrust podcast">
-      </a>
+  <a class="frame" href="https://doi.org/10.1162/99608f92.cc479d52" target="_blank" rel="noopener"
+     data-title="Convergence in Viral Outbreak Research">
+    <img src="images/art-hdsr.png" alt="Viral outbreak convergence research">
+  </a>
 
-      <a class="car-slide" href="https://doi.org/10.1162/99608f92.cc479d52" target="_blank" rel="noopener"
-         data-tag="Article" data-title="Convergence in Viral Outbreak Research">
-        <img src="images/art-hdsr.png" alt="Viral outbreak convergence research">
-      </a>
-
-      <a class="car-slide" href="https://docs.google.com/presentation/d/e/2PACX-1vTXNuz97TbcRg6KOSoB6mmbeiHc5gEZ-qeUfxQGXtVfRbYCBWMGBlrf-xwlVKLnhQ/pub?start=false&loop=false&delayms=30000"
-         target="_blank" rel="noopener"
-         data-tag="Slides" data-title="Art / Research Presentation Slides">
-        <img src="images/talk-praxis.png" alt="Presentation slides">
-      </a>
-    </div>
-  </div>
-
-  <button class="car-btn next" type="button" aria-label="Next item">›</button>
-
-  <div class="car-dots" role="tablist" aria-label="Carousel dots"></div>
+  <a class="frame" href="https://docs.google.com/presentation/d/e/2PACX-1vTXNuz97TbcRg6KOSoB6mmbeiHc5gEZ-qeUfxQGXtVfRbYCBWMGBlrf-xwlVKLnhQ/pub?start=false&loop=false&delayms=30000"
+     target="_blank" rel="noopener"
+     data-title="Art / Research Presentation Slides">
+    <img src="images/talk-praxis.png" alt="Presentation slides">
+  </a>
 </div>
 
 
@@ -254,54 +214,6 @@
       <li>“Data Sousveillance” Cultural Studies Association Annual Conference, 2016.</li>
     </ul>
   </div>
-<script>
-  (function(){
-    const track = document.querySelector('.car-track');
-    const slides = Array.from(document.querySelectorAll('.car-slide'));
-    const prevBtn = document.querySelector('.car-btn.prev');
-    const nextBtn = document.querySelector('.car-btn.next');
-    const dotsWrap = document.querySelector('.car-dots');
-
-    if(!track || slides.length === 0) return;
-
-    let index = 0;
-
-    // build dots
-    slides.forEach((_, i) => {
-      const b = document.createElement('button');
-      b.className = 'car-dot';
-      b.type = 'button';
-      b.setAttribute('role', 'tab');
-      b.setAttribute('aria-label', `Go to item ${i+1}`);
-      b.addEventListener('click', () => goTo(i));
-      dotsWrap.appendChild(b);
-    });
-
-    const dots = Array.from(document.querySelectorAll('.car-dot'));
-
-    function render(){
-      track.style.transform = `translateX(-${index * 100}%)`;
-      dots.forEach((d, i) => d.setAttribute('aria-selected', i === index ? 'true' : 'false'));
-    }
-
-    function goTo(i){
-      index = (i + slides.length) % slides.length;
-      render();
-    }
-
-    prevBtn.addEventListener('click', () => goTo(index - 1));
-    nextBtn.addEventListener('click', () => goTo(index + 1));
-
-    // keyboard support
-    window.addEventListener('keydown', (e) => {
-      if(e.key === 'ArrowLeft') goTo(index - 1);
-      if(e.key === 'ArrowRight') goTo(index + 1);
-    });
-
-    render();
-  })();
-</script>
-
   
 </body>
 </html>
