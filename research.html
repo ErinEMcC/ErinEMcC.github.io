@@ -1,206 +1,252 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Research Work</title>
+
   <style>
-    body {
+    :root{
+      --page-max: 1100px;
+      --paper: rgba(255,255,255,0.95);
+      --ink: #222;
+      --muted: rgba(0,0,0,0.62);
+      --accent-shadow: 0 6px 12px rgba(0,47,167,1);
+      --radius: 14px;
+      --gap: 18px;
+    }
+
+    body{
       margin: 0;
       padding: 0;
       background: url('assets/transparency-grid.jpg') repeat;
       background-size: 400px 400px;
       font-family: Georgia, serif;
-      display: flex;
-      flex-direction: column;
-      align-items: stretch; 
-      justify-content: flex-start;
+      color: var(--ink);
       min-height: 100vh;
       box-sizing: border-box;
     }
 
-    /* --- HERO / TOP --- */
-.featured-hero{
-  height: 15vh;               
-  min-height: 125px;
-  max-height: 250px;
-  background: url("assets/chladni_pubDom.png"); 
-  background-position: center 65%;
-  background-repeat: repeat-x;
-  position: relative;
-}
+    /* --- TOP HEADER --- */
+    .top-header{
+      width: min(var(--page-max), 92vw);
+      margin: 4.5vh auto 0;
+      background: var(--paper);
+      border-radius: var(--radius);
+      box-shadow: 0 8px 22px rgba(0,0,0,0.12);
+      padding: clamp(18px, 3vw, 34px);
+    }
 
-.featured-hero::after{
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(255,255,255,0.18); /* gentle veil so text reads */
-}
+    .name{
+      margin: 0;
+      font-size: clamp(2.1rem, 4.2vw, 3.2rem);
+      letter-spacing: 0.01em;
+      line-height: 1.05;
+    }
 
-.featured-hero__overlay{
-  position: relative; /* above the veil */
-  height: 100%;
-  width: min(1100px, 92vw);
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 28px 0;
-}
+    .intro{
+      margin: 12px 0 0;
+      max-width: 72ch;
+      font-size: 1.02rem;
+      line-height: 1.55;
+      color: var(--muted);
+    }
 
-.featured-hero__title{
-  margin: 10;
-  font-size: clamp(1.6rem, 3.2vw, 2.6rem);
-  letter-spacing: 0.02em;
-}
+    /* Optional: small “pill” tags line */
+    .tagline{
+      margin: 14px 0 0;
+      font-size: 0.95rem;
+      color: rgba(0,0,0,0.72);
+    }
 
-.featured-hero__meta{
-  margin: 8px 0 0;
-  font-size: 0.95rem;
-  opacity: 0.9;
-}
+    /* --- MAIN LAYOUT: 2/3 + 1/3 --- */
+    .main{
+      width: min(var(--page-max), 92vw);
+      margin: 18px auto 6vh;
+      display: grid;
+      grid-template-columns: 2fr 1fr; /* ≈ two-thirds / one-third */
+      gap: var(--gap);
+      align-items: start;
+    }
 
-   /* --- 2x2 FRAME WALL --- */
-.frame-wall{
-  width: min(980px, 90vw);
-  margin: 2rem auto 1.5rem;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
-}
+    .panel{
+      background: var(--paper);
+      border-radius: var(--radius);
+      box-shadow: 0 8px 22px rgba(0,0,0,0.12);
+      padding: 18px;
+    }
 
-.frame{
-  position: relative;
-  display: block;
-  overflow: hidden;
-  box-shadow: 0 6px 12px rgba(0,47,167,1);
-}
+    .panel h2{
+      margin: 0 0 12px;
+      font-size: 1.05rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
 
-.frame img{
-  width: 100%;
-  height: clamp(260px, 28vw, 420px);
-  object-fit: cover;
-  display: block;
-  transition: transform 0.35s ease, filter 0.35s ease;
-}
+    .panel .subhead{
+      margin: -6px 0 14px;
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
 
-/* overlay “gallery tag” (title) */
-.frame::after{
-  content: attr(data-title);
-  position: absolute;
-  left: 14px;
-  right: 14px;
-  bottom: 14px;
-  background: rgba(255,255,255,0.92);
-  color: #111;
-  font-size: 0.95rem;
-  padding: 10px 12px;
-  border-radius: 10px;
-  line-height: 1.25;
-  opacity: 0;
-  transform: translateY(8px);
-  transition: opacity 0.2s ease, transform 0.2s ease;
-  pointer-events: none;
-}
+    /* --- FEATURED 2x2 GRID (your frame wall, tuned) --- */
+    .frame-wall{
+      margin: 0;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
 
-.frame:hover img{
-  transform: scale(1.03);
-  filter: brightness(1.05);
-}
+    .frame{
+      position: relative;
+      display: block;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: var(--accent-shadow);
+      text-decoration: none;
+      background: #fff;
+    }
 
-.frame:hover::after{
-  opacity: 1;
-  transform: translateY(0);
-}
+    .frame img{
+      width: 100%;
+      height: clamp(220px, 22vw, 330px);
+      object-fit: cover;
+      display: block;
+      transition: transform 0.35s ease, filter 0.35s ease;
+    }
 
-@media (max-width: 700px){
-  .frame-wall{ grid-template-columns: 1fr; }
-  .frame img{ height: clamp(240px, 55vw, 420px); }
-  .frame::after{ opacity: 1; transform: none; } /* always show title on mobile */
-}
-
-    .publications {
-      max-width: 800px;
-      margin: 2rem auto;
-      background: #ffffff;
-      padding: 1rem;
+    /* overlay “gallery tag” */
+    .frame::after{
+      content: attr(data-title);
+      position: absolute;
+      left: 14px;
+      right: 14px;
+      bottom: 14px;
+      background: rgba(255,255,255,0.92);
+      color: #111;
+      font-size: 0.95rem;
+      padding: 10px 12px;
       border-radius: 10px;
+      line-height: 1.25;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      pointer-events: none;
+    }
+
+    .frame:hover img{
+      transform: scale(1.03);
+      filter: brightness(1.05);
+    }
+
+    .frame:hover::after{
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* --- OTHER PUBLICATIONS LIST --- */
+    .pub-list{
+      margin: 0;
+      padding-left: 1.2rem;
       line-height: 1.6;
       font-size: 0.95rem;
     }
 
-    .publications ul {
-      margin-top: 0.5rem;
-      padding-left: 1.2rem;
+    .pub-list li{ margin: 0 0 10px; }
+
+    .pub-list a{
+      color: #0b3aa4;
+      text-decoration: none;
+    }
+    .pub-list a:hover{ text-decoration: underline; }
+
+    /* --- RESPONSIVE: stack columns & make images reasonable --- */
+    @media (max-width: 900px){
+      .main{ grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 700px){
+      .frame-wall{ grid-template-columns: 1fr; }
+      .frame img{ height: clamp(220px, 58vw, 360px); }
+      .frame::after{ opacity: 1; transform: none; } /* always show title on mobile */
     }
   </style>
 </head>
-  
+
 <body>
 
-  <header class="featured-hero">
-    <div class="featured-hero__overlay">
-      <h1 class="featured-hero__title">Featured Research</h1>
-      <p class="featured-hero__meta">Peer-Reviewed · Invited · Collaborative</p>
-    </div>
+  <!-- BIG NAME + INTRO -->
+  <header class="top-header">
+    <h1 class="name">Your Name Here</h1>
+    <p class="intro">
+      Short intro text goes here — 2–4 lines is perfect. Mention your focus, methods, and the kind of work the
+      visitor is about to see.
+    </p>
+    <div class="tagline">Featured Items · Peer-Reviewed · Invited · Collaborative</div>
   </header>
 
- <div class="frame-wall">
-  <a class="frame" href="https://doi.org/10.1002/nml.21532" target="_blank" rel="noopener"
-     data-title="Identifying Essential Nonprofits with a Novel NLP Method">
-    <img src="images/art-nlp.png" alt="Nonprofits NLP classification">
-  </a>
+  <!-- 2/3 Featured + 1/3 Other -->
+  <main class="main">
 
-  <a class="frame" href="https://youtu.be/sjQZOyIj2I0?si=cyyFIGxfTnx3Xmn1" target="_blank" rel="noopener"
-     data-title="Computational Antitrust Interview">
-    <img src="images/pod-antit.png" alt="Computational Antitrust podcast">
-  </a>
+    <!-- LEFT: FEATURED -->
+    <section class="panel">
+      <h2>Featured Publications</h2>
+      <p class="subhead">A small selection of recent or representative work.</p>
 
-   <a class="frame" href="https://docs.google.com/presentation/d/e/2PACX-1vTXNuz97TbcRg6KOSoB6mmbeiHc5gEZ-qeUfxQGXtVfRbYCBWMGBlrf-xwlVKLnhQ/pub?start=false&loop=false&delayms=30000"
-     target="_blank" rel="noopener"
-     data-title="Art / Research Presentation Slides">
-    <img src="images/talk-praxis.png" alt="Presentation slides">
-  </a>
-   
-  <a class="frame" href="https://doi.org/10.1162/99608f92.cc479d52" target="_blank" rel="noopener"
-     data-title="Convergence in Viral Outbreak Research">
-    <img src="images/art-hdsr.png" alt="Viral outbreak convergence research">
-  </a>
+      <div class="frame-wall">
+        <a class="frame" href="https://doi.org/10.1002/nml.21532" target="_blank" rel="noopener"
+           data-title="Identifying Essential Nonprofits with a Novel NLP Method">
+          <img src="images/art-nlp.png" alt="Nonprofits NLP classification">
+        </a>
 
-  
-</div>
+        <a class="frame" href="https://youtu.be/sjQZOyIj2I0?si=cyyFIGxfTnx3Xmn1" target="_blank" rel="noopener"
+           data-title="Computational Antitrust Interview">
+          <img src="images/pod-antit.png" alt="Computational Antitrust podcast">
+        </a>
 
+        <a class="frame" href="https://docs.google.com/presentation/d/e/2PACX-1vTXNuz97TbcRg6KOSoB6mmbeiHc5gEZ-qeUfxQGXtVfRbYCBWMGBlrf-xwlVKLnhQ/pub?start=false&loop=false&delayms=30000"
+           target="_blank" rel="noopener"
+           data-title="Art / Research Presentation Slides">
+          <img src="images/talk-praxis.png" alt="Presentation slides">
+        </a>
 
-  <div class="publications">
-    <p><strong>OTHER PUBLICATIONS</strong></p>
-    <ul>
-      <li>“Using online reviews to assess important healthcare components in Ohio Emergency Care Facilities” with Khaled Bader, Rebecca Lee, Brittany Punches, Man Qi, and Amy Koshoffer. International Emergency Nursing (Pending).</li>
-      <li>“Model of Models: Synthesizing Natural Language Processing and Social Network Analysis Enhances the Human Interpretability of AI/ML Models in Transdisciplinary Team Science Research” (Pending).</li>
-      <li>"Early Identification of Family Medicine Physicians Using Qualitative Admissions Data" Family Medicine (2022). DOI: <a href="https://doi.org/10.22454/FamMed.2023.596964">10.22454/FamMed.2023.596964</a></li>
-      <li>“Identifying Essential Nonprofits with a Novel NLP Method” with Michael Jones and Rebecca Olson. Nonprofit Management & Leadership (2022). DOI: <a href="https://doi.org/10.1002/nml.21532">10.1002/nml.21532</a>
-      <li>“Convergence in Viral Outbreak Research: Using Natural Language Processing to Define Network Bridges in the Bench-Bedside-Population Paradigm” with Margaret V. Powers-Fletcher, Sally Luken, Danny Wu, Philip A. Hagedorn, et al. The Harvard Data Science Review, 3(1) 2021. DOI: <a href="https://doi.org/10.1162/99608f92.cc479d52">10.1162/99608f92.cc479d52</a></li>
-      <li>“Data-Informed Tools for Archaeological Reflexivity: Examining the substance of bone through a meta-analysis of academic texts” with Sarah E. Jackson, Caleigh E. Richissin, and James Jaehoon Lee. Journal of Internet Archaeology, 55 (2020). DOI: <a href="https://doi.org/10.11141/ia.55.12">10.11141/ia.55.12</a></li>
-      <li>“Mining the Harvard Caselaw Access Project” Antitrust and Trade Regulation Commons (2020).</li>
-      <li>“Tweeting for social justice in #Ferguson” New Media & Society (2019). DOI: <a href="https://doi.org/10.1177/1461444819827030">10.1177/1461444819827030</a></li>
-      <li>“NYCDH Week 2016: Workshops in Review.” Journal of Interactive Technology and Pedagogy (2017).</li>
-    </ul>
-  </div>
+        <a class="frame" href="https://doi.org/10.1162/99608f92.cc479d52" target="_blank" rel="noopener"
+           data-title="Convergence in Viral Outbreak Research">
+          <img src="images/art-hdsr.png" alt="Viral outbreak convergence research">
+        </a>
+      </div>
+    </section>
 
-  <div class="publications">
-    <p><strong>WORKSHOPS and PRESENTATIONS</strong></p>
-    <ul>
-      <li>“MFA Thesis Presentation Series” with Tiffany Mi, Lindsey Pannor & Shefali Trivedi at Brown University Literary Arts, May 2025.</li>
-      <li>Art, Research, and AI: Research in Praxis, Queens College SLIS, Dec 2024.</li>
-      <li>1910s Cannabis Discourse and Prohibition, Drug History Project, March 2023.</li>
-      <li>“Can You Hear Me Major Tom?” US Mass Media & Space Exploration, SRIDE Annual Symposium, Nov 2022.</li>
-      <li>“Linguistic Connectivity in Early Modern Scholarship” SCSC Conference, Oct 2022.</li>
-      <li>“Modeling the Caselaw Access Project” Pitt Governance & Markets, Nov 2022.</li>
-      <li>“New Competition Tools: DMA & Computational Antitrust” Vienna Competition Law Days, Sept 2022.</li>
-      <li>“Doctrinal Implications of Computational Antitrust” CodeX Stanford, Dec 2021.</li>
-      <li>“Machines & Language: NLP in Research” UC Data Day, Oct 2020.</li>
-      <li>“Introduction to Machine Learning (Python)” Louisville DH Institute, May 2019.</li>
-      <li>“Data Sousveillance” Cultural Studies Association Annual Conference, 2016.</li>
-    </ul>
-  </div>
-  
+    <!-- RIGHT: OTHER -->
+    <aside class="panel">
+      <h2>Other publications</h2>
+      <p class="subhead">Additional articles, works in progress, and related writing.</p>
+
+      <ul class="pub-list">
+        <li>“Using online reviews to assess important healthcare components in Ohio Emergency Care Facilities” with Khaled Bader, Rebecca Lee, Brittany Punches, Man Qi, and Amy Koshoffer. <em>International Emergency Nursing</em> (Pending).</li>
+        <li>“Model of Models: Synthesizing Natural Language Processing and Social Network Analysis Enhances the Human Interpretability of AI/ML Models in Transdisciplinary Team Science Research” (Pending).</li>
+        <li>"Early Identification of Family Medicine Physicians Using Qualitative Admissions Data" <em>Family Medicine</em> (2022). DOI:
+          <a href="https://doi.org/10.22454/FamMed.2023.596964" target="_blank" rel="noopener">10.22454/FamMed.2023.596964</a>
+        </li>
+        <li>“Identifying Essential Nonprofits with a Novel NLP Method” with Michael Jones and Rebecca Olson. <em>Nonprofit Management &amp; Leadership</em> (2022). DOI:
+          <a href="https://doi.org/10.1002/nml.21532" target="_blank" rel="noopener">10.1002/nml.21532</a>
+        </li>
+        <li>“Convergence in Viral Outbreak Research…” <em>Harvard Data Science Review</em> (2021). DOI:
+          <a href="https://doi.org/10.1162/99608f92.cc479d52" target="_blank" rel="noopener">10.1162/99608f92.cc479d52</a>
+        </li>
+        <li>“Data-Informed Tools for Archaeological Reflexivity…” <em>Journal of Internet Archaeology</em> (2020). DOI:
+          <a href="https://doi.org/10.11141/ia.55.12" target="_blank" rel="noopener">10.11141/ia.55.12</a>
+        </li>
+        <li>“Mining the Harvard Caselaw Access Project” <em>Antitrust and Trade Regulation Commons</em> (2020).</li>
+        <li>“Tweeting for social justice in #Ferguson” <em>New Media &amp; Society</em> (2019). DOI:
+          <a href="https://doi.org/10.1177/1461444819827030" target="_blank" rel="noopener">10.1177/1461444819827030</a>
+        </li>
+        <li>“NYCDH Week 2016: Workshops in Review.” <em>Journal of Interactive Technology and Pedagogy</em> (2017).</li>
+      </ul>
+    </aside>
+
+  </main>
+
 </body>
 </html>
