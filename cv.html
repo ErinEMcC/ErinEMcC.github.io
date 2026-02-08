@@ -85,12 +85,15 @@
     .page-wrapper {
       position: relative;
       display: inline-block;
+      line-height: 0;
     }
 
     .page{
-      width: 100%;
-      height: auto;
+      display: block;
       max-height: 85vh;            
+      max-width: 100%;
+      height: auto;
+      width: auto;
       object-fit: contain;
       transform-origin: left center;
       transform: rotateY(-90deg);
@@ -104,10 +107,14 @@
     }
 
     .download-image-button{
-      bottom: 10px;
-      right: 10px;
-      height: 12vh;       
-      max-height: 110px;   
+      position: absolute;
+      right: 2.5%;
+      bottom: 2.5%;
+      height: auto;
+      width: clamp(44px, 18%, 120px); /* relative to wrapper width */
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      z-index: 10;
     }
 
 
@@ -148,7 +155,9 @@
       }
 
       .page { height: auto; width: 100%; max-height: 85vh; }
-      .download-image-button { height: 14vh; }
+      .download-image-button {
+        width: clamp(44px, 22%, 110px);
+      }
     }
   </style>
 </head>
