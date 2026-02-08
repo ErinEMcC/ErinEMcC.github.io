@@ -34,6 +34,16 @@
       box-sizing: border-box;
     }
 
+        /* Right side holds two "pages" */
+    .docs{
+      width: 66%;
+      display: flex;
+      gap: 3vw;
+      align-items: center;
+      justify-content: center;
+    }
+
+
     /* Left: Tuffet panel */
     .tuffet-panel {
       width: 34%;
@@ -57,15 +67,16 @@
       margin: 0;
     }
 
-    /* Right: CV page container (mostly your original) */
+    /* Right: CV/portfolio page container  */
     .page-container {
-      width: 60%;
-      max-width: 800px;
+      width: 50%;
+      max-width: 520px;       
       perspective: 1000px;
       display: flex;
       justify-content: center;
       align-items: center;
     }
+
 
     .page-wrapper {
       position: relative;
