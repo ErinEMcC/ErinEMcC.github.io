@@ -29,10 +29,11 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 3vw;
+      gap: 2.5vw;          /* slightly tighter overall */
       padding: 4vh 4vw;
       box-sizing: border-box;
     }
+
 
         /* Right side holds two "pages" */
     .docs{
@@ -46,14 +47,14 @@
 
     /* Left: Tuffet panel */
     .tuffet-panel {
-      width: 34%;
+      flex: 0 0 26%;
       min-width: 280px;
       max-width: 420px;
       height: 85vh;
-      overflow: hidden; /* important: panel itself should NOT scroll */
+      overflow: hidden;
       display: flex;
       flex-direction: column;
-
+    
       background: rgba(255,255,255,0.92);
       border-radius: 12px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.18);
@@ -127,12 +128,22 @@
       }
       
       .docs{
-        flex-direction: column;
+        flex: 1;                   
+        display: flex;
+        gap: 4vw;                   
+        align-items: center;
+        justify-content: center;
       }
-      .page-container{
-        width: 100%;
-        max-width: 800px;
+
+      .page-container {
+        flex: 1;                    
+        max-width: 540px;           
+        perspective: 1000px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
+
       .page { height: auto; width: 100%; max-height: 85vh; }
       .download-image-button { height: 14vh; }
     }
