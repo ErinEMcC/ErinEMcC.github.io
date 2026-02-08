@@ -90,6 +90,41 @@
       background: rgba(255,255,255,0.95);
     }
 
+    .spine-link{
+  position: relative;
+}
+
+      /* tooltip bubble */
+    .spine-link::after{
+      content: attr(data-abstract);
+      position: absolute;
+      left: -260px;              /* pushes tooltip into image area */
+      top: 50%;
+      transform: translateY(-50%);
+      width: 240px;
+    
+      background: rgba(255,255,255,0.95);
+      color: #111;
+      font-size: 0.7rem;
+      line-height: 1.35;
+      letter-spacing: normal;
+      text-transform: none;
+    
+      padding: 10px 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    
+      z-index: 10;
+    }
+    
+    /* show on hover */
+    .spine-link:hover::after{
+      opacity: 1;
+    }
+
+
 
     /* mobile: stack */
     @media (max-width: 900px){
@@ -106,7 +141,12 @@
         writing-mode: horizontal-tb;
         transform: none;
       }
+
+      .spine-link::after{
+        display: none;
+      }
     }
+    
   </style>
 </head>
 
@@ -125,7 +165,7 @@
 
     <!-- TEXT-ONLY LINKS -->
     <nav class="spine-nav">
-      <a class="spine-link" href="https://doi.org/10.1002/nml.21532">Identifying essential nonprofits with a novel NLP Method</a>
+      <a class="spine-link" href="https://doi.org/10.1002/nml.21532" data-abstract="During the first few months of the COVID-19 pandemic, many nonprofit organizations experienced negative financial effects from the economic recession. While these nonprofits saw increased demand for their services, the weakness in the overall economy led to a decline in donations. Fiscal assistance by local, state, and federal government to essential organizations was a critical element to an economic recovery, and governments needed to prioritize aid to the most essential organizations first. By identifying essential nonprofit organizations in advance, these organizations could quickly and efficiently receive financial assistance. Using descriptive text data provided by Ohio nonprofit organizations in their IRS tax filings, we propose a novel natural language processing (NLP) technique to measure the degree of “essentialness” to a nonprofit's work." >Identifying essential nonprofits with a novel NLP Method</a>
       <a class="spine-link" href="https://youtu.be/sjQZOyIj2I0?si=QJB0U0aKpySHwUo0">Computational Antitrust Research Interview</a>
       <a class="spine-link" href="https://docs.google.com/presentation/d/e/2PACX-1vTXNuz97TbcRg6KOSoB6mmbeiHc5gEZ-qeUfxQGXtVfRbYCBWMGBlrf-xwlVKLnhQ/pub?start=false&loop=false&delayms=30000">Art/Research Presentation Slides</a>
       <a class="spine-link" href="https://doi.org/10.1162/99608f92.cc479d52">Convergence in Viral Outbreak Research</a>
