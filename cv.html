@@ -72,33 +72,28 @@
     }
 
     /* Right: CV/portfolio page container  */
-    .page-container{
-      width: 100%;               
+    .page-container {
+      flex: 1;                
       max-width: 520px;
-      perspective: 1000px;
       display: flex;
       justify-content: center;
       align-items: center;
     }
 
-
-    .page-wrapper {
+    .page-wrapper{
       position: relative;
-      display: inline-block;
-      line-height: 0;
+      height: 85vh;            
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-
+    
     .page{
-      display: block;
-      max-height: 85vh;            
+      max-height: 100%;
       max-width: 100%;
       height: auto;
       width: auto;
-      object-fit: contain;
-      transform-origin: left center;
-      transform: rotateY(-90deg);
-      animation: openPage 1.2s forwards ease-out;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      display: block;
     }
 
 
