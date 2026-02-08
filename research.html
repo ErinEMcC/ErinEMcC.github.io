@@ -43,8 +43,6 @@
       font-size: 0.65rem;
       line-height: 1.2;
       color: #82a70b;
-      opacity: 0.9;
-      background: rgba(255,255,255,0.75); 
       padding: 3px 6px;
     }
 
@@ -101,6 +99,11 @@
       left: -260px;              /* pushes tooltip into image area */
       top: 50%;
       transform: translateY(-50%);
+
+      writing-mode: horizontal-tb;
+      text-orientation: mixed;
+      white-space: normal;
+      
       width: 240px;
     
       background: rgba(255,255,255,0.95);
