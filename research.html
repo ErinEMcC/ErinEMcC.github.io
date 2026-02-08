@@ -117,6 +117,32 @@
       padding: 18px;
     }
 
+    /* fixed-height content panels */
+    .section-panel{
+      height: 600px;          /* 👈 adjust as needed */
+      overflow: hidden;       /* default: no scroll */
+    }
+    
+    /* only the right column scrolls */
+    .section-block.scrollable .section-panel{
+      overflow-y: auto;
+      padding-right: 12px;    /* space for scrollbar */
+    }
+    
+    /* optional: nicer scrollbar (webkit browsers) */
+    .section-block.scrollable .section-panel::-webkit-scrollbar{
+      width: 8px;
+    }
+    
+    .section-block.scrollable .section-panel::-webkit-scrollbar-thumb{
+      background: rgba(0,0,0,0.25);
+    }
+    
+    .section-block.scrollable .section-panel::-webkit-scrollbar-track{
+      background: transparent;
+    }
+
+
 
     /* --- FEATURED 2x2 GRID (your frame wall, tuned) --- */
     .frame-wall{
@@ -190,16 +216,23 @@
     .pub-list a:hover{ text-decoration: underline; }
 
     /* --- RESPONSIVE: stack columns & make images reasonable --- */
-    @media (max-width: 900px){
+     @media (max-width: 900px){
       .main{ grid-template-columns: 1fr; }
+    
+      .section-panel{
+        height: auto;
+        overflow: visible;
+      }
     }
-
+    
     @media (max-width: 700px){
       .frame-wall{ grid-template-columns: 1fr; }
       .frame img{ height: clamp(220px, 58vw, 360px); }
       .frame::after{ opacity: 1; transform: none; } /* always show title on mobile */
     }
+    
   </style>
+  
 </head>
 
 <body>
@@ -246,11 +279,9 @@
     </section>
 
     <!-- RIGHT: OTHER -->
-    <aside class="section-block">
+    <aside class="section-block scrollable">
       <div class="section-title">Other Publications</div
-         <div class="section-panel">
-           <p class="subhead">Additional articles, works in progress, and related writing.</p>
-           
+         <div class="section-panel">           
       <ul class="pub-list">
         <li>“Using online reviews to assess important healthcare components in Ohio Emergency Care Facilities” with Khaled Bader, Rebecca Lee, Brittany Punches, Man Qi, and Amy Koshoffer. <em>International Emergency Nursing</em> (Pending).</li>
         <li>“Model of Models: Synthesizing Natural Language Processing and Social Network Analysis Enhances the Human Interpretability of AI/ML Models in Transdisciplinary Team Science Research” (Pending).</li>
