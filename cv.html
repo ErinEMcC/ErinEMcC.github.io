@@ -36,14 +36,16 @@
 
         /* Right side holds two "pages" */
     .docs{
-      width: 70%;
       flex: 1;
-      display: flex;
-      gap: 3vw;
+      width: auto;                
+      display: grid;
+      grid-template-columns: repeat(2, minmax(240px, 1fr));
+      gap: clamp(16px, 2vw, 28px);
       align-items: center;
-      justify-content: center;
-      margin-left: 3vw;     /* ← CL / doc buffer */
+      justify-items: center;
+      margin-left: 3vw;
     }
+
 
 
     /* Left: Tuffet panel */
@@ -70,9 +72,9 @@
     }
 
     /* Right: CV/portfolio page container  */
-    .page-container {
-      width: 50%;
-      max-width: 520px;       
+    .page-container{
+      width: 100%;               
+      max-width: 520px;
       perspective: 1000px;
       display: flex;
       justify-content: center;
@@ -85,29 +87,29 @@
       display: inline-block;
     }
 
-    .page {
-      height: 85vh;
-      width: auto;
+    .page{
+      width: 100%;
+      height: auto;
+      max-height: 85vh;            
+      object-fit: contain;
       transform-origin: left center;
       transform: rotateY(-90deg);
       animation: openPage 1.2s forwards ease-out;
       box-shadow: 0 8px 20px rgba(0,0,0,0.2);
     }
 
+
     @keyframes openPage {
       to { transform: rotateY(0deg); }
     }
 
-    .download-image-button {
-      position: absolute;
-      bottom: -25px;
-      right: -45px;
-      width: auto;
-      height: 17vh;
-      cursor: pointer;
-      transition: transform 0.2s ease;
-      z-index: 10;
+    .download-image-button{
+      bottom: 10px;
+      right: 10px;
+      height: 12vh;       
+      max-height: 110px;   
     }
+
 
     .download-image-button:hover { transform: scale(1.05); }
     .download-image-button:active {
