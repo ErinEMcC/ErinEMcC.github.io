@@ -2,310 +2,103 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Research Work</title>
+  <title>Research</title>
 
   <style>
-    :root{
-      --page-max: 1440px;
-      --paper: rgba(255,255,255,0.95);
-      --ink: #222;
-      --muted: rgba(0,0,0,0.62);
-      --accent-shadow: 0 6px 12px rgba(0,47,167,1);
-      --radius: 0px;
-      --gap: 18px;
-    }
-
     body{
       margin: 0;
       padding: 0;
-      background: url('assets/transparency-grid.jpg') repeat;
-      background-size: 400px 400px;
+      background: #95BF0D; /* let the image bleed */
       font-family: Georgia, serif;
-      color: var(--ink);
       min-height: 100vh;
-      box-sizing: border-box;
     }
 
-    /* --- TOP HEADER --- */
-    .top-header{
-      width: min(var(--page-max), 92vw);
-      margin: 4.5vh auto 0;
-      background: var(--paper);
-      border-radius: var(--radius);
-      box-shadow: 0 8px 22px rgba(0,0,0,0.12);
-      padding: clamp(18px, 3vw, 34px);
-    }
-
-    .name{
-      margin: 0;
-      font-size: clamp(1rem, 2.1vw, 2rem);
-      letter-spacing: 0.01em;
-      line-height: 1.05;
-    }
-
-    .intro{
-      margin: 12px 0 0;
-      max-width: 72ch;
-      font-size: 1.02rem;
-      line-height: 1.55;
-      color: var(--muted);
-    }
-
-    /* Optional: small “pill” tags line */
-    .tagline{
-      margin: 14px 0 0;
-      font-size: 0.95rem;
-      color: rgba(0,0,0,0.72);
-    }
-
-    /* --- MAIN LAYOUT: 2/3 + 1/3 --- */
-    .main{
-      width: min(var(--page-max), 92vw);
-      margin: 18px auto 6vh;
+    .landing{
       display: grid;
-      grid-template-columns: 2fr 1fr; /* ≈ two-thirds / one-third */
-      gap: var(--gap);
-      align-items: start;
+      grid-template-columns: auto 1fr;
+      align-items: stretch;
+      min-height: 100vh;
     }
 
-    .panel{
-      background: var(--paper);
-      border-radius: var(--radius);
-      box-shadow: 0 8px 22px rgba(0,0,0,0.12);
-      padding: 18px;
-    }
-
-    .panel h2{
-      margin: 0 0 12px;
-      font-size: 1.05rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .panel .subhead{
-      margin: -6px 0 14px;
-      font-size: 0.95rem;
-      color: var(--muted);
-      line-height: 1.4;
-    }
-
-    .section-block{
+    /* LEFT: big image */
+    .hero{
       display: flex;
-      flex-direction: column;
-      gap: 0;
+      align-items: center;
+      justify-content: center;
+      padding: 4vh 3vw;
     }
-    
-    .section-title{
-      background: #95BF0D;
-      color: #111;
-      padding: 12px 16px;
+
+    .hero img{
+      max-height: 90vh;
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* RIGHT: vertical links */
+    .spine-nav{
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 18px;
+      padding: 3vw 2vw;
+    }
+
+    .spine-link{
+      writing-mode: vertical-rl;
+      transform: rotate(180deg); /* makes text read bottom → top */
+      text-decoration: none;
       font-size: 0.95rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      font-weight: 600;
-    }
-
-    .section-title{
-      border-bottom: 1px solid rgba(0,0,0,0.15);
-    }
-
-    
-    .section-panel{
-      background: var(--paper);
-      box-shadow: 0 8px 22px rgba(0,0,0,0.12);
-      padding: 18px;
-    }
-
-    /* fixed-height content panels */
-    .section-panel{
-      height: 600px;          /* 👈 adjust as needed */
-      overflow: hidden;       /* default: no scroll */
-    }
-    
-    /* only the right column scrolls */
-    .section-block.scrollable .section-panel{
-      overflow-y: auto;
-      padding-right: 12px;    /* space for scrollbar */
-    }
-    
-    /* optional: nicer scrollbar (webkit browsers) */
-    .section-block.scrollable .section-panel::-webkit-scrollbar{
-      width: 8px;
-    }
-    
-    .section-block.scrollable .section-panel::-webkit-scrollbar-thumb{
-      background: rgba(0,0,0,0.25);
-    }
-    
-    .section-block.scrollable .section-panel::-webkit-scrollbar-track{
-      background: transparent;
-    }
-
-
-
-    /* --- FEATURED 2x2 GRID (your frame wall, tuned) --- */
-    .frame-wall{
-      margin: 0;
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-    }
-
-    .frame{
-      position: relative;
-      display: block;
-      overflow: hidden;
-      border-radius: 0px;
-      box-shadow: var(--accent-shadow);
-      text-decoration: none;
-      background: #fff;
-    }
-
-    .frame img{
-      width: 100%;
-      height: clamp(220px, 22vw, 330px);
-      object-fit: cover;
-      display: block;
-      transition: transform 0.35s ease, filter 0.35s ease;
-    }
-
-    /* overlay “gallery tag” */
-    .frame::after{
-      content: attr(data-title);
-      position: absolute;
-      left: 14px;
-      right: 14px;
-      bottom: 14px;
-      background: rgba(255,255,255,0.92);
       color: #111;
-      font-size: 0.95rem;
-      padding: 10px 12px;
-      border-radius: 10px;
-      line-height: 1.25;
-      opacity: 0;
-      transform: translateY(8px);
-      transition: opacity 0.2s ease, transform 0.2s ease;
-      pointer-events: none;
+      background: rgba(255,255,255,0.7);
+      padding: 14px 10px;
+      transition: background 0.2s ease, transform 0.2s ease;
     }
 
-    .frame:hover img{
-      transform: scale(1.03);
-      filter: brightness(1.05);
+    .spine-link:hover{
+      background: rgba(255,255,255,0.95);
+      transform: rotate(180deg) translateY(-4px);
     }
 
-    .frame:hover::after{
-      opacity: 1;
-      transform: translateY(0);
-    }
+    /* mobile: stack */
+    @media (max-width: 900px){
+      .landing{
+        grid-template-columns: 1fr;
+      }
 
-    /* --- OTHER PUBLICATIONS LIST --- */
-    .pub-list{
-      margin: 0;
-      padding-left: 1.2rem;
-      line-height: 1.6;
-      font-size: 0.95rem;
-    }
+      .spine-nav{
+        justify-content: center;
+        padding: 2rem 1rem;
+      }
 
-    .pub-list li{ margin: 0 0 10px; }
-
-    .pub-list a{
-      color: #0b3aa4;
-      text-decoration: none;
-    }
-    .pub-list a:hover{ text-decoration: underline; }
-
-    /* --- RESPONSIVE: stack columns & make images reasonable --- */
-     @media (max-width: 900px){
-      .main{ grid-template-columns: 1fr; }
-    
-      .section-panel{
-        height: auto;
-        overflow: visible;
+      .spine-link{
+        writing-mode: horizontal-tb;
+        transform: none;
       }
     }
-    
-    @media (max-width: 700px){
-      .frame-wall{ grid-template-columns: 1fr; }
-      .frame img{ height: clamp(220px, 58vw, 360px); }
-      .frame::after{ opacity: 1; transform: none; } /* always show title on mobile */
-    }
-    
   </style>
-  
 </head>
 
 <body>
 
-  <!-- BIG NAME + INTRO -->
-  <header class="top-header">
-      <h1 class="name">Truth loves its limits, for there it meets the beautiful.</h1>
-    <p class="intro">
-      Language-as-data. Natural Langauge Processing. How we organize our information shapes how we understand it and what we can be understood about its domain.    
-    </p>
-  </header>
+  <div class="landing">
 
-  <!-- 2/3 Featured + 1/3 Other -->
-  <main class="main">
+    <!-- IMAGE -->
+    <div class="hero">
+      <img src="assets/chladni_2.png" alt="Chladni figure illustration">
+    </div>
 
-    <!-- LEFT: FEATURED -->
-    <section class="section-block">
-      <div class="section-title">Featured Work</div>
-        <div class="section-panel">
-          <p class="subhead">Peer-Reviewed · Invited · Collaborative</p>
+    <!-- TEXT-ONLY LINKS -->
+    <nav class="spine-nav">
+      <a class="spine-link" href="#pub1">Featured Publication</a>
+      <a class="spine-link" href="#pub2">Invited Talk</a>
+      <a class="spine-link" href="#pub3">Peer-Reviewed Article</a>
+      <a class="spine-link" href="#pub4">Collaborative Project</a>
+    </nav>
 
-      <div class="frame-wall">
-        <a class="frame" href="https://doi.org/10.1002/nml.21532" target="_blank" rel="noopener"
-           data-title="Identifying Essential Nonprofits with a Novel NLP Method">
-          <img src="images/art-nlp.png" alt="Nonprofits NLP classification">
-        </a>
-
-        <a class="frame" href="https://youtu.be/sjQZOyIj2I0?si=cyyFIGxfTnx3Xmn1" target="_blank" rel="noopener"
-           data-title="Computational Antitrust Interview">
-          <img src="images/pod-antit.png" alt="Computational Antitrust podcast">
-        </a>
-
-        <a class="frame" href="https://docs.google.com/presentation/d/e/2PACX-1vTXNuz97TbcRg6KOSoB6mmbeiHc5gEZ-qeUfxQGXtVfRbYCBWMGBlrf-xwlVKLnhQ/pub?start=false&loop=false&delayms=30000"
-           target="_blank" rel="noopener"
-           data-title="Art / Research Presentation Slides">
-          <img src="images/talk-praxis.png" alt="Presentation slides">
-        </a>
-
-        <a class="frame" href="https://doi.org/10.1162/99608f92.cc479d52" target="_blank" rel="noopener"
-           data-title="Convergence in Viral Outbreak Research">
-          <img src="images/art-hdsr.png" alt="Viral outbreak convergence research">
-        </a>
-      </div>
-    </section>
-
-    <!-- RIGHT: OTHER -->
-    <aside class="section-block scrollable">
-      <div class="section-title">Other Publications</div
-         <div class="section-panel">           
-      <ul class="pub-list">
-        <li>“Using online reviews to assess important healthcare components in Ohio Emergency Care Facilities” with Khaled Bader, Rebecca Lee, Brittany Punches, Man Qi, and Amy Koshoffer. <em>International Emergency Nursing</em> (Pending).</li>
-        <li>“Model of Models: Synthesizing Natural Language Processing and Social Network Analysis Enhances the Human Interpretability of AI/ML Models in Transdisciplinary Team Science Research” (Pending).</li>
-        <li>"Early Identification of Family Medicine Physicians Using Qualitative Admissions Data" <em>Family Medicine</em> (2022). DOI:
-          <a href="https://doi.org/10.22454/FamMed.2023.596964" target="_blank" rel="noopener">10.22454/FamMed.2023.596964</a>
-        </li>
-        <li>“Identifying Essential Nonprofits with a Novel NLP Method” with Michael Jones and Rebecca Olson. <em>Nonprofit Management &amp; Leadership</em> (2022). DOI:
-          <a href="https://doi.org/10.1002/nml.21532" target="_blank" rel="noopener">10.1002/nml.21532</a>
-        </li>
-        <li>“Convergence in Viral Outbreak Research…” <em>Harvard Data Science Review</em> (2021). DOI:
-          <a href="https://doi.org/10.1162/99608f92.cc479d52" target="_blank" rel="noopener">10.1162/99608f92.cc479d52</a>
-        </li>
-        <li>“Data-Informed Tools for Archaeological Reflexivity…” <em>Journal of Internet Archaeology</em> (2020). DOI:
-          <a href="https://doi.org/10.11141/ia.55.12" target="_blank" rel="noopener">10.11141/ia.55.12</a>
-        </li>
-        <li>“Mining the Harvard Caselaw Access Project” <em>Antitrust and Trade Regulation Commons</em> (2020).</li>
-        <li>“Tweeting for social justice in #Ferguson” <em>New Media &amp; Society</em> (2019). DOI:
-          <a href="https://doi.org/10.1177/1461444819827030" target="_blank" rel="noopener">10.1177/1461444819827030</a>
-        </li>
-        <li>“NYCDH Week 2016: Workshops in Review.” <em>Journal of Interactive Technology and Pedagogy</em> (2017).</li>
-      </ul>
-    </aside>
-
-  </main>
+  </div>
 
 </body>
 </html>
