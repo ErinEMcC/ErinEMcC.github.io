@@ -36,31 +36,47 @@
     }
 
     /* RIGHT: vertical links */
+    /* RIGHT: paper strip behind the spines */
     .spine-nav{
+      background: rgba(255,255,255,0.82);   /* off-white paper */
       display: flex;
-      align-items: center;
+      align-items: stretch;
       justify-content: flex-end;
-      gap: 18px;
-      padding: 3vw 2vw;
+      padding: 0;                           /* let the strip go full height */
+      gap: 0;                               /* separators handle spacing */
+      min-height: 100vh;                    /* full screen height */
     }
-
+    
+    /* Each “tab” */
     .spine-link{
-      writing-mode: vertical-rl;
-      transform: rotate(180deg); /* makes text read bottom → top */
+      writing-mode: vertical-rl;            /* vertical text */
+      transform: none;            /* flip direction like a book spine */
       text-decoration: none;
       font-size: 0.95rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: #111;
-      background: rgba(255,255,255,0.7);
-      padding: 14px 10px;
-      transition: background 0.2s ease, transform 0.2s ease;
+    
+      /* spacing */
+      padding: 18px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    
+      /* separators */
+      border-left: 2px solid rgba(0,0,0,0.25);  /* thin line between tabs */
     }
-
+    
+    /* remove the very first divider line */
+    .spine-link:first-child{
+      border-left: none;
+    }
+    
+    /* hover feels like “pulling a tab” */
     .spine-link:hover{
       background: rgba(255,255,255,0.95);
-      transform: rotate(180deg) translateY(-4px);
     }
+
 
     /* mobile: stack */
     @media (max-width: 900px){
