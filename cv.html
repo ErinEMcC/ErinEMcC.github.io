@@ -121,9 +121,17 @@
         flex-direction: column;
         align-items: center;
       }
-      .tuffet-panel, .page-container {
-        width: min(92vw, 800px);
+      .tuffet-panel, .docs {
+        width: min(92vw, 1000px);
         height: auto;
+      }
+      
+      .docs{
+        flex-direction: column;
+      }
+      .page-container{
+        width: 100%;
+        max-width: 800px;
       }
       .page { height: auto; width: 100%; max-height: 85vh; }
       .download-image-button { height: 14vh; }
