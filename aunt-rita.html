@@ -6,123 +6,332 @@
   <title>Aunt Rita</title>
 
   <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
+    :root{
+      --ink: #2d2d2d;
+      --paper: rgba(255,255,255,0.92);
+      --paper-2: rgba(255,255,255,0.78);
+      --shadow: rgba(0,0,0,0.22);
+      --shadow-soft: rgba(0,0,0,0.12);
+      --shelf: #b38d62;
+      --shelf-edge: #8d6b45;
+      --tag: #f8f4ea;
+      --tag-edge: rgba(0,0,0,0.14);
+      --accent: #95BF0D;
     }
 
-    body {  
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+
+    body{
       margin: 0;
+      font-family: Georgia, serif;
+      color: var(--ink);
       background: url('assets/transparency-grid.jpg') repeat;
       background-size: 300px 300px;
-      font-family: Georgia, serif;
-      color: #2d2d2d;
-      line-height: 1.7;
-
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      min-height: 100vh;
-      padding: 5vh 6vw;
+      overflow-x: hidden;
     }
 
-    .page-wrap {
-      width: 90vw;
-      max-width: 1400px;
-      min-width: 900px;
-      margin: 0 auto;
+    /* ===== Corner controls ===== */
+    .corner{
+      position: fixed;
+      z-index: 50;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .corner.top-left{
+      top: 18px;
+      left: 18px;
+    }
+
+    .corner.bottom-right{
+      right: 18px;
+      bottom: 18px;
+      justify-content: flex-end;
+    }
+
+    /* Prominent LISTEN button */
+    .listen-btn{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(0,0,0,0.10);
+      background: var(--paper);
+      box-shadow: 0 14px 34px var(--shadow);
+      cursor: pointer;
+      user-select: none;
+      transition: transform 140ms ease, box-shadow 140ms ease;
+    }
+
+    .listen-btn:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 18px 42px var(--shadow);
+    }
+
+    .listen-badge{
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      background: rgba(149,191,13,0.16);
+      border: 1px solid rgba(149,191,13,0.38);
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .listen-text{
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      line-height: 1.05;
     }
 
-    .audio-wrapper {
-      background: #ffffff;
-      padding: 1rem 1.25rem;
-      border-radius: 12px;
+    .listen-text strong{
+      font-size: 0.98rem;
+      letter-spacing: 0.2px;
     }
 
-    .audio-label {
-      margin: 0 0 0.5rem 0;
+    .listen-text span{
+      font-size: 0.82rem;
+      opacity: 0.78;
+    }
+
+    /* Audio panel that can pop open */
+    .audio-panel{
+      display: none;
+      margin-top: 10px;
+      width: min(360px, 72vw);
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: var(--paper);
+      border: 1px solid rgba(0,0,0,0.10);
+      box-shadow: 0 14px 34px var(--shadow);
+    }
+
+    .audio-panel.open{ display: block; }
+
+    .audio-panel .label{
+      margin: 0 0 6px 0;
+      font-size: 0.9rem;
       font-weight: bold;
     }
 
-    .story-container {
-      position: relative;
-      width: 100%;
-      height: 72vh;
-      max-height: 900px;
-      min-height: 520px;
+    audio{ width: 100%; }
 
-      padding: 2.5rem 3rem;
-      background:#ffffff;
-
+    /*READ/DOWNLOAD button */
+    .read-btn{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
       border-radius: 14px;
-      box-shadow: 0 18px 40px rgba(0,0,0,0.18);
-
-      overflow-y: auto;
-      
-      column-count: 2;
-      column-gap: 6rem;
-      column-rule: 1px solid rgba(0,0,0,0.10);
-    }
-
-    h1 {
-      font-size: 1.6rem;
-      margin: 0 0 1rem 0;
-      column-span: all;
-    }
-
-    p { margin: 0 0 1rem 0; }
-    em { font-style: italic; }
-
-    .story-container::-webkit-scrollbar { width: 8px; }
-    .story-container::-webkit-scrollbar-thumb {
-      background: rgba(0,0,0,0.15);
-      border-radius: 4px;
-    }
-
-    /* ===== Floating sidequest button ===== */
-    .random-nav-btn {
-      position: fixed;
-      left: 18px;
-      bottom: 18px;
-      z-index: 9999;
-      filter: drop-shadow(0 6px 14px rgba(0,0,0,0.25));
-    }
-
-    .random-nav-btn img {
-      width: 105px;
-      height: auto;
+      border: 1px solid rgba(0,0,0,0.10);
+      background: var(--paper-2);
+      box-shadow: 0 10px 22px var(--shadow-soft);
       cursor: pointer;
       user-select: none;
+      transition: transform 140ms ease, box-shadow 140ms ease, opacity 140ms ease;
+      opacity: 0.9;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .read-btn:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 14px 28px var(--shadow);
+      opacity: 1;
+    }
+
+    .read-btn .dot{
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.36);
+    }
+
+    .read-menu{
+      position: absolute;
+      right: 0;
+      bottom: 54px;
+      width: min(300px, 70vw);
+      background: var(--paper);
+      border: 1px solid rgba(0,0,0,0.10);
+      border-radius: 14px;
+      box-shadow: 0 18px 42px var(--shadow);
+      padding: 10px;
+      display: none;
+    }
+    .read-menu.open{ display: block; }
+
+    .read-menu a{
+      display: block;
+      padding: 10px 10px;
+      border-radius: 10px;
+      text-decoration: none;
+      color: inherit;
+      border: 1px solid transparent;
+    }
+    .read-menu a:hover{
+      border-color: rgba(0,0,0,0.10);
+      background: rgba(0,0,0,0.03);
+    }
+
+    /* ===== Archival Shelf ===== */
+    .stage{
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 90px 22px 86px; /* space for corner controls */
+    }
+
+    .shelf-wrap{
+      width: min(1200px, 94vw);
+      background: var(--paper);
+      border-radius: 18px;
+      border: 1px solid rgba(0,0,0,0.10);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.18);
+      padding: 22px 22px 18px;
+    }
+
+    .shelf-title{
+      margin: 0 0 16px 0;
+      font-size: 1.05rem;
+      letter-spacing: 0.2px;
+      opacity: 0.9;
+    }
+
+    .objects-row{
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: clamp(14px, 2vw, 26px);
+      align-items: start;
+    }
+
+    .object{
+      position: relative;
+      display: grid;
+      grid-template-rows: auto auto;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .object-frame{
+      position: relative;
+      background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(0,0,0,0.12);
+      border-radius: 14px;
+      padding: 12px;
+      box-shadow: 0 10px 22px rgba(0,0,0,0.10);
+      cursor: pointer;
+      overflow: hidden;
+      transition: transform 140ms ease, box-shadow 140ms ease;
+    }
+
+    .object-frame:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 14px 30px rgba(0,0,0,0.16);
+    }
+
+    .object-frame img{
+      width: 100%;
+      height: 200px;
+      object-fit: contain;
+      display: block;
       -webkit-user-drag: none;
-      transition: transform 160ms ease;
+      user-select: none;
+      filter: drop-shadow(0 10px 10px rgba(0,0,0,0.10));
     }
 
-    .random-nav-btn img:hover {
-      transform: translateY(-2px) scale(1.03);
+    /* Museum tag */
+    .tag{
+      background: var(--tag);
+      border: 1px solid var(--tag-edge);
+      border-radius: 12px;
+      padding: 10px 10px 9px;
+      box-shadow: 0 10px 18px rgba(0,0,0,0.08);
+      font-size: 0.92rem;
+      line-height: 1.25;
+      position: relative;
     }
 
-    .random-nav-btn img:active {
-      transform: scale(0.98);
+    .tag .small{
+      font-size: 0.84rem;
+      opacity: 0.86;
+      display: block;
+      margin-top: 4px;
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      .random-nav-btn img { transition: none; }
+    /* Tag “hole” */
+    .tag::before{
+      content: "";
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,0,0,0.22);
+      background: rgba(255,255,255,0.7);
     }
 
-    /* Responsive */
-    @media (max-width: 900px) {
-      .page-wrap {
-        width: 95vw;
-        min-width: unset;
-      }
+    /* Shelf plank under objects */
+    .plank{
+      margin-top: 18px;
+      height: 20px;
+      border-radius: 10px;
+      background: linear-gradient(180deg, var(--shelf), var(--shelf-edge));
+      box-shadow: 0 18px 30px rgba(0,0,0,0.18);
+      border: 1px solid rgba(0,0,0,0.12);
+    }
 
-      .story-container {
-        column-count: 1;
-        height: auto;
-        max-height: none;
-        padding: 1.75rem 1.5rem;
+    /* Hover quote tooltip (Item 2) */
+    .quote{
+      position: absolute;
+      left: 12px;
+      right: 12px;
+      bottom: 12px;
+      padding: 10px 10px;
+      background: rgba(255,255,255,0.94);
+      border: 1px solid rgba(0,0,0,0.10);
+      border-radius: 12px;
+      box-shadow: 0 12px 26px rgba(0,0,0,0.18);
+      font-size: 0.9rem;
+      line-height: 1.25;
+      opacity: 0;
+      transform: translateY(6px);
+      pointer-events: none;
+      transition: opacity 140ms ease, transform 140ms ease;
+    }
+
+    .object-frame.has-quote:hover .quote{
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Subtle helper text */
+    .hint{
+      margin: 14px 0 0 0;
+      font-size: 0.9rem;
+      opacity: 0.72;
+    }
+
+    /* Responsive: stack into 2x2 then 1x4 */
+    @media (max-width: 980px){
+      .objects-row{ grid-template-columns: repeat(2, 1fr); }
+      .object-frame img{ height: 210px; }
+    }
+    @media (max-width: 560px){
+      .objects-row{ grid-template-columns: 1fr; }
+      .corner.bottom-right{ right: 12px; bottom: 12px; }
+      .corner.top-left{ left: 12px; top: 12px; }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .listen-btn, .read-btn, .object-frame, .quote{
+        transition: none !important;
       }
     }
   </style>
@@ -130,79 +339,190 @@
 
 <body>
 
-  <!-- Floating sidequest button -->
-  <a href="#" class="random-nav-btn" id="randomNavBtn" aria-label="Sidequest" title="maybe?">
-    <img src="assets/sidequest.png" alt="Sidequest">
-  </a>
+  <!-- ===== TOP LEFT: LISTEN control ===== -->
+  <div class="corner top-left" style="flex-direction: column; align-items: flex-start;">
+    <button class="listen-btn" id="listenToggle" type="button" aria-expanded="false">
+      <div class="listen-badge" aria-hidden="true">🎧</div>
+      <div class="listen-text">
+        <strong>Listen</strong>
+        <span>audio version</span>
+      </div>
+    </button>
 
-  <div class="page-wrap">
-
-    <div class="audio-wrapper">
-      <p class="audio-label">🎧 Listen to the audio version:</p>
-      <audio controls>
+    <div class="audio-panel" id="audioPanel">
+      <p class="label">Aunt Rita — audio</p>
+      <audio id="mainAudio" controls preload="metadata">
+        <!-- Replace with your mp3 -->
         <source src="assets/auntRita_012926.mp3" type="audio/mpeg" />
         Your browser does not support the audio element.
       </audio>
     </div>
-
-    <div class="story-container">
-      <h1>Aunt Rita</h1>
-
-      <p>When winter started to thaw and it should have been a pleasant, hopeful sort of morning, all 535 members of the 124th United States Congress suffered the exact same nightmare, and each woke up with the same dream-jolt feeling of falling. After solidifying their place on Earth (recognizing their Icecap Blue walls, verifying bedmates, and wiggling fingers over where a horn might be), each one muttered to no one in particular, “Fuck, that was so real”. Not one among them disclosed the nightmare, instead marinating on its psychological impact independently. This left their spouses wondering about (14%), grateful for (33%), or oblivious to (52.9%) their distracted breakfast silences. Every representative trudged through the morning with an especially furrowed brow, maybe undeservedly snapping at an aide, but altogether shaking off the nightmare’s echoes by just after lunch.</p>
-
-      <p>The nightmare returned that night though. And the next. And the one following that. After a month, Congress had collectively lost 21.1 inches of tooth but only the D.C. area dentists noticed the strange increase in bruxism, shrugging it off as a stress oddity and sighing “politics as usual”. Everyone suffered silently, convinced they’d gone insane and were at risk of losing their position.</p>
-
-      <p>The nightmare was this:</p>
-
-      <p>Facedown in dirt, you are so broken by thirst you can’t move. Instead of the insignificant, human body you’ve learned to lug, there’s an unrecognizable weight. You’re covered in tobacco-brown fur and that too seems to ache from dehydration, every vibration tender. A drop of rain lands on your flat, broad snout, but disappears in dense tufts before it can cool your hide. For the first time in years, you pray and you mean it. Sounds of thunder turn out to be a train and you return sharply to atheism, cursing every inch of steel. Your dream-logic eyes follow another raindrop underground—an entire universe where the raindrop travels wildly through roots, a whirling dervish among joyful bugs, fungi, pockets of air. Unable to tolerate the sight any longer, you shift back to the surface for a blade to suckle, but you’ve thrashed yourself a grassless wallow. Buckthorns advance like infantry and a ferocious itch to drag your frame across their bark crashes in. This is banishment. You hear the rain sneering as clearly as a bullhorn. Indignation stirs your weight and your hindquarters almost lock, then collapse. Your horn crunches against a rock in the soil sending reverberations through your skull and causing snot to drip from your cavernous nostril. Carrying an impossible weight, an inflamed cerebrum, and an intense disdain for every other living thing, the ground can no longer support you. Your trench crumbles and you fall…</p>
-
-      <p>Night after night, 535 representatives become powerless, nightmare bison exiled from rain, roots, trees. Night after night, snot mats their fur and their skulls glisten red, then white, as they plummet.</p>
-
-      <p>On day thirty-something of this torment, Aunt Rita presented herself to Congress, requesting USDA funding so Midwestern farms could mimic prairies for preservation and agricultural benefits. She held no delusions. Her thoughts alternated between the conviction that she was there to “speak truth to power”, and the strong desire that someone open a goddamn window somewhere.</p>
-
-      <p>They all looked so unbelievably thirsty for her testimony. She shifted her weight under their unblinking gaze, then scraped some composure from an index card, continuing, “75% of a prairie’s biomass is underground.” A tremor passed through the impossibly captive audience.</p>
-
-      <p>“W-We’ve eviscerated the topsoil,” she stumbled on. “Intricate microorganisms struggle to clump together, diminishing space for rain.”</p>
-
-      <p>“Where does the rain go?”</p>
-
-      <p>Aunt Rita is thrown by the childlike poetry. She can’t tell which member it came from, so she directs her response to the group. “Heavy rain causes floods. Farmers need to be convinced — subsidized — for strips of prairie we can bring back to their land.”</p>
-
-      <p>“What about the bison?”</p>
-
-      <p>Again, it seems that the question came from no one in particular, or rather, from everyone in general, and Aunt Rita’s vision pulses with a momentary vertigo, failing to locate the asker.</p>
-
-      <p>“Only 30 or so bison remain in Illinois”, she answers, “but we can take on some of their labor — be the bison.”</p>
-
-      <p>Her Prairie Society friends had warned her against waxing poetic (<em>Don’t bother trying to speak to their souls — they don’t have any!</em>). She bites her lip, damming off any further impromptu lyricism. But no one interrupts, scoffs, or challenges the fiscal viability.</p>
-
-      <p>Aunt Rita soon surpasses Fauci in her number of Late Night appearances. At Halloween, the internet gushes over little girls in her iconic safari hat above oversized glasses, linen button downs, and mud-caked white sneakers. The now-famous “Prairie Photo” is taken, her olive and khaki appearing holy-white at the center of Congress’ blue-gray uniforms. In it, Aunt Rita has just pressed her thumb into a milkweed plant, and the photo shows her, arm outstretched, letting the seeds float into the wind like a magical, prairie benediction. The caption reads:</p>
-
-      <p><em>Aunt Rita with members of the congressional subcommittee known as “The Bison”.</em></p>
-    </div>
-
   </div>
-  
-  <script>
-    const randomUrls = [
-      "https://erinemcc.github.io/giraffe-fidl.html",
-      "https://erinemcc.github.io/bee-umwelt.html",
-      "https://erinemcc.github.io/field-guide.html",
-      "https://erinemcc.github.io/dog-star.html",
-      "https://erinemcc.github.io/unicorns.html",
-      "https://erinemcc.github.io/cope.html",
-      "https://erinemcc.github.io/skunk-and-bear.html",
-      "https://erinemcc.github.io/cv.html",
-      "https://erinemcc.github.io/research.html"
-    ];
 
-    const btn = document.getElementById("randomNavBtn");
-    btn.addEventListener("click", (e) => {
-      e.preventDefault();
-      const i = Math.floor(Math.random() * randomUrls.length);
-      window.location.href = randomUrls[i];
+  <!-- ===== BOTTOM RIGHT: READ/DOWNLOAD control ===== -->
+  <div class="corner bottom-right" style="position: fixed;">
+    <div style="position: relative;">
+      <button class="read-btn" id="readToggle" type="button" aria-expanded="false">
+        <span class="dot" aria-hidden="true"></span>
+        <span>Read / Download</span>
+      </button>
+
+      <div class="read-menu" id="readMenu" role="menu" aria-label="Read and download">
+        <!-- Replace these with your real targets -->
+        <a role="menuitem" href="aunt-rita-read.html">Open readable text</a>
+        <a role="menuitem" href="assets/aunt-rita.pdf" download>Download PDF</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Shelf display ===== -->
+  <main class="stage">
+    <section class="shelf-wrap" aria-label="Archival shelf">
+      <h1 class="shelf-title">An archival shelf (4 objects)</h1>
+
+      <div class="objects-row">
+
+        <!-- Item 1: “still for now” (later 3D scan) -->
+        <div class="object">
+          <div class="object-frame" tabindex="0" role="button"
+               data-url=""
+               aria-label="Dad's Lickable Bison Statue">
+            <!-- Replace with your placeholder image -->
+            <img src="images/rita_bison.png" alt="Dad's Lickable Bison Statue">
+          </div>
+          <div class="tag">
+            <strong>Item 1 · Placeholder</strong><br/>
+            “Still for now” (soon: 3D scan)
+            <span class="small">Accession: TBD · Date: TBD</span>
+          </div>
+        </div>
+
+        <!-- Item 2: book image, hover quote, click URL -->
+        <div class="object">
+          <div class="object-frame has-quote" tabindex="0" role="link"
+               data-url="https://archive.org/details/lp_the-poetry-of-carl-sandburg_carl-sandburg_1/disc1/01.01.+Side+1%3A+Prairie+Waters+By+Night%3B+Southern+Pacific%3B+Prayers+Of+Steel%3B+In+Tall+Grass%3B+White+Ash%3B+Four+Preludes+On+Playthings+Of+The+Wind%3B+Night+Stuff%3B+The+Windy+City.mp3?start=145"
+               aria-label="Grass by Joe C. Truett">
+            <img src="images/rita_grass.png" alt="Book (Item 2)">
+            <div class="quote" aria-hidden="true">
+              <!-- Replace with your quote -->
+              “I was born on the prairie and the milk of its wheat, the red of its clover, the eyes of its women, gave me a song and a
+slogan. [Carl Sandburg]”
+            </div>
+          </div>
+          <div class="tag">
+            <strong>Item 2 · Book</strong><br/>
+            <span class="small">Collection: Madigan Library, PA College of Technology · Stacks 2nd Floor · QH541.5 .P7 T78 2010</span>
+          </div>
+        </div>
+
+        <!-- Item 3: microscope slide, click URL -->
+        <div class="object">
+          <div class="object-frame" tabindex="0" role="link"
+               data-url="https://lh3.googleusercontent.com/G_C-KS8y_9yNs5h0w-aRirldBCQR13ohOSOo5zB_tSTSVT9Jlubt81hrH7Xh6RyYEs7Op5KklHyR5yKTWiYYbRXG_KEcSGNF=s1400-l85"
+               aria-label="Item 3 (microscope slide). Click to open link.">
+            <img src="images/rita_microscope.png" alt="Microscope slide (Item 3)">
+          </div>
+          <div class="tag">
+            <strong>Item 3 · Microscope Slide</strong><br/>
+            Click to open
+            <span class="small">Specimen · Stain · Date/Collection</span>
+          </div>
+        </div>
+
+        <!-- Item 4: plant specimen, hover plays audio, click URL -->
+        <div class="object">
+          <div class="object-frame" id="plantFrame" tabindex="0" role="link"
+               data-url="https://rmh.uwyo.edu/data/results.php?Polygon=&Zoom=&Herbarium=RM&Project=&Accession=&Barcode=&Family=Rhamnaceae&Genus=Rhamnus&Species=cathartica&Subtaxon=&Collector=&CollNum=&Day=&Month=&Year=&Country=&State=&County=&Locality=&MinElev=&MaxElev=&Sort1=SASName1&Limit=100&Submit=Search+Specimens"
+               aria-label="Buckthorn Specimen">
+            <img src="images/rita_buckthorn.jpg" alt="Plant specimen (Item 4)">
+          </div>
+
+          <!-- Hover audio for item 4 -->
+          <audio id="plantAudio" preload="metadata">
+            <!-- Replace with your hover-audio -->
+            <source src="assets/leaves_rustling.mp3" type="audio/mpeg" />
+          </audio>
+
+          <div class="tag">
+            <strong>Item 4 · Plant Specimen</strong><br/>
+            <span class="small">Collector · Location · Date line</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="plank" aria-hidden="true"></div>
+    </section>
+  </main>
+
+  <script>
+    // ===== Listen toggle (top-left) =====
+    const listenToggle = document.getElementById('listenToggle');
+    const audioPanel = document.getElementById('audioPanel');
+
+    listenToggle.addEventListener('click', () => {
+      const open = audioPanel.classList.toggle('open');
+      listenToggle.setAttribute('aria-expanded', String(open));
+    });
+
+    // ===== Read/Download toggle (bottom-right) =====
+    const readToggle = document.getElementById('readToggle');
+    const readMenu = document.getElementById('readMenu');
+
+    function closeReadMenu(){
+      readMenu.classList.remove('open');
+      readToggle.setAttribute('aria-expanded', 'false');
+    }
+
+    readToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = readMenu.classList.toggle('open');
+      readToggle.setAttribute('aria-expanded', String(open));
+    });
+
+    document.addEventListener('click', () => closeReadMenu());
+
+    // ===== Click-to-open for shelf items =====
+    function openUrlFrom(el){
+      const url = el.getAttribute('data-url');
+      if (!url) return;
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
+
+    document.querySelectorAll('.object-frame').forEach(frame => {
+      frame.addEventListener('click', () => openUrlFrom(frame));
+      frame.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openUrlFrom(frame);
+        }
+      });
+    });
+
+    // ===== Item 4 hover audio =====
+    const plantFrame = document.getElementById('plantFrame');
+    const plantAudio = document.getElementById('plantAudio');
+
+    function tryPlay(audioEl){
+      const p = audioEl.play();
+      if (p && typeof p.catch === 'function') {
+        p.catch(() => {
+          // Some browsers block play until a user gesture;
+          // hover usually counts, but if not, it’ll just fail silently.
+        });
+      }
+    }
+
+    plantFrame.addEventListener('pointerenter', () => {
+      plantAudio.currentTime = 0;
+      tryPlay(plantAudio);
+    });
+
+    plantFrame.addEventListener('pointerleave', () => {
+      plantAudio.pause();
+      plantAudio.currentTime = 0;
     });
   </script>
-  
+
 </body>
 </html>
