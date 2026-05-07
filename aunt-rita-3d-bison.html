@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Aunt Rita</title>
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+
+  <style>
+    :root{
+      --ink: #2d2d2d;
+      --paper: rgba(255,255,255,0.92);
+      --paper-2: rgba(255,255,255,0.78);
+      --shadow: rgba(0,0,0,0.22);
+      --shadow-soft: rgba(0,0,0,0.12);
+      --shelf: #b38d62;
+      --shelf-edge: #8d6b45;
+      --tag: #f8f4ea;
+      --tag-edge: rgba(0,0,0,0.14);
+      --accent: #95BF0D;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+
+    body{
+      margin: 0;
+      font-family: Georgia, serif;
+      color: var(--ink);
+      background: url('assets/transparency-grid.jpg') repeat;
+      background-size: 300px 300px;
+      overflow-x: hidden;
+    }
+
+    /* ===== Corner controls ===== */
+    .corner{
+      position: fixed;
+      z-index: 50;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .corner.top-left{
+      top: 18px;
+      left: 18px;
+    }
+
+    .corner.bottom-right{
+      right: 18px;
+      bottom: 18px;
+      justify-content: flex-end;
+    }
+
+    /* Prominent LISTEN button */
+    .listen-btn{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(0,0,0,0.10);
+      background: var(--paper);
+      box-shadow: 0 14px 34px var(--shadow);
+      cursor: pointer;
+      user-select: none;
+      transition: transform 140ms ease, box-shadow 140ms ease;
+    }
+
+    .listen-btn:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 18px 42px var(--shadow);
+    }
+
+    .listen-badge{
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      background: rgba(149,191,13,0.16);
+      border: 1px solid rgba(149,191,13,0.38);
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .listen-text{
+      display: flex;
+      flex-direction: column;
+      line-height: 1.05;
+    }
+
+    .listen-text strong{
+      font-size: 0.98rem;
+      letter-spacing: 0.2px;
+    }
+
+    .listen-text span{
+      font-size: 0.82rem;
+      opacity: 0.78;
+    }
+
+    /* Audio panel that can pop open */
+    .audio-panel{
+      display: none;
+      margin-top: 10px;
+      width: min(360px, 72vw);
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: var(--paper);
+      border: 1px solid rgba(0,0,0,0.10);
+      box-shadow: 0 14px 34px var(--shadow);
+    }
+
+    .audio-panel.open{ display: block; }
+
+    .audio-panel .label{
+      margin: 0 0 6px 0;
+      font-size: 0.9rem;
+      font-weight: bold;
+    }
+
+    audio{ width: 100%; }
+
+    /*READ/DOWNLOAD button */
+    .read-btn{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(0,0,0,0.10);
+      background: var(--paper-2);
+      box-shadow: 0 10px 22px var(--shadow-soft);
+      cursor: pointer;
+      user-select: none;
+      transition: transform 140ms ease, box-shadow 140ms ease, opacity 140ms ease;
+      opacity: 0.9;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .read-btn:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 14px 28px var(--shadow);
+      opacity: 1;
+    }
+
+    .read-btn .dot{
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.36);
+    }
+
+    .read-menu{
+      position: absolute;
+      right: 0;
+      bottom: 54px;
+      width: min(300px, 70vw);
+      background: var(--paper);
+      border: 1px solid rgba(0,0,0,0.10);
+      border-radius: 14px;
+      box-shadow: 0 18px 42px var(--shadow);
+      padding: 10px;
+      display: none;
+    }
+    .read-menu.open{ display: block; }
+
+    .read-menu a{
+      display: block;
+      padding: 10px 10px;
+      border-radius: 10px;
+      text-decoration: none;
+      color: inherit;
+      border: 1px solid transparent;
+    }
+    .read-menu a:hover{
+      border-color: rgba(0,0,0,0.10);
+      background: rgba(0,0,0,0.03);
+    }
+
+    /* ===== Archival Shelf ===== */
+    .stage{
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 90px 22px 86px; /* space for corner controls */
+    }
+
+    .shelf-wrap{
+      width: 100%;
+      max-width: none;
+      padding: 0;      
+      background: none;
+      border: none;
+      box-shadow: none;
+    }
+
+    .surface{
+      width: 100vw;
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
+
+      background: rgba(255,255,255,0.94);
+      border-top: 1px solid rgba(0,0,0,0.08);
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      padding: clamp(40px,6vw,80px) 6vw;
+      box-shadow:
+        0 30px 60px rgba(0,0,0,0.12),
+        inset 0 1px 0 rgba(255,255,255,0.7);
+    }
+
+    .objects-row{
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: clamp(40px, 6vw, 100px);
+      align-items: end;
+    }
+
+    .tag-row{
+       position: relative;
+      left: 50%;
+      transform: translateX(-50%);
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:clamp(40px,6vw,100px);
+      width:100vw;
+      padding:18px 6vw 0 6vw;
+    }
+
+    .object{
+      position: relative;
+      display: grid;
+      grid-template-rows: auto auto;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .object-frame{
+      position: relative;
+      cursor: pointer;
+      overflow: visible;
+      background: none;
+      border: none;
+      padding: 0;
+      box-shadow: none;
+    }
+
+    .object-frame img{
+      width: clamp(260px, 18vw, 380px);
+      height: auto;
+      display: block;
+    
+      filter: drop-shadow(0 20px 18px rgba(0,0,0,0.25));
+    }
+
+    /* Museum tag */
+    .tag{
+      background: #faf7f1;
+      border-radius: 0px;
+      padding: 8px 10px;
+      width: fit-content;
+      margin: 0 auto;
+      font-size: 0.75rem;
+      line-height: 1.1;
+      box-shadow: 0 6px 10px rgba(0,0,0,0.12);
+    }
+    
+    .tag .small{
+      font-size: 0.84rem;
+      opacity: 0.86;
+      display: block;
+      margin-top: 4px;
+    }
+
+    /* Tag “hole” */
+    .tag::before{
+      content: "";
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,0,0,0.22);
+      background: rgba(255,255,255,0.7);
+    }
+
+    /* Shelf plank under objects */
+    .plank{
+      margin-top: 18px;
+      height: 20px;
+      border-radius: 10px;
+      background: linear-gradient(180deg, var(--shelf), var(--shelf-edge));
+      box-shadow: 0 18px 30px rgba(0,0,0,0.18);
+      border: 1px solid rgba(0,0,0,0.12);
+    }
+
+    /* Hover quote tooltip (Item 2) */
+    .quote{
+      position: absolute;
+      left: 12px;
+      right: 12px;
+      bottom: 12px;
+      padding: 10px 10px;
+      background: rgba(255,255,255,0.94);
+      border: 1px solid rgba(0,0,0,0.10);
+      border-radius: 12px;
+      box-shadow: 0 12px 26px rgba(0,0,0,0.18);
+      font-size: 0.9rem;
+      line-height: 1.25;
+      opacity: 0;
+      transform: translateY(6px);
+      pointer-events: none;
+      transition: opacity 140ms ease, transform 140ms ease;
+    }
+
+    .object-frame.has-quote:hover .quote{
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Subtle helper text */
+    .hint{
+      margin: 14px 0 0 0;
+      font-size: 0.9rem;
+      opacity: 0.72;
+    }
+
+
+
+    /* ===== 3D bison viewer modal ===== */
+    .viewer-modal{
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: none;
+      place-items: center;
+      padding: 24px;
+      background: rgba(0,0,0,0.42);
+      backdrop-filter: blur(3px);
+    }
+
+    .viewer-modal.open{ display: grid; }
+
+    .viewer-card{
+      width: min(920px, 94vw);
+      height: min(680px, 86vh);
+      background: var(--paper);
+      border: 1px solid rgba(0,0,0,0.12);
+      border-radius: 18px;
+      box-shadow: 0 28px 80px rgba(0,0,0,0.35);
+      overflow: hidden;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+    }
+
+    .viewer-header,
+    .viewer-footer{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .viewer-footer{
+      border-top: 1px solid rgba(0,0,0,0.08);
+      border-bottom: none;
+      font-size: 0.88rem;
+      opacity: 0.78;
+    }
+
+    .viewer-title{
+      margin: 0;
+      font-size: 1rem;
+      line-height: 1.2;
+    }
+
+    .viewer-close{
+      border: 1px solid rgba(0,0,0,0.12);
+      background: rgba(255,255,255,0.72);
+      border-radius: 999px;
+      width: 34px;
+      height: 34px;
+      cursor: pointer;
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    model-viewer{
+      width: 100%;
+      height: 100%;
+      background: rgba(255,255,255,0.42);
+      --poster-color: transparent;
+    }
+
+    /* Responsive: stack into 2x2 then 1x4 */
+    @media (max-width: 980px){
+      .objects-row{ grid-template-columns: repeat(2, 1fr); }
+      .object-frame img{ height: 210px; }
+    }
+    @media (max-width: 560px){
+      .objects-row{ grid-template-columns: 1fr; }
+      .corner.bottom-right{ right: 12px; bottom: 12px; }
+      .corner.top-left{ left: 12px; top: 12px; }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .listen-btn, .read-btn, .object-frame, .quote{
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ===== TOP LEFT: LISTEN control ===== -->
+  <div class="corner top-left" style="flex-direction: column; align-items: flex-start;">
+    <button class="listen-btn" id="listenToggle" type="button" aria-expanded="false">
+      <div class="listen-badge" aria-hidden="true">🎧</div>
+      <div class="listen-text">
+        <strong>Listen</strong>
+        <span>to a story</span>
+      </div>
+    </button>
+
+    <div class="audio-panel" id="audioPanel">
+      <p class="label">Aunt Rita — audio</p>
+      <audio id="mainAudio" controls preload="metadata">
+        <!-- Replace with your mp3 -->
+        <source src="assets/auntRita_012926.mp3" type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio>
+    </div>
+  </div>
+
+  <!-- ===== BOTTOM RIGHT: READ/DOWNLOAD control ===== -->
+  <div class="corner bottom-right" style="position: fixed;">
+    <div style="position: relative;">
+      <button class="read-btn" id="readToggle" type="button" aria-expanded="false">
+        <span class="dot" aria-hidden="true"></span>
+        <span>Read / Download</span>
+      </button>
+
+      <div class="read-menu" id="readMenu" role="menu" aria-label="Read and download">
+        <!-- Replace these with your real targets -->
+        <a role="menuitem" href="aunt-rita-read.html">Open readable text</a>
+        <a role="menuitem" href="assets/aunt-rita.pdf" download>Download PDF</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Shelf display ===== -->
+  <main class="stage">
+    <section class="shelf-wrap" aria-label="Archival shelf">
+
+  <div class="surface">
+    <div class="objects-row">
+
+      <!-- 1: bison -->
+      <div class="object">
+        <div class="object-frame" id="bisonFrame" tabindex="0" role="button" aria-haspopup="dialog" aria-controls="bisonViewer" aria-label="Open interactive 3D bison model">
+          <img src="images/rita_bison.png" alt="Dad's Lickable Bison Statue">
+        </div>
+      </div>
+
+      <!-- 2: grass book -->
+      <div class="object">
+        <div class="object-frame has-quote" tabindex="0" role="link"
+             data-url="https://archive.org/details/lp_the-poetry-of-carl-sandburg_carl-sandburg_1/disc1/01.01.+Side+1%3A+Prairie+Waters+By+Night%3B+Southern+Pacific%3B+Prayers+Of+Steel%3B+In+Tall+Grass%3B+White+Ash%3B+Four+Preludes+On+Playthings+Of+The+Wind%3B+Night+Stuff%3B+The+Windy+City.mp3?start=145">
+          <img src="images/rita_grass.png" alt="Grassland Ecology Book">
+          <div class="quote" aria-hidden="true">
+            I was born on the prairie and the milk of its wheat, the red of its clover, the eyes of its women,<br>
+            gave me a song and a<br>slogan.<br><i>Carl Sandburg</i>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3: microscope -->
+      <div class="object">
+        <div class="object-frame" tabindex="0" role="link"
+             data-url="https://lh3.googleusercontent.com/G_C-KS8y_9yNs5h0w-aRirldBCQR13ohOSOo5zB_tSTSVT9Jlubt81hrH7Xh6RyYEs7Op5KklHyR5yKTWiYYbRXG_KEcSGNF=s1400-l85">
+          <img src="images/rita_microscope.jpg" alt="Mammal Muscle Microscope Slide">
+        </div>
+      </div>
+
+      <!-- 4: buckthorn -->
+      <div class="object">
+        <div class="object-frame" id="plantFrame" tabindex="0" role="link"
+             data-url="https://rmh.uwyo.edu/data/results.php?Polygon=&Zoom=&Herbarium=RM&Project=&Accession=&Barcode=&Family=Rhamnaceae&Genus=Rhamnus&Species=cathartica&Subtaxon=&Collector=&CollNum=&Day=&Month=&Year=&Country=&State=&County=&Locality=&MinElev=&MaxElev=&Sort1=SASName1&Limit=100&Submit=Search+Specimens">
+          <img src="images/rita_buckthorn.jpg" alt="Buckthorn Specimen">
+        </div>
+
+        <audio id="plantAudio" preload="metadata">
+          <source src="assets/leaves-rustling.mp3" type="audio/mpeg" />
+        </audio>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- tags are now OUTSIDE the white surface -->
+  <div class="tag-row">
+    <div class="tag"><span class="small">Collection: Office of J. McCabe<br>Material: Bronze Cast<br>Gift from P. McCabe</span></div>
+    <div class="tag"><span class="small">Collection: Madigan Library, PA College of Technology<br>Stacks 2nd Floor<br>QH541.5 .P7 T78 2010</span></div>
+    <div class="tag"><span class="small">Collection: Micropolis, RISD Nature Lab<br>Providence, RI</span></div>
+    <div class="tag"><span class="small">Common Name: Buckthorn<br>Collection: Rocky Mountain Herbarium<br>Laramie, Wyoming</span></div>
+  </div>
+
+</section>
+  </main>
+
+
+
+  <!-- ===== Interactive 3D bison viewer ===== -->
+  <div class="viewer-modal" id="bisonViewer" role="dialog" aria-modal="true" aria-labelledby="bisonViewerTitle">
+    <div class="viewer-card">
+      <div class="viewer-header">
+        <h2 class="viewer-title" id="bisonViewerTitle">Dad's Lickable Bison Statue — 3D View</h2>
+        <button class="viewer-close" id="bisonViewerClose" type="button" aria-label="Close 3D viewer">×</button>
+      </div>
+
+      <model-viewer
+        src="Bison_merged.stl"
+        alt="Interactive 3D model of the bison statue"
+        camera-controls
+        auto-rotate
+        interaction-prompt="auto"
+        shadow-intensity="0.8"
+        exposure="1"
+        camera-orbit="45deg 65deg auto"
+        field-of-view="30deg">
+      </model-viewer>
+
+      <div class="viewer-footer">
+        Drag to rotate. Scroll or pinch to zoom. Right-drag to pan.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ===== Listen toggle (top-left) =====
+    const listenToggle = document.getElementById('listenToggle');
+    const audioPanel = document.getElementById('audioPanel');
+
+    listenToggle.addEventListener('click', () => {
+      const open = audioPanel.classList.toggle('open');
+      listenToggle.setAttribute('aria-expanded', String(open));
+    });
+
+    // ===== Read/Download toggle (bottom-right) =====
+    const readToggle = document.getElementById('readToggle');
+    const readMenu = document.getElementById('readMenu');
+
+    function closeReadMenu(){
+      readMenu.classList.remove('open');
+      readToggle.setAttribute('aria-expanded', 'false');
+    }
+
+    readToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = readMenu.classList.toggle('open');
+      readToggle.setAttribute('aria-expanded', String(open));
+    });
+
+    document.addEventListener('click', () => closeReadMenu());
+
+
+
+    // ===== 3D bison viewer =====
+    const bisonFrame = document.getElementById('bisonFrame');
+    const bisonViewer = document.getElementById('bisonViewer');
+    const bisonViewerClose = document.getElementById('bisonViewerClose');
+
+    function openBisonViewer(){
+      bisonViewer.classList.add('open');
+      bisonViewerClose.focus();
+    }
+
+    function closeBisonViewer(){
+      bisonViewer.classList.remove('open');
+      bisonFrame.focus();
+    }
+
+    bisonFrame.addEventListener('click', openBisonViewer);
+    bisonFrame.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openBisonViewer();
+      }
+    });
+
+    bisonViewerClose.addEventListener('click', closeBisonViewer);
+    bisonViewer.addEventListener('click', (e) => {
+      if (e.target === bisonViewer) closeBisonViewer();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && bisonViewer.classList.contains('open')) {
+        closeBisonViewer();
+      }
+    });
+
+    // ===== Click-to-open for shelf items =====
+    function openUrlFrom(el){
+      const url = el.getAttribute('data-url');
+      if (!url) return;
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
+
+    document.querySelectorAll('.object-frame').forEach(frame => {
+      frame.addEventListener('click', () => openUrlFrom(frame));
+      frame.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openUrlFrom(frame);
+        }
+      });
+    });
+
+    // ===== Item 4 hover audio =====
+    const plantFrame = document.getElementById('plantFrame');
+    const plantAudio = document.getElementById('plantAudio');
+
+    function tryPlay(audioEl){
+      const p = audioEl.play();
+      if (p && typeof p.catch === 'function') {
+        p.catch(() => {
+          // Some browsers block play until a user gesture;
+          // hover usually counts, but if not, it’ll just fail silently.
+        });
+      }
+    }
+
+    plantFrame.addEventListener('pointerenter', () => {
+      plantAudio.currentTime = 0;
+      tryPlay(plantAudio);
+    });
+
+    plantFrame.addEventListener('pointerleave', () => {
+      plantAudio.pause();
+      plantAudio.currentTime = 0;
+    });
+  </script>
+
+</body>
+</html>
