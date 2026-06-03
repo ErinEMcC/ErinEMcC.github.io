@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Locked Page</title>
+  <style>
+    body {
+      font-family: Georgia, serif;
+      background: #f7f3ea;
+      color: #222;
+      margin: 0;
+      padding: 40px;
+      text-align: center;
+    }
+
+    #lock-screen {
+      max-width: 500px;
+      margin: 100px auto;
+      padding: 30px;
+      border: 1px solid #aaa;
+      background: white;
+    }
+
+    input {
+      display: block;
+      width: 80%;
+      margin: 15px auto;
+      padding: 10px;
+      font-size: 1rem;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    #secret-page {
+      display: none;
+      max-width: 700px;
+      margin: 60px auto;
+      text-align: left;
+    }
+
+    #error {
+      color: darkred;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="lock-screen">
+    <h1>Enter the three words</h1>
+
+    <input id="word1" type="text" placeholder="First word">
+    <input id="word2" type="text" placeholder="Second word">
+    <input id="word3" type="text" placeholder="Third word">
+
+    <button onclick="checkWords()">Reveal</button>
+
+    <p id="error"></p>
+  </div>
+
+  <div id="secret-page">
+    <h1>The Hidden Page</h1>
+    <p>
+      This is the content that appears only after the correct three words
+      are entered.
+    </p>
+
+    <p>
+      Add the rest of your page here: images, links, text, audio, videos, etc.
+    </p>
+  </div>
+
+  <script>
+    function checkWords() {
+      const correct1 = "red";
+      const correct2 = "door";
+      const correct3 = "moon";
+
+      const word1 = document.getElementById("word1").value.trim().toLowerCase();
+      const word2 = document.getElementById("word2").value.trim().toLowerCase();
+      const word3 = document.getElementById("word3").value.trim().toLowerCase();
+
+      if (
+        word1 === correct1 &&
+        word2 === correct2 &&
+        word3 === correct3
+      ) {
+        document.getElementById("lock-screen").style.display = "none";
+        document.getElementById("secret-page").style.display = "block";
+      } else {
+        document.getElementById("error").textContent = "Those are not the right words.";
+      }
+    }
+  </script>
+
+</body>
+</html>
