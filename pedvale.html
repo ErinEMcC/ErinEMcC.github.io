@@ -3,74 +3,93 @@
 <head>
   <meta charset="UTF-8" />
   <title>Locked Page</title>
+
   <style>
     body {
-      font-family: Georgia, serif;
-      background: #f7f3ea;
-      color: #222;
       margin: 0;
-      padding: 40px;
-      text-align: center;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: white;
+      font-family: Georgia, serif;
+      color: black;
     }
 
     #lock-screen {
-      max-width: 500px;
-      margin: 100px auto;
-      padding: 30px;
-      border: 1px solid #aaa;
-      background: white;
+      text-align: center;
+    }
+
+    .word-row {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin: 20px 0;
     }
 
     input {
-      display: block;
-      width: 80%;
-      margin: 15px auto;
+      width: 120px;
       padding: 10px;
       font-size: 1rem;
+      border: 1px solid black;
+      background: white;
+      color: black;
+      text-align: center;
+      outline: none;
     }
 
     button {
-      padding: 10px 20px;
+      padding: 10px 22px;
       font-size: 1rem;
+      border: 1px solid black;
+      background: white;
+      color: black;
       cursor: pointer;
+    }
+
+    button:hover {
+      background: black;
+      color: white;
     }
 
     #secret-page {
       display: none;
       max-width: 700px;
-      margin: 60px auto;
-      text-align: left;
+      padding: 40px;
+      line-height: 1.6;
     }
 
     #error {
-      color: darkred;
       margin-top: 15px;
     }
   </style>
 </head>
+
 <body>
 
   <div id="lock-screen">
-    <h1>Enter the three words</h1>
+    <div>What 3 Words</div>
 
-    <input id="word1" type="text" placeholder="First word">
-    <input id="word2" type="text" placeholder="Second word">
-    <input id="word3" type="text" placeholder="Third word">
+    <div class="word-row">
+      <input id="word1" type="text">
+      <input id="word2" type="text">
+      <input id="word3" type="text">
+    </div>
 
     <button onclick="checkWords()">Reveal</button>
 
-    <p id="error"></p>
+    <div id="error"></div>
   </div>
 
   <div id="secret-page">
     <h1>The Hidden Page</h1>
+
     <p>
-      This is the content that appears only after the correct three words
-      are entered.
+      This content appears after the correct words are entered.
     </p>
 
     <p>
-      Add the rest of your page here: images, links, text, audio, videos, etc.
+      Replace this with anything you want.
     </p>
   </div>
 
@@ -92,7 +111,8 @@
         document.getElementById("lock-screen").style.display = "none";
         document.getElementById("secret-page").style.display = "block";
       } else {
-        document.getElementById("error").textContent = "Those are not the right words.";
+        document.getElementById("error").textContent =
+          "Those are not the right words.";
       }
     }
   </script>
