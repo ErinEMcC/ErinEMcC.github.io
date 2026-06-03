@@ -85,19 +85,19 @@
     <h1>The Hidden Page</h1>
 
     <p>
-      This content appears after the correct words are entered.
+      This appears after the words are entered..blablabla.
     </p>
 
     <p>
-      Replace this with anything you want.
+      Replace this.
     </p>
   </div>
 
   <script>
     function checkWords() {
-      const correct1 = "red";
-      const correct2 = "door";
-      const correct3 = "moon";
+      const correct1 = "green";
+      const correct2 = "dog";
+      const correct3 = "day";
 
       const word1 = document.getElementById("word1").value.trim().toLowerCase();
       const word2 = document.getElementById("word2").value.trim().toLowerCase();
@@ -112,7 +112,7 @@
         document.getElementById("secret-page").style.display = "block";
       } else {
         document.getElementById("error").textContent =
-          "Those are not the right words.";
+          "No secrets for you!";
       }
     }
   </script>
