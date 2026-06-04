@@ -8,16 +8,18 @@
     body {
       margin: 0;
       height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       background: url('images/pedvale_field.png') center center fixed;
       background-size: cover;
       font-family: Georgia, serif;
       color: black;
+      position: relative;
     }  
     
     #lock-screen {
+      position: absolute;
+      bottom: 18vh;
+      left: 50%;
+      transform: translateX(-50%);
       text-align: center;
     }
 
@@ -25,7 +27,7 @@
       display: flex;
       gap: 12px;
       justify-content: center;
-      margin: 20px 0;
+      margin: 14px 0;
     }
 
     input {
