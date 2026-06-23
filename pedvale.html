@@ -70,7 +70,7 @@
 
     .image-grid {
       display: grid;
-      grid-template-columns: minmax(180px, 1fr) minmax(280px, 1.65fr);
+      grid-template-columns: minmax(180px, 1fr) minmax(420px, 2.4fr);
       grid-template-rows: repeat(2, auto);
       gap: 24px;
       align-items: start;
@@ -80,17 +80,14 @@
     .image-grid img {
       width: 100%;
       display: block;
-      object-fit: cover;
     }
     
     .square-image {
-      width: 100%;
       aspect-ratio: 1 / 1;
       object-fit: cover;        }
     
     .landscape-image {
-      width: 100%;
-      aspect-ratio: 1.65 / 1;
+      height: auto;
       object-fit: cover;       }
 
     
@@ -105,7 +102,7 @@
       }
 
       .image-grid {
-         grid-template-columns: minmax(120px, 1fr) minmax(180px, 1.65fr);
+        grid-template-columns: 1fr;
         gap: 16px;
         margin: 32px auto;
       }
