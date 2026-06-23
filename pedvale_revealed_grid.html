@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Locked Page</title>
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: url('images/pedvale_field.png') center center fixed;
+      background-size: cover;
+      font-family: Georgia, serif;
+      color: white;
+      position: relative;
+    }
+
+    body.unlocked {
+      background: white;
+      color: black;
+    }
+
+    #lock-screen {
+      position: absolute;
+      bottom: 18vh;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+    }
+
+    .word-row {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin: 14px 0;
+    }
+
+    input {
+      width: 120px;
+      padding: 10px;
+      font-size: 1rem;
+      border: 1px solid black;
+      background: white;
+      color: black;
+      text-align: center;
+      outline: none;
+    }
+
+    button {
+      padding: 10px 18px;
+      font-size: 1.4rem;
+      border: 1px solid black;
+      background: white;
+      color: black;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: black;
+      color: white;
+    }
+
+    #secret-page {
+      display: none;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 6vh 40px;
+      line-height: 1.6;
+    }
+
+    .image-grid {
+      display: grid;
+      grid-template-columns: minmax(180px, 1fr) minmax(280px, 1.65fr);
+      grid-template-rows: repeat(2, auto);
+      gap: 24px;
+      align-items: start;
+      margin-top: 32px;
+    }
+
+    .image-grid img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .square-image {
+      aspect-ratio: 1 / 1;
+    }
+
+    .landscape-image {
+      aspect-ratio: 16 / 9;
+    }
+
+    #error {
+      margin-top: 15px;
+    }
+
+    @media (max-width: 700px) {
+      .word-row {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .image-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="lock-screen">
+    <div>what 3 words?</div>
+
+    <div class="word-row">
+      <input id="word1" type="text">
+      <input id="word2" type="text">
+      <input id="word3" type="text">
+    </div>
+
+    <button onclick="checkWords()">🪏</button>
+
+    <div id="error"></div>
+  </div>
+
+  <div id="secret-page">
+    <div class="image-grid">
+      <img class="square-image" src="images/square-1.png" alt="Square image 1">
+      <img class="landscape-image" src="images/landscape-1.png" alt="Landscape image 1">
+      <img class="square-image" src="images/square-2.png" alt="Square image 2">
+      <img class="landscape-image" src="images/landscape-2.png" alt="Landscape image 2">
+    </div>
+  </div>
+
+  <script>
+    function checkWords() {
+      const correct1 = "slingshot";
+      const correct2 = "colossus";
+      const correct3 = "alibi";
+
+      const word1 = document.getElementById("word1").value.trim().toLowerCase();
+      const word2 = document.getElementById("word2").value.trim().toLowerCase();
+      const word3 = document.getElementById("word3").value.trim().toLowerCase();
+
+      if (
+        word1 === correct1 &&
+        word2 === correct2 &&
+        word3 === correct3
+      ) {
+        document.body.classList.add("unlocked");
+        document.getElementById("lock-screen").style.display = "none";
+        document.getElementById("secret-page").style.display = "block";
+      } else {
+        document.getElementById("error").textContent =
+          "No secrets for you!";
+      }
+    }
+  </script>
+
+</body>
+</html>
