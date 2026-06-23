@@ -70,23 +70,28 @@
 
     .image-grid {
       display: grid;
-      grid-template-columns: 1fr 1.5fr;
+      grid-template-columns: minmax(180px, 1fr) minmax(280px, 1.65fr);
+      grid-template-rows: repeat(2, auto);
       gap: 24px;
+      align-items: start;
+      margin-top: 32px;
     }
     
     .image-grid img {
       width: 100%;
-      height: 100%;
+      display: block;
       object-fit: cover;
     }
     
     .square-image {
+      width: 100%;
       aspect-ratio: 1 / 1;
-    }
+      object-fit: cover;        }
     
     .landscape-image {
-      aspect-ratio: 1 / 1;
-    }
+      width: 100%;
+      aspect-ratio: 1.65 / 1;
+      object-fit: cover;       }
 
     
     #error {
@@ -100,20 +105,9 @@
       }
 
       .image-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 20px;
-        max-width: 1200px;
-        margin: 40px auto;
-      }
-      
-      .square-cell {
-        aspect-ratio: 1 / 1;
-      }
-      
-      .landscape-cell {
-        aspect-ratio: 3 / 2;   /* or 16 / 9 if you want them wider */
-        height: 100%;
+         grid-template-columns: minmax(120px, 1fr) minmax(180px, 1.65fr);
+        gap: 16px;
+        margin: 32px auto;
       }
     }
   </style>
