@@ -84,11 +84,15 @@
     }
 
     .square-image {
+      width: 100%;
       aspect-ratio: 1 / 1;
+      object-fit: cover;    
     }
 
     .landscape-image {
-      aspect-ratio: 16 / 9;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;    
     }
 
     #error {
@@ -102,7 +106,20 @@
       }
 
       .image-grid {
-        grid-template-columns: 1fr;
+        display: grid;
+        grid-template-columns: 1fr 1.5fr;
+        gap: 20px;
+        max-width: 1200px;
+        margin: 40px auto;
+      }
+      
+      .square-cell {
+        aspect-ratio: 1 / 1;
+      }
+      
+      .landscape-cell {
+        aspect-ratio: 3 / 2;   /* or 16 / 9 if you want them wider */
+        height: 100%;
       }
     }
   </style>
