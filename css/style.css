@@ -173,6 +173,7 @@ video {
 .unicorn { height: 17vh; }
 .elephant { height: 20vh; }
 .butterfly { height: 12vh; }
+.snake {height: 10vh}
 
 .animal:hover {
   box-shadow: 0 0 25px 8px rgba(149, 191, 13, 1); /* chartreuse glow *
